@@ -42,7 +42,7 @@
           <p>
             Hier sehen Sie fruehere Quartals- und Jahreswerte der EVG Erliweg.
             In der Jahresansicht werden alle verfuegbaren Jahre verglichen. In der
-            Quartalsansicht zeigt das Diagramm die letzten vier Quartale.
+            Quartalsansicht zeigt das Diagramm alle verfuegbaren Quartale.
           </p>
         </div>
         <aside class="hero__aside stat-panel" aria-label="Stand der Historie">
@@ -67,10 +67,6 @@
               <option value="year">Jahr</option>
             </select>
           </label>
-          <label class="field">
-            <span>Hervorgehobener Zeitraum</span>
-            <select id="history-period"></select>
-          </label>
         </div>
       </section>
 
@@ -81,26 +77,11 @@
             <h2 id="history-results-title">Historische Kennzahlen im Vergleich</h2>
           </div>
         </div>
-        <div class="history-summary" aria-labelledby="history-selected-title">
-          <p class="metric-card__kicker" id="history-selection-label">Ausgewaehlter Zeitraum</p>
-          <h3 id="history-selected-title">Historische Werte</h3>
-          <dl class="history-summary__values">
-            <div>
-              <dt>Produktion</dt>
-              <dd id="history-produced">-</dd>
-            </div>
-            <div>
-              <dt>Verbrauch</dt>
-              <dd id="history-consumed">-</dd>
-            </div>
-          </dl>
-          <p id="history-note" class="metric-card__note"></p>
-        </div>
         <div class="history-chart-card" aria-labelledby="history-chart-title">
           <p class="metric-card__kicker">Vergleich</p>
           <h3 id="history-chart-title">Vergleich ueber alle Zeitraeume</h3>
           <p class="history-chart-card__intro">
-            Die Balken zeigen Produktion und Verbrauch fuer alle Jahre oder die letzten vier Quartale.
+            Die Balken zeigen Produktion und Verbrauch fuer alle verfuegbaren Jahre oder Quartale.
           </p>
           <div class="history-legend" aria-hidden="true">
             <span class="history-legend__item"><span class="history-legend__swatch history-legend__swatch--produced"></span>Produktion</span>
@@ -108,13 +89,7 @@
           </div>
           <div id="history-chart" class="history-bars" aria-live="polite"></div>
         </div>
-        <div class="history-reference">
-          <figure class="screenshot-card">
-            <img src="assets/images/screenshot-history.svg" alt="Referenzansicht fuer historische Vergleiche mit Balkendiagrammen." loading="lazy">
-            <figcaption>Referenzlayout fuer Vergleichsdiagramme in der Historie.</figcaption>
-          </figure>
-        </div>
-        <p id="history-empty" class="empty-state" hidden>Fuer den ausgewaehlten Zeitraum sind keine Daten vorhanden.</p>
+        <p id="history-empty" class="empty-state" hidden>Fuer diese Ansicht sind keine Daten vorhanden.</p>
       </section>
     </main>
   </body>

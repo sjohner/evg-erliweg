@@ -37,7 +37,7 @@ jobs:
 
       - name: Statisches Artefakt vorbereiten
         run: |
-          mkdir -p _site/assets/css _site/assets/js _site/assets/images _site/data
+          mkdir -p _site/assets/css _site/assets/js _site/data
           cp index.html _site/
           cp history.html _site/
           cp about.html _site/
@@ -45,8 +45,6 @@ jobs:
           cp assets/js/app.js _site/assets/js/
           cp assets/js/data-loader.js _site/assets/js/
           cp assets/js/charts.js _site/assets/js/
-          cp assets/images/screenshot-dashboard.svg _site/assets/images/
-          cp assets/images/screenshot-history.svg _site/assets/images/
           cp data/energy-data.json _site/data/
 
       - name: Artefakt hochladen

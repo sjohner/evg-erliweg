@@ -183,10 +183,10 @@ export function getHistoryComparisonSeries(data, mode) {
       yearMap.set(year, existing);
     }
 
-    return Array.from(yearMap.values()).sort((left, right) => Number(left.value) - Number(right.value));
+    return Array.from(yearMap.values()).sort((left, right) => Number(right.value) - Number(left.value));
   }
 
-  return records.slice(-4).map((record) => ({
+  return [...records].toReversed().map((record) => ({
     value: record.id,
     label: formatQuarterLabel(record.year, record.quarter),
     producedKwh: record.producedKwh,

@@ -1,12 +1,10 @@
 import {
   deriveEnergyOverview,
   getHistoryComparisonSeries,
-  deriveHistorySelection,
   formatKwh,
   formatGermanDate,
   getAboutContent,
   getCommunitySummary,
-  getHistoryOptions,
   loadSiteData
 } from "./data-loader.js";
 import { renderComparisonBars } from "./charts.js";
@@ -128,66 +126,32 @@ function renderError(message) {
   setText("#reporting-period", "Bitte spaeter erneut versuchen.");
 }
 
-function populateSelect(select, options) {
-  if (!select) {
-    return;
-  }
-
-  select.innerHTML = options.map((option) => {
-    return `<option value="${option.value}">${option.label}</option>`;
-  }).join("");
-}
-
 function renderHistoryPage(data) {
   const modeSelect = document.querySelector("#history-mode");
-  const periodSelect = document.querySelector("#history-period");
   const emptyState = document.querySelector("#history-empty");
-  const options = getHistoryOptions(data);
+  const overview = deriveEnergyOverview(data);
 
-  if (!modeSelect || !periodSelect) {
+  if (!modeSelect) {
     return;
   }
 
-  const syncSelection = () => {
+  const syncView = () => {
     const mode = modeSelect.value;
-    const modeOptions = mode === "year" ? options.yearOptions : options.quarterOptions;
-    const previousValue = periodSelect.value;
-
-    populateSelect(periodSelect, modeOptions);
-
-    if (modeOptions.some((option) => option.value === previousValue)) {
-      periodSelect.value = previousValue;
-    }
-
-    const selectedValue = periodSelect.value || modeOptions[0]?.value;
     const comparisonSeries = getHistoryComparisonSeries(data, mode);
-    const defaultValue = comparisonSeries.at(-1)?.value ?? selectedValue;
 
-    if (!comparisonSeries.some((item) => item.value === selectedValue)) {
-      periodSelect.value = defaultValue;
-    }
-
-    const activeSelection = deriveHistorySelection(data, mode, periodSelect.value || defaultValue);
-
-    setText("#history-selection-label", activeSelection.label);
-    setText("#history-produced", activeSelection.hasData ? formatKwh(activeSelection.totals.producedKwh) : "Noch keine Daten");
-    setText("#history-consumed", activeSelection.hasData ? formatKwh(activeSelection.totals.consumedKwh) : "Noch keine Daten");
-    setText("#history-note", activeSelection.note);
-    setText("#history-last-updated", activeSelection.lastUpdated);
-    setText("#history-reporting-period", mode === "year" ? "Ansicht: alle verfuegbaren Jahre" : "Ansicht: letzte 4 Quartale");
+    setText("#history-last-updated", overview.lastUpdated ? overview.lastUpdated.label : "Noch keine Daten");
+    setText("#history-reporting-period", mode === "year" ? "Ansicht: alle verfuegbaren Jahre" : "Ansicht: alle verfuegbaren Quartale");
 
     if (emptyState) {
-      emptyState.hidden = activeSelection.hasData;
+      emptyState.hidden = comparisonSeries.length > 0;
     }
 
-    renderComparisonBars("#history-chart", comparisonSeries, periodSelect.value || defaultValue);
+    renderComparisonBars("#history-chart", comparisonSeries);
   };
 
-  populateSelect(periodSelect, options.quarterOptions);
-  syncSelection();
+  syncView();
 
-  modeSelect.addEventListener("change", syncSelection);
-  periodSelect.addEventListener("change", syncSelection);
+  modeSelect.addEventListener("change", syncView);
 }
 
 function renderAboutPage(data) {

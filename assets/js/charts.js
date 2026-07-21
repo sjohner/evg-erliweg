@@ -1,4 +1,4 @@
-export function renderComparisonBars(selector, items, selectedValue) {
+export function renderComparisonBars(selector, items) {
   const target = document.querySelector(selector);
 
   if (!target) {
@@ -23,11 +23,10 @@ export function renderComparisonBars(selector, items, selectedValue) {
     const consumedWidth = maxValue > 0 ? Math.max((item.consumedKwh / maxValue) * 100, 4) : 0;
     const producedValue = new Intl.NumberFormat("de-CH", { maximumFractionDigits: 0 }).format(item.producedKwh);
     const consumedValue = new Intl.NumberFormat("de-CH", { maximumFractionDigits: 0 }).format(item.consumedKwh);
-    const selectedClass = item.value === selectedValue ? " history-period-row--selected" : "";
     const safeLabel = escapeHtml(item.label);
 
     return `
-      <article class="history-period-row${selectedClass}" aria-label="Vergleich fuer ${safeLabel}">
+      <article class="history-period-row" aria-label="Vergleich fuer ${safeLabel}">
         <div class="history-period-row__head">
           <p class="history-period-row__label">${safeLabel}</p>
         </div>
