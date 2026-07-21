@@ -1,0 +1,50 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: GitHub Pages konfigurieren
+        uses: actions/configure-pages@v5
+
+      - name: Statisches Artefakt vorbereiten
+        run: |
+          mkdir -p _site/assets/css _site/assets/js _site/data
+          cp index.html _site/
+          cp history.html _site/
+          cp about.html _site/
+          cp assets/css/styles.css _site/assets/css/
+          cp assets/js/app.js _site/assets/js/
+          cp assets/js/data-loader.js _site/assets/js/
+          cp assets/js/charts.js _site/assets/js/
+          cp data/energy-data.json _site/data/
+
+      - name: Artefakt hochladen
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: GitHub Pages veroeffentlichen
+        id: deployment
+        uses: actions/deploy-pages@v4

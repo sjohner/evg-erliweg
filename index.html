@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Transparente Energiekennzahlen der EVG Erliweg in Fraubrunnen.">
+    <meta name="color-scheme" content="light dark">
+    <title>EVG Erliweg | Energieuebersicht</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script type="module" src="assets/js/app.js"></script>
+  </head>
+  <body data-page="home">
+    <a class="skip-link" href="#inhalt">Direkt zum Inhalt</a>
+    <header class="site-header">
+      <div class="shell site-header__inner">
+        <div>
+          <p class="eyebrow">Eigenverbrauchsgemeinschaft</p>
+          <h1 class="site-title">EVG Erliweg</h1>
+          <p class="site-subtitle">Fraubrunnen, Schweiz</p>
+        </div>
+        <div class="site-header__actions">
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Dark Mode umschalten">
+            Dark Mode
+          </button>
+        </div>
+      </div>
+      <nav class="site-nav shell" aria-label="Hauptnavigation">
+        <a class="site-nav__link site-nav__link--active" href="index.html" aria-current="page">Uebersicht</a>
+        <a class="site-nav__link" href="history.html">Historie</a>
+        <a class="site-nav__link" href="about.html">Mehr erfahren</a>
+      </nav>
+    </header>
+
+    <main id="inhalt" class="shell page-main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__copy">
+          <p class="eyebrow">Strom transparent gemacht</p>
+          <h2 id="hero-title">Produktion und Verbrauch auf einen Blick</h2>
+          <p>
+            Diese Seite zeigt die aktuellen Energiedaten der EVG Erliweg mit Fokus auf
+            das laufende Quartal, das laufende Jahr und die Gesamtsumme seit dem Start am 01.10.2025.
+          </p>
+        </div>
+        <aside class="hero__aside stat-panel" aria-label="Stand der Daten">
+          <p class="stat-panel__label">Letzte Aktualisierung</p>
+          <p id="last-updated" class="stat-panel__value">Wird geladen...</p>
+          <p id="reporting-period" class="stat-panel__meta">Berichtszeitraum wird geladen...</p>
+        </aside>
+      </section>
+
+      <section aria-labelledby="kennzahlen-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Kennzahlen</p>
+            <h2 id="kennzahlen-title">Aktuelles Quartal, Jahr und Gesamt</h2>
+          </div>
+        </div>
+        <div class="metric-grid" id="metric-grid" aria-live="polite">
+          <article class="metric-card" aria-labelledby="quarter-title">
+            <p class="metric-card__kicker" id="quarter-label">Quartal</p>
+            <h3 id="quarter-title">Aktuelles Quartal</h3>
+            <dl class="metric-values">
+              <div>
+                <dt>Produktion</dt>
+                <dd id="quarter-produced">-</dd>
+              </div>
+              <div>
+                <dt>Verbrauch</dt>
+                <dd id="quarter-consumed">-</dd>
+              </div>
+            </dl>
+            <p id="quarter-note" class="metric-card__note"></p>
+          </article>
+
+          <article class="metric-card" aria-labelledby="year-title">
+            <p class="metric-card__kicker" id="year-label">Jahr</p>
+            <h3 id="year-title">Laufendes Jahr</h3>
+            <dl class="metric-values">
+              <div>
+                <dt>Produktion</dt>
+                <dd id="year-produced">-</dd>
+              </div>
+              <div>
+                <dt>Verbrauch</dt>
+                <dd id="year-consumed">-</dd>
+              </div>
+            </dl>
+            <p id="year-note" class="metric-card__note"></p>
+          </article>
+
+          <article class="metric-card metric-card--accent" aria-labelledby="total-title">
+            <p class="metric-card__kicker" id="total-label">Gesamt</p>
+            <h3 id="total-title">Seit 01.10.2025</h3>
+            <dl class="metric-values">
+              <div>
+                <dt>Produktion</dt>
+                <dd id="total-produced">-</dd>
+              </div>
+              <div>
+                <dt>Verbrauch</dt>
+                <dd id="total-consumed">-</dd>
+              </div>
+            </dl>
+            <p id="total-note" class="metric-card__note"></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="community-summary" aria-labelledby="gemeinschaft-title">
+        <div>
+          <p class="eyebrow">Gemeinschaft</p>
+          <h2 id="gemeinschaft-title">Die EVG Erliweg in Zahlen</h2>
+        </div>
+        <dl class="summary-grid">
+          <div>
+            <dt>Parteien gesamt</dt>
+            <dd id="community-total">-</dd>
+          </div>
+          <div>
+            <dt>Produzierende Parteien</dt>
+            <dd id="community-producers">-</dd>
+          </div>
+          <div>
+            <dt>Standort</dt>
+            <dd id="community-location">-</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="screenshots" aria-labelledby="screenshots-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Produktansichten</p>
+            <h2 id="screenshots-title">Technische Uebersicht der Plattform</h2>
+          </div>
+        </div>
+        <div class="screenshot-grid">
+          <figure class="screenshot-card">
+            <img src="assets/images/screenshot-dashboard.svg" alt="Beispielhafte Dashboard-Ansicht mit Kennzahlen und Verlauf." loading="lazy">
+            <figcaption>Dashboard-Struktur mit Fokus auf Lesbarkeit und Kennzahlen.</figcaption>
+          </figure>
+          <figure class="screenshot-card">
+            <img src="assets/images/screenshot-history.svg" alt="Beispielhafte Historienansicht mit Vergleichsdiagramm." loading="lazy">
+            <figcaption>Historische Vergleichsansicht fuer Quartale und Jahre.</figcaption>
+          </figure>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

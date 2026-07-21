@@ -1,0 +1,64 @@
+{
+  "community": {
+    "name": "EVG Erliweg",
+    "city": "Fraubrunnen",
+    "country": "Switzerland",
+    "startDate": "2025-10-01",
+    "totalParties": 10,
+    "producingParties": 3
+  },
+  "aboutContent": {
+    "summary": "Die EVG Erliweg ist eine Eigenverbrauchsgemeinschaft in Fraubrunnen. Drei Parteien produzieren Solarstrom, der innerhalb der Gemeinschaft genutzt wird.",
+    "termsUrl": "https://www.elektra.ch/energiedienstleistungen/elektraeigenstrom/",
+    "lastReviewedAt": "2026-07-20"
+  },
+  "contact": {
+    "label": "Kontakt EVG Erliweg",
+    "type": "email",
+    "target": "mailto:info@example.com"
+  },
+  "energy": {
+    "quarterlyRecords": [
+      {
+        "id": "2025-Q4",
+        "year": 2025,
+        "quarter": 4,
+        "startDate": "2025-10-01",
+        "endDate": "2025-12-31",
+        "producedKwh": 4200,
+        "consumedKwh": 5100,
+        "updatedAt": "2026-01-10T09:00:00Z"
+      },
+      {
+        "id": "2026-Q1",
+        "year": 2026,
+        "quarter": 1,
+        "startDate": "2026-01-01",
+        "endDate": "2026-03-31",
+        "producedKwh": 3900,
+        "consumedKwh": 4700,
+        "updatedAt": "2026-04-10T09:00:00Z"
+      },
+      {
+        "id": "2026-Q2",
+        "year": 2026,
+        "quarter": 2,
+        "startDate": "2026-04-01",
+        "endDate": "2026-06-30",
+        "producedKwh": 6100,
+        "consumedKwh": 4800,
+        "updatedAt": "2026-07-10T09:00:00Z"
+      },
+      {
+        "id": "2026-Q3",
+        "year": 2026,
+        "quarter": 3,
+        "startDate": "2026-07-01",
+        "endDate": "2026-09-30",
+        "producedKwh": 6500,
+        "consumedKwh": 5000,
+        "updatedAt": "2026-07-15T09:00:00Z"
+      }
+    ]
+  }
+}
