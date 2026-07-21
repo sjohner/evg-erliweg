@@ -3,3 +3,10 @@ node_modules/
 Thumbs.db
 *.log
 *.tmp
+dist/
+build/
+coverage/
+.env*
+*.swp
+.vscode/
+.idea/

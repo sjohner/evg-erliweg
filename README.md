@@ -34,14 +34,27 @@ Anschliessend im Browser `http://localhost:4173` oder die von `serve` ausgegeben
 - Veroeffentlichung ueber den Workflow `.github/workflows/deploy-pages.yml`
 - Standardziel ist die GitHub-Pages-Domain des Repositories
 - Der Workflow kopiert nur die statischen Website-Dateien in das Deploy-Artefakt
+- Deployment wird bei Push auf `main` nur fuer relevante Website-Dateien ausgelost
+- Alternativ kann jederzeit ein manueller Lauf ueber `workflow_dispatch` gestartet werden
 
-## Quartalsupdate
+## Quartalsupdate und gepruefte Veroeffentlichung
 
 1. `data/energy-data.json` im privaten Repository oeffnen.
 2. Gewuenschtes Quartal und die Werte fuer `producedKwh`, `consumedKwh` und `updatedAt` anpassen.
-3. Aenderung manuell pruefen.
-4. In den Standard-Branch mergen.
-5. GitHub Pages veroeffentlicht die aktualisierte Website ueber den Deploy-Workflow.
+3. Bei neuem Quartal einen neuen Eintrag in `energy.quarterlyRecords` mit eindeutigem `id` (`YYYY-QN`) und korrektem Zeitraum anlegen.
+4. Manuelle Pruefung vor Merge:
+	- `producingParties <= totalParties`
+	- keine negativen kWh-Werte
+	- `updatedAt` ist im ISO-Format und fuer die neueste Aenderung aktuell
+	- Link und Kontaktinformationen bleiben gueltig
+5. Pull Request erstellen und inhaltlich pruefen/freigeben.
+6. In `main` mergen.
+7. GitHub Pages veroeffentlicht die aktualisierte Website ueber den Deploy-Workflow.
+
+## Sichtbare Wirkung eines Datenupdates
+
+- Startseite und Historie zeigen das Datum "Letzte Aktualisierung" aus dem neuesten `updatedAt`-Wert aller Quartalsdatensaetze.
+- Nach Deployment sollte dieses Datum auf `index.html` und `history.html` dem aktuellsten Datensatz entsprechen.
 
 ## Technische Leitplanken
 

@@ -109,11 +109,11 @@
 
 ### Implementation for User Story 4
 
-- [ ] T024 [US4] Seed realistic quarterly records plus about/contact source content in `data/energy-data.json`
-- [ ] T025 [P] [US4] Add maintainer instructions for quarterly edits, manual review, and deploy steps in `README.md`
-- [ ] T026 [US4] Implement the simple reviewed publish flow in `.github/workflows/deploy-pages.yml` and `README.md`
-- [ ] T027 [US4] Ensure homepage and history pages derive displayed last-updated date from the latest `updatedAt` value in `assets/js/data-loader.js`, `assets/js/app.js`, `index.html`, and `history.html`
-- [ ] T028 [US4] Finalize default GitHub Pages publishing behavior in `.github/workflows/deploy-pages.yml` and `README.md`
+- [X] T024 [US4] Seed realistic quarterly records plus about/contact source content in `data/energy-data.json`
+- [X] T025 [P] [US4] Add maintainer instructions for quarterly edits, manual review, and deploy steps in `README.md`
+- [X] T026 [US4] Implement the simple reviewed publish flow in `.github/workflows/deploy-pages.yml` and `README.md`
+- [X] T027 [US4] Ensure homepage and history pages derive displayed last-updated date from the latest `updatedAt` value in `assets/js/data-loader.js`, `assets/js/app.js`, `index.html`, and `history.html`
+- [X] T028 [US4] Finalize default GitHub Pages publishing behavior in `.github/workflows/deploy-pages.yml` and `README.md`
 
 **Checkpoint**: All user stories should now be independently usable, and the maintainer workflow should safely publish data updates
 

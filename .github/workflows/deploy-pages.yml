@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - index.html
+      - history.html
+      - about.html
+      - assets/**
+      - data/**
+      - .github/workflows/deploy-pages.yml
   workflow_dispatch:
 
 permissions:
