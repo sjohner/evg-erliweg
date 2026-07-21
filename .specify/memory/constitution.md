@@ -67,6 +67,9 @@ Rationale: Constrained complexity improves maintainability and onboarding speed.
 - Placeholders and unresolved tokens MUST NOT remain in finalized governance,
 	planning, or execution artifacts.
 - Date fields in governance artifacts MUST use ISO format `YYYY-MM-DD`.
+- Repository documentation (README, specs, plans, contracts, and operational
+	instructions) MUST be written in English. Public website content may use a
+	different language when required by the feature specification.
 
 ## Workflow and Quality Gates
 

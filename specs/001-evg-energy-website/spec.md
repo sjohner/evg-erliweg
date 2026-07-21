@@ -133,6 +133,10 @@ As a maintainer, I want to update produced and consumed energy values in a struc
 	including navigation, headings, explanatory text, labels, and user-facing
 	status or validation messages (except proper names, units, and external
 	content linked from third-party sites).
+- **FR-021**: Project documentation artifacts (including README, planning
+	artifacts, contracts, and maintenance instructions) MUST be written in
+	English. This language requirement applies to repository documentation only
+	and MUST NOT change the German-only requirement for public website content.
 - **FR-018**: System MUST conform to Web Content Accessibility Guidelines
 	(WCAG) 2.1 Level AA for all primary pages and key user flows.
 - **FR-019**: System MUST achieve a Google PageSpeed Insights performance score
@@ -182,6 +186,7 @@ As a maintainer, I want to update produced and consumed energy values in a struc
 - About/learn-more text will be maintained to stay aligned with current EVG
 	Erliweg information and elektraeigenstrom reference details.
 - German is the default and required content language for the public website.
+- Repository documentation is maintained in English.
 - Accessibility conformance target is WCAG 2.1 AA and applies to all primary
 	content and interactions.
 - Performance score validation is measured with Google PageSpeed Insights

@@ -1,19 +1,19 @@
 # evg-erliweg
 
-Statische Website fuer die EVG Erliweg auf GitHub Pages.
+Static website for EVG Erliweg on GitHub Pages.
 
-## Projektstruktur
+## Project Structure
 
-- `index.html`: Startseite mit aktuellen Kennzahlen, Jahressumme, Gesamtsumme und letztem Aktualisierungsdatum
-- `history.html`: Platzhalter fuer historische Auswertungen (spaeterer Ausbauschritt)
-- `about.html`: Platzhalter fuer Informationen zur EVG und Kontakt (spaeterer Ausbauschritt)
-- `assets/css/styles.css`: Gemeinsame Styles, Responsive Layout und Dark Mode
-- `assets/js/data-loader.js`: Laden und Aggregieren der Energiedaten
-- `assets/js/app.js`: Gemeinsames Verhalten und Seiteninitialisierung
-- `assets/js/charts.js`: Platzhalter fuer spaetere Diagramm-Logik
-- `data/energy-data.json`: Quartalsdaten sowie statische Inhalte
+- `index.html`: Homepage with current metrics, yearly totals, cumulative totals, and last-updated date
+- `history.html`: Historical comparison view for available quarters and years
+- `about.html`: About and contact information for EVG Erliweg
+- `assets/css/styles.css`: Shared styles, responsive layout, and dark mode
+- `assets/js/data-loader.js`: Loading and aggregation helpers for energy data
+- `assets/js/app.js`: Shared page bootstrap and rendering logic
+- `assets/js/charts.js`: Historical comparison chart rendering
+- `data/energy-data.json`: Quarterly data plus static about/contact content
 
-## Lokale Vorschau
+## Local Preview
 
 Option 1:
 
@@ -27,38 +27,39 @@ Option 2:
 npx serve .
 ```
 
-Anschliessend im Browser `http://localhost:4173` oder die von `serve` ausgegebene Adresse aufrufen.
+Then open `http://localhost:4173` (or the URL printed by `serve`) in your browser.
 
 ## GitHub Pages
 
-- Veroeffentlichung ueber den Workflow `.github/workflows/deploy-pages.yml`
-- Standardziel ist die GitHub-Pages-Domain des Repositories
-- Der Workflow kopiert nur die statischen Website-Dateien in das Deploy-Artefakt
-- Deployment wird bei Push auf `main` nur fuer relevante Website-Dateien ausgelost
-- Alternativ kann jederzeit ein manueller Lauf ueber `workflow_dispatch` gestartet werden
+- Publishing is handled by `.github/workflows/deploy-pages.yml`
+- Default target is the repository's GitHub Pages domain
+- The workflow only copies required static site files into the deploy artifact
+- Deployment runs on pushes to `main` when relevant website files changed
+- A manual run can be started at any time through `workflow_dispatch`
 
-## Quartalsupdate und Veroeffentlichung
+## Quarterly Data Update and Publishing
 
-1. `data/energy-data.json` im privaten Repository oeffnen.
-2. Gewuenschtes Quartal und die Werte fuer `producedKwh`, `consumedKwh` und `updatedAt` anpassen.
-3. Bei neuem Quartal einen neuen Eintrag in `energy.quarterlyRecords` mit eindeutigem `id` (`YYYY-QN`) und korrektem Zeitraum anlegen.
-4. Kurzpruefung vor Push:
+1. Open `data/energy-data.json` in the private repository.
+2. Update the target quarter and values for `producedKwh`, `consumedKwh`, and `updatedAt`.
+3. For a new quarter, add a new `energy.quarterlyRecords` entry with unique `id` (`YYYY-QN`) and the correct date range.
+4. Run a quick sanity check before pushing:
 	- `producingParties <= totalParties`
-	- keine negativen kWh-Werte
-	- `updatedAt` ist im ISO-Format und fuer die neueste Aenderung aktuell
-	- Link und Kontaktinformationen bleiben gueltig
-5. Direkt auf `main` pushen.
-6. GitHub Pages veroeffentlicht die aktualisierte Website ueber den Deploy-Workflow.
-7. Falls sich nach dem Deploy ein Zahlenfehler zeigt, Daten korrigieren und fix forward erneut auf `main` pushen.
+	- no negative kWh values
+	- `updatedAt` uses ISO format and reflects the latest change
+	- links and contact details are still valid
+5. Push directly to `main`.
+6. GitHub Pages publishes the updated site through the deploy workflow.
+7. If a number issue is discovered after deploy, correct the data and push a fix-forward update to `main`.
 
-## Sichtbare Wirkung eines Datenupdates
+## Visible Effect of a Data Update
 
-- Startseite und Historie zeigen das Datum "Letzte Aktualisierung" aus dem neuesten `updatedAt`-Wert aller Quartalsdatensaetze.
-- Nach Deployment sollte dieses Datum auf `index.html` und `history.html` dem aktuellsten Datensatz entsprechen.
+- Homepage and history pages display "Letzte Aktualisierung" based on the latest `updatedAt` across quarterly records.
+- After deployment, the date shown on `index.html` and `history.html` should match the newest dataset timestamp.
 
-## Technische Leitplanken
+## Technical Guardrails
 
-- Benutzeroberflaeche in deutscher Sprache
-- Vanilla HTML, CSS und JavaScript
-- Dark Mode und WCAG 2.1 AA als Ziel
-- Kennzahlen werden dynamisch aus `data/energy-data.json` berechnet
+- Public website UI content is in German.
+- Repository documentation (including this README) is in English.
+- Vanilla HTML, CSS, and JavaScript stack.
+- Dark mode and WCAG 2.1 AA as quality target.
+- Metrics are calculated dynamically from `data/energy-data.json`.
