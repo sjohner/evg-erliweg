@@ -119,6 +119,7 @@ button:focus-visible {
   background: transparent;
   color: var(--text);
   padding: 0.8rem 1rem;
+  min-height: 2.75rem;
   border-radius: 999px;
   cursor: pointer;
   font: inherit;
@@ -135,6 +136,10 @@ button:focus-visible {
   text-decoration: none;
   color: var(--text);
   padding: 0.75rem 1rem;
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 999px;
   border: 1px solid transparent;
 }
@@ -452,6 +457,8 @@ button:focus-visible {
 
 .inline-link {
   font-weight: 700;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 2px;
 }
 
 .empty-state {
@@ -520,5 +527,16 @@ button:focus-visible {
 
   .history-bar-row {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

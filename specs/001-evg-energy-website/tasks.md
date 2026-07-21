@@ -123,9 +123,9 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T029 [P] Add final metadata, browser theming, and page-level SEO polish in `index.html`, `history.html`, and `about.html`
-- [ ] T030 [P] Run cross-page accessibility and performance refinements in `assets/css/styles.css`, `assets/js/app.js`, and `assets/js/charts.js`
-- [ ] T031 Run end-to-end quickstart validation and update the completion checklist in `specs/001-evg-energy-website/quickstart.md`
+- [X] T029 [P] Add final metadata, browser theming, and page-level SEO polish in `index.html`, `history.html`, and `about.html`
+- [X] T030 [P] Run cross-page accessibility and performance refinements in `assets/css/styles.css`, `assets/js/app.js`, and `assets/js/charts.js`
+- [X] T031 Run end-to-end quickstart validation and update the completion checklist in `specs/001-evg-energy-website/quickstart.md`
 
 ---
 

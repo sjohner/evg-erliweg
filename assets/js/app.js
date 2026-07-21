@@ -36,12 +36,27 @@ function setupThemeToggle() {
 
   const updateButtonLabel = () => {
     const isDark = document.body.dataset.theme === "dark";
-    toggle.textContent = isDark ? "Light Mode" : "Dark Mode";
+    toggle.textContent = isDark ? "Hellmodus" : "Dunkelmodus";
     toggle.setAttribute("aria-pressed", String(isDark));
+    toggle.setAttribute(
+      "aria-label",
+      isDark ? "Farbmodus wechseln, aktuell dunkel" : "Farbmodus wechseln, aktuell hell"
+    );
   };
 
   setTheme(getPreferredTheme());
   updateButtonLabel();
+
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+  mediaQuery.addEventListener("change", (event) => {
+    if (window.localStorage.getItem(THEME_STORAGE_KEY)) {
+      return;
+    }
+
+    setTheme(event.matches ? "dark" : "light");
+    updateButtonLabel();
+  });
 
   toggle.addEventListener("click", () => {
     const nextTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
@@ -145,7 +160,6 @@ function renderHistoryPage(data) {
     }
 
     const selectedValue = periodSelect.value || modeOptions[0]?.value;
-    const selection = deriveHistorySelection(data, mode, selectedValue);
     const comparisonSeries = getHistoryComparisonSeries(data, mode);
     const defaultValue = comparisonSeries.at(-1)?.value ?? selectedValue;
 

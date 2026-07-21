@@ -9,17 +9,27 @@ export function renderComparisonBars(selector, items, selectedValue) {
     return Math.max(currentMax, item.producedKwh, item.consumedKwh);
   }, 0);
 
+  const escapeHtml = (value) => {
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+  };
+
   target.innerHTML = items.map((item) => {
     const producedWidth = maxValue > 0 ? Math.max((item.producedKwh / maxValue) * 100, 4) : 0;
     const consumedWidth = maxValue > 0 ? Math.max((item.consumedKwh / maxValue) * 100, 4) : 0;
     const producedValue = new Intl.NumberFormat("de-CH", { maximumFractionDigits: 0 }).format(item.producedKwh);
     const consumedValue = new Intl.NumberFormat("de-CH", { maximumFractionDigits: 0 }).format(item.consumedKwh);
     const selectedClass = item.value === selectedValue ? " history-period-row--selected" : "";
+    const safeLabel = escapeHtml(item.label);
 
     return `
-      <article class="history-period-row${selectedClass}">
+      <article class="history-period-row${selectedClass}" aria-label="Vergleich fuer ${safeLabel}">
         <div class="history-period-row__head">
-          <p class="history-period-row__label">${item.label}</p>
+          <p class="history-period-row__label">${safeLabel}</p>
         </div>
         <div class="history-bar-stack">
           <div class="history-bar-row">

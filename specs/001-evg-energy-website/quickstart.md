@@ -111,12 +111,17 @@ Expected outcome:
 - Reviewed data changes appear after deployment through the normal publish workflow.
 
 ## Completion Checklist
-- [ ] Homepage metrics validated
-- [ ] History lookup validated
-- [ ] Dark mode and mobile validated
-- [ ] About/contact validated
+- [X] Homepage metrics validated
+- [X] History lookup validated
+- [X] Dark mode and mobile validated
+- [X] About/contact validated
 - [ ] Data update publish flow validated
-- [ ] German-language content validated
+- [X] German-language content validated
 - [ ] WCAG 2.1 AA validation completed
 - [ ] PageSpeed >=95 validated for all primary pages
-- [ ] Last-updated date display validated
+- [X] Last-updated date display validated
+
+## Validation Notes (2026-07-21)
+- Validated locally via `http://localhost:4173` with browser snapshots for homepage, history, and about flows.
+- Mobile viewport check executed at 390px width on all primary pages with no horizontal overflow.
+- Data update publish flow and PageSpeed checks remain pending because they require a repository deployment run and production URL measurement.
