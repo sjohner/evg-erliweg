@@ -37,19 +37,19 @@ Anschliessend im Browser `http://localhost:4173` oder die von `serve` ausgegeben
 - Deployment wird bei Push auf `main` nur fuer relevante Website-Dateien ausgelost
 - Alternativ kann jederzeit ein manueller Lauf ueber `workflow_dispatch` gestartet werden
 
-## Quartalsupdate und gepruefte Veroeffentlichung
+## Quartalsupdate und Veroeffentlichung
 
 1. `data/energy-data.json` im privaten Repository oeffnen.
 2. Gewuenschtes Quartal und die Werte fuer `producedKwh`, `consumedKwh` und `updatedAt` anpassen.
 3. Bei neuem Quartal einen neuen Eintrag in `energy.quarterlyRecords` mit eindeutigem `id` (`YYYY-QN`) und korrektem Zeitraum anlegen.
-4. Manuelle Pruefung vor Merge:
+4. Kurzpruefung vor Push:
 	- `producingParties <= totalParties`
 	- keine negativen kWh-Werte
 	- `updatedAt` ist im ISO-Format und fuer die neueste Aenderung aktuell
 	- Link und Kontaktinformationen bleiben gueltig
-5. Pull Request erstellen und inhaltlich pruefen/freigeben.
-6. In `main` mergen.
-7. GitHub Pages veroeffentlicht die aktualisierte Website ueber den Deploy-Workflow.
+5. Direkt auf `main` pushen.
+6. GitHub Pages veroeffentlicht die aktualisierte Website ueber den Deploy-Workflow.
+7. Falls sich nach dem Deploy ein Zahlenfehler zeigt, Daten korrigieren und fix forward erneut auf `main` pushen.
 
 ## Sichtbare Wirkung eines Datenupdates
 

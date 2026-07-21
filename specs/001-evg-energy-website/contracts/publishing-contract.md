@@ -8,11 +8,11 @@ Define the contract between repository data updates and public website publicati
 - Data schema: `contracts/energy-data.schema.json`
 
 ## Publication Preconditions
-1. Maintainer updates to `data/energy-data.json` are manually reviewed before merge.
-2. The merged repository state is published through the configured GitHub Pages workflow.
+1. Maintainer updates `data/energy-data.json` and pushes directly to `main`.
+2. The pushed repository state is published through the configured GitHub Pages workflow.
 
 ## Publication Trigger
-- A merge to the configured publish branch containing changes to site/data files.
+- A push to `main` containing changes to site/data files.
 
 ## Guaranteed Outputs
 1. Homepage presents:
@@ -28,7 +28,7 @@ Define the contract between repository data updates and public website publicati
 
 ## Failure Behavior
 - If a published data issue is discovered, maintainers correct it in a follow-up
-   repository change and republish through the normal workflow.
+   repository change (fix forward) and republish through the normal workflow.
 
 ## Versioning
 - Schema and contract changes must be tracked in version control with an explicit rationale in pull request notes.

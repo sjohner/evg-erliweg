@@ -14,18 +14,19 @@
   - YAML as canonical source: viable, but JSON chosen for native browser compatibility and simpler validation.
   - In-site admin UI: rejected by clarified requirement.
 
-## Decision 3: Manual quarterly data review
-- Decision: Keep the quarterly data update process simple and rely on manual
-  review of `data/energy-data.json` changes before merge, without an automated
-  data integrity release gate.
-- Rationale: The update frequency is low and the change surface is small,
-  making manual review proportionate to the operational risk while keeping the
-  maintenance workflow lightweight.
+## Decision 3: Simplified quarterly publish flow
+- Decision: Keep the quarterly data update process minimal: update
+  `data/energy-data.json`, push directly to `main`, and deploy through the
+  existing workflow. If a number issue is discovered after publish, fix forward
+  with a follow-up push.
+- Rationale: Single-maintainer operation makes formal review overhead
+  unnecessary; fix-forward keeps operation simple while preserving full git
+  history.
 - Alternatives considered:
+  - Manual review gate before merge: rejected as unnecessary overhead for the
+    current team setup.
   - CI schema and semantic validation gate: rejected as unnecessary complexity
     for a small quarterly update process.
-  - Runtime browser-only validation: rejected because it adds logic without
-    materially improving the chosen manual-review workflow.
 
 ## Decision 4: About and contact content
 - Decision: Provide clear static about/learn-more content describing EVG Erliweg

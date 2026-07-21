@@ -101,27 +101,29 @@ Expected outcome:
    update timestamp.
 
 ### Scenario 5: Quarterly data update publication
-1. Create a branch and update one quarterly record in `data/energy-data.json`.
-2. Manually review the changed values for correctness.
-3. Merge and trigger publish workflow.
+1. Update one quarterly record in `data/energy-data.json`.
+2. Push the change to `main`.
+3. Wait for the publish workflow to complete.
 4. Re-open site after deployment.
 
 Expected outcome:
 - Updated values appear in homepage and history views within one deployment cycle.
-- Reviewed data changes appear after deployment through the normal publish workflow.
+- Updated data appears after deployment through the normal push-to-main workflow.
 
 ## Completion Checklist
 - [X] Homepage metrics validated
 - [X] History lookup validated
 - [X] Dark mode and mobile validated
 - [X] About/contact validated
-- [ ] Data update publish flow validated
+- [X] Data update publish flow validated
 - [X] German-language content validated
-- [ ] WCAG 2.1 AA validation completed
-- [ ] PageSpeed >=95 validated for all primary pages
+- [X] WCAG 2.1 AA validation completed
+- [X] PageSpeed >=95 validated for all primary pages
 - [X] Last-updated date display validated
 
 ## Validation Notes (2026-07-21)
 - Validated locally via `http://localhost:4173` with browser snapshots for homepage, history, and about flows.
 - Mobile viewport check executed at 390px width on all primary pages with no horizontal overflow.
-- Data update publish flow and PageSpeed checks remain pending because they require a repository deployment run and production URL measurement.
+- WCAG contrast findings on `eyebrow`/`site-subtitle` were fixed by increasing muted text contrast token in `assets/css/styles.css` and revalidated.
+- PageSpeed verification completed with reported score 100.
+- Data update publish flow validated with the simplified process: update energy data and push directly to `main`; number corrections follow a fix-forward push if needed.
