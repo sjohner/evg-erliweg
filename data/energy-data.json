@@ -55,7 +55,7 @@
         "quarter": 3,
         "startDate": "2026-07-01",
         "endDate": "2026-09-30",
-        "producedKwh": 6500,
+        "producedKwh": 12500,
         "consumedKwh": 5000,
         "updatedAt": "2026-07-15T09:00:00Z"
       }
