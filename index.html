@@ -24,7 +24,7 @@
       <div class="shell site-header__inner">
         <div>
           <p class="eyebrow">Eigenverbrauchsgemeinschaft</p>
-          <h1 class="site-title">EVG Erliweg</h1>
+          <p class="site-title">EVG Erliweg</p>
           <p class="site-subtitle">Fraubrunnen, Schweiz</p>
         </div>
         <div class="site-header__actions">
@@ -35,6 +35,7 @@
       </div>
       <nav class="site-nav shell" aria-label="Hauptnavigation">
         <a class="site-nav__link site-nav__link--active" href="index.html" aria-current="page">Uebersicht</a>
+        <a class="site-nav__link" href="index.html#kennzahlen-title">Daten</a>
         <a class="site-nav__link" href="history.html">Historie</a>
         <a class="site-nav__link" href="about.html">Mehr erfahren</a>
       </nav>
@@ -44,16 +45,21 @@
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero__copy">
           <p class="eyebrow">Strom transparent gemacht</p>
-          <h2 id="hero-title">Produktion und Verbrauch auf einen Blick</h2>
+          <h1 id="hero-title">Produktion und Verbrauch auf einen Blick</h1>
           <p>
             Diese Seite zeigt die aktuellen Energiedaten der EVG Erliweg mit Fokus auf
             das laufende Quartal, das laufende Jahr und die Gesamtsumme seit dem Start am 01.10.2025.
           </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#kennzahlen-title">Daten ansehen</a>
+            <a class="btn btn--secondary" href="history.html">Zur Historie</a>
+            <a class="btn btn--secondary" href="about.html">Mehr erfahren</a>
+          </div>
         </div>
         <aside class="hero__aside stat-panel" aria-label="Stand der Daten">
           <p class="stat-panel__label">Letzte Aktualisierung</p>
-          <p id="last-updated" class="stat-panel__value">Wird geladen...</p>
-          <p id="reporting-period" class="stat-panel__meta">Berichtszeitraum wird geladen...</p>
+          <p id="last-updated" class="stat-panel__value is-loading">Wird geladen...</p>
+          <p id="reporting-period" class="stat-panel__meta is-loading">Berichtszeitraum wird geladen...</p>
         </aside>
       </section>
 
@@ -71,14 +77,14 @@
             <dl class="metric-values">
               <div>
                 <dt>Produktion</dt>
-                <dd id="quarter-produced">-</dd>
+                <dd id="quarter-produced" class="is-loading">-</dd>
               </div>
               <div>
                 <dt>Verbrauch</dt>
-                <dd id="quarter-consumed">-</dd>
+                <dd id="quarter-consumed" class="is-loading">-</dd>
               </div>
             </dl>
-            <p id="quarter-note" class="metric-card__note"></p>
+            <p id="quarter-note" class="metric-card__note is-loading"></p>
           </article>
 
           <article class="metric-card" aria-labelledby="year-title">
@@ -87,14 +93,14 @@
             <dl class="metric-values">
               <div>
                 <dt>Produktion</dt>
-                <dd id="year-produced">-</dd>
+                <dd id="year-produced" class="is-loading">-</dd>
               </div>
               <div>
                 <dt>Verbrauch</dt>
-                <dd id="year-consumed">-</dd>
+                <dd id="year-consumed" class="is-loading">-</dd>
               </div>
             </dl>
-            <p id="year-note" class="metric-card__note"></p>
+            <p id="year-note" class="metric-card__note is-loading"></p>
           </article>
 
           <article class="metric-card metric-card--accent" aria-labelledby="total-title">
@@ -103,14 +109,14 @@
             <dl class="metric-values">
               <div>
                 <dt>Produktion</dt>
-                <dd id="total-produced">-</dd>
+                <dd id="total-produced" class="is-loading">-</dd>
               </div>
               <div>
                 <dt>Verbrauch</dt>
-                <dd id="total-consumed">-</dd>
+                <dd id="total-consumed" class="is-loading">-</dd>
               </div>
             </dl>
-            <p id="total-note" class="metric-card__note"></p>
+            <p id="total-note" class="metric-card__note is-loading"></p>
           </article>
         </div>
       </section>
@@ -123,18 +129,25 @@
         <dl class="summary-grid">
           <div>
             <dt>Parteien gesamt</dt>
-            <dd id="community-total">-</dd>
+            <dd id="community-total" class="is-loading">-</dd>
           </div>
           <div>
             <dt>Produzierende Parteien</dt>
-            <dd id="community-producers">-</dd>
+            <dd id="community-producers" class="is-loading">-</dd>
           </div>
           <div>
             <dt>Standort</dt>
-            <dd id="community-location">-</dd>
+            <dd id="community-location" class="is-loading">-</dd>
           </div>
         </dl>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <div class="shell site-footer__inner">
+        <p>EVG Erliweg · Energieuebersicht</p>
+        <a class="inline-link" href="about.html">Kontakt und weitere Informationen</a>
+      </div>
+    </footer>
   </body>
 </html>

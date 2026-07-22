@@ -1,0 +1,40 @@
+* {
+  box-sizing: border-box;
+}
+
+img,
+svg,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+.metric-card,
+.info-card,
+.history-chart-card,
+.stat-panel,
+.community-summary {
+  content-visibility: auto;
+  contain-intrinsic-size: 300px;
+}
+
+.site-nav__link,
+.btn,
+.theme-toggle,
+.metric-card,
+.info-card,
+.history-chart-card,
+.history-period-row {
+  transition: border-color 160ms ease, box-shadow 160ms ease, color 160ms ease, background-color 160ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

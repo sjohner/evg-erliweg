@@ -24,12 +24,13 @@
       <div class="shell site-header__inner">
         <div>
           <p class="eyebrow">Eigenverbrauchsgemeinschaft</p>
-          <h1 class="site-title">EVG Erliweg</h1>
+          <p class="site-title">EVG Erliweg</p>
         </div>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Dark Mode umschalten">Dark Mode</button>
       </div>
       <nav class="site-nav shell" aria-label="Hauptnavigation">
         <a class="site-nav__link" href="index.html">Uebersicht</a>
+        <a class="site-nav__link" href="index.html#kennzahlen-title">Daten</a>
         <a class="site-nav__link site-nav__link--active" href="history.html" aria-current="page">Historie</a>
         <a class="site-nav__link" href="about.html">Mehr erfahren</a>
       </nav>
@@ -38,7 +39,7 @@
       <section class="hero hero--history" aria-labelledby="history-title">
         <div class="hero__copy">
           <p class="eyebrow">Historische Entwicklung</p>
-          <h2 id="history-title">Quartale und Jahre vergleichen</h2>
+          <h1 id="history-title">Quartale und Jahre vergleichen</h1>
           <p>
             Hier sehen Sie fruehere Quartals- und Jahreswerte der EVG Erliweg.
             In der Jahresansicht werden alle verfuegbaren Jahre verglichen. In der
@@ -47,8 +48,8 @@
         </div>
         <aside class="hero__aside stat-panel" aria-label="Stand der Historie">
           <p class="stat-panel__label">Letzte Aktualisierung</p>
-          <p id="history-last-updated" class="stat-panel__value">Wird geladen...</p>
-          <p id="history-reporting-period" class="stat-panel__meta">Historische Daten werden geladen...</p>
+          <p id="history-last-updated" class="stat-panel__value is-loading">Wird geladen...</p>
+          <p id="history-reporting-period" class="stat-panel__meta is-loading">Historische Daten werden geladen...</p>
         </aside>
       </section>
 
@@ -92,5 +93,12 @@
         <p id="history-empty" class="empty-state" hidden>Fuer diese Ansicht sind keine Daten vorhanden.</p>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <div class="shell site-footer__inner">
+        <p>EVG Erliweg · Historische Kennzahlen</p>
+        <a class="inline-link" href="index.html">Zur Startseite</a>
+      </div>
+    </footer>
   </body>
 </html>

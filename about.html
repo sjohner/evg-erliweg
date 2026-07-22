@@ -24,12 +24,13 @@
       <div class="shell site-header__inner">
         <div>
           <p class="eyebrow">Eigenverbrauchsgemeinschaft</p>
-          <h1 class="site-title">EVG Erliweg</h1>
+          <p class="site-title">EVG Erliweg</p>
         </div>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Dark Mode umschalten">Dark Mode</button>
       </div>
       <nav class="site-nav shell" aria-label="Hauptnavigation">
         <a class="site-nav__link" href="index.html">Uebersicht</a>
+        <a class="site-nav__link" href="index.html#kennzahlen-title">Daten</a>
         <a class="site-nav__link" href="history.html">Historie</a>
         <a class="site-nav__link site-nav__link--active" href="about.html" aria-current="page">Mehr erfahren</a>
       </nav>
@@ -38,8 +39,8 @@
       <section class="hero hero--about" aria-labelledby="about-title">
         <div class="hero__copy">
           <p class="eyebrow">Mehr erfahren</p>
-          <h2 id="about-title">Zur EVG Erliweg und zu Elektra Eigenstrom</h2>
-          <p id="about-summary">
+          <h1 id="about-title">Zur EVG Erliweg und zu Elektra Eigenstrom</h1>
+          <p id="about-summary" class="is-loading">
             Informationen werden geladen...
           </p>
         </div>
@@ -58,18 +59,25 @@
               Zur offiziellen Information von Elektra Eigenstrom
             </a>
           </p>
-          <p id="about-reviewed" class="info-card__meta"></p>
+          <p id="about-reviewed" class="info-card__meta is-loading"></p>
         </article>
 
         <article class="info-card">
           <p class="eyebrow">Kontakt</p>
           <h3>So erreichen Sie uns</h3>
-          <p id="contact-label">Kontaktinformationen werden geladen...</p>
+          <p id="contact-label" class="is-loading">Kontaktinformationen werden geladen...</p>
           <p>
-            <a id="contact-link" class="inline-link" href="#">Kontakt wird geladen...</a>
+            <a id="contact-link" class="inline-link is-loading" href="#">Kontakt wird geladen...</a>
           </p>
         </article>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <div class="shell site-footer__inner">
+        <p>EVG Erliweg · Informationen</p>
+        <a class="inline-link" href="index.html#kennzahlen-title">Zur Datenuebersicht</a>
+      </div>
+    </footer>
   </body>
 </html>

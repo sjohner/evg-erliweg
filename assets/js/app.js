@@ -68,6 +68,7 @@ function setText(selector, value) {
   const element = document.querySelector(selector);
 
   if (element) {
+    element.classList.remove("is-loading");
     element.textContent = value;
   }
 }
@@ -119,7 +120,7 @@ function renderError(message) {
   const target = document.querySelector("#metric-grid");
 
   if (target) {
-    target.innerHTML = `<article class="metric-card"><h3>Daten derzeit nicht verfuegbar</h3><p>${message}</p></article>`;
+    target.innerHTML = `<article class="metric-card error-alert" role="alert"><h3>Daten derzeit nicht verfuegbar</h3><p>${message}</p></article>`;
   }
 
   setText("#last-updated", "Nicht verfuegbar");
@@ -166,10 +167,12 @@ function renderAboutPage(data) {
   const contactLink = document.querySelector("#contact-link");
 
   if (aboutLink) {
+    aboutLink.classList.remove("is-loading");
     aboutLink.setAttribute("href", about.termsUrl);
   }
 
   if (contactLink) {
+    contactLink.classList.remove("is-loading");
     contactLink.setAttribute("href", about.contactTarget);
   }
 }
@@ -202,7 +205,7 @@ async function bootstrap() {
 
     const main = document.querySelector("main");
     if (main) {
-      main.innerHTML = `<section class="placeholder-card"><p class="eyebrow">Fehler</p><h2>Daten derzeit nicht verfuegbar</h2><p>${error instanceof Error ? error.message : "Unbekannter Fehler"}</p></section>`;
+      main.innerHTML = `<section class="placeholder-card error-alert" role="alert"><p class="eyebrow">Fehler</p><h2>Daten derzeit nicht verfuegbar</h2><p>${error instanceof Error ? error.message : "Unbekannter Fehler"}</p></section>`;
     }
   }
 }
