@@ -61,7 +61,7 @@ Then open `http://localhost:4173` (or the URL printed by `serve`) in your browse
 
 ## Visible Effect of a Data Update
 
-- Homepage and history pages display "Letzte Aktualisierung" based on the latest `updatedAt` across quarterly records.
+- Homepage and history pages display "Letzte Aktualisierung" based on the latest `updatedAt` across all quarter `partyRecords`.
 - After deployment, the date shown on `index.html` and `history.html` should match the newest dataset timestamp.
 - Quarter and year totals are calculated dynamically from `partyRecords`; maintainers should not add manual quarter/year summary fields.
 

@@ -141,7 +141,7 @@ function sumPartyRecords(partyRecords) {
 }
 
 function getQuarterLastUpdated(record) {
-  const partyLatest = (record.partyRecords ?? []).reduce((latest, partyRecord) => {
+  return (record.partyRecords ?? []).reduce((latest, partyRecord) => {
     if (!partyRecord.updatedAt) {
       return latest;
     }
@@ -154,18 +154,14 @@ function getQuarterLastUpdated(record) {
       ? partyRecord.updatedAt
       : latest;
   }, null);
+}
 
+function getRecordUpdatedAtMs(record) {
   if (!record.updatedAt) {
-    return partyLatest;
+    return Number.NEGATIVE_INFINITY;
   }
 
-  if (!partyLatest) {
-    return record.updatedAt;
-  }
-
-  return parseJsonDate(partyLatest).getTime() > parseJsonDate(record.updatedAt).getTime()
-    ? partyLatest
-    : record.updatedAt;
+  return parseJsonDate(record.updatedAt).getTime();
 }
 
 function buildQuarterTotalsRecord(record) {
@@ -225,7 +221,7 @@ export function deriveEnergyOverview(data, now = new Date()) {
       return record;
     }
 
-    return parseJsonDate(record.updatedAt).getTime() > parseJsonDate(latest.updatedAt).getTime() ? record : latest;
+    return getRecordUpdatedAtMs(record) > getRecordUpdatedAtMs(latest) ? record : latest;
   }, null);
 
   return {
@@ -351,7 +347,7 @@ export function deriveHistorySelection(data, mode, selectedValue) {
       return record;
     }
 
-    return parseJsonDate(record.updatedAt).getTime() > parseJsonDate(latest.updatedAt).getTime() ? record : latest;
+    return getRecordUpdatedAtMs(record) > getRecordUpdatedAtMs(latest) ? record : latest;
   }, null);
 
   if (mode === "year") {

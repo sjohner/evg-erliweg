@@ -93,8 +93,7 @@
               "quarter",
               "startDate",
               "endDate",
-              "partyRecords",
-              "updatedAt"
+              "partyRecords"
             ],
             "properties": {
               "id": {
@@ -126,8 +125,7 @@
                   },
                   "additionalProperties": false
                 }
-              },
-              "updatedAt": { "type": "string", "format": "date-time" }
+              }
             },
             "additionalProperties": false
           }

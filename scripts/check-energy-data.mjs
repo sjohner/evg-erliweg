@@ -57,10 +57,6 @@ function quarterToNumber(quarterId) {
   return parsed.year * 10 + parsed.quarter;
 }
 
-function toIsoDateTime(value) {
-  return new Date(value).toISOString();
-}
-
 async function loadData() {
   const raw = await readFile(dataFilePath, "utf8");
   return JSON.parse(raw);
@@ -185,7 +181,7 @@ function validateQuarterRecord(record, index, errors, duplicateIds, catalogMap) 
     return;
   }
 
-  const { id, year, quarter, startDate, endDate, updatedAt, producedKwh, consumedKwh, partyRecords } = record;
+  const { id, year, quarter, startDate, endDate, producedKwh, consumedKwh, partyRecords } = record;
 
   if (typeof id !== "string" || !/^\d{4}-Q[1-4]$/.test(id)) {
     errors.push(`${prefix}.id must match YYYY-QN.`);
@@ -230,10 +226,6 @@ function validateQuarterRecord(record, index, errors, duplicateIds, catalogMap) 
     }
   }
 
-  if (!isValidDateTime(updatedAt)) {
-    errors.push(`${prefix}.updatedAt must be a valid ISO datetime string.`);
-  }
-
   if (Array.isArray(partyRecords)) {
     validatePartyRecords(record, prefix, errors, catalogMap);
     return;
@@ -249,7 +241,7 @@ function validateQuarterRecord(record, index, errors, duplicateIds, catalogMap) 
 }
 
 function validatePartyRecords(record, prefix, errors, catalogMap) {
-  const { partyRecords, updatedAt } = record;
+  const { partyRecords } = record;
   const seenPartyIds = new Set();
   let producedTotal = 0;
   let consumedTotal = 0;
@@ -318,11 +310,6 @@ function validatePartyRecords(record, prefix, errors, catalogMap) {
     errors.push(`${prefix}.consumedKwh must equal the sum of partyRecords[].consumedKwh when both are present.`);
   }
 
-  if (isValidDateTime(updatedAt) && newestPartyUpdatedAt) {
-    if (toIsoDateTime(updatedAt) < toIsoDateTime(newestPartyUpdatedAt)) {
-      errors.push(`${prefix}.updatedAt must be >= each partyRecords[].updatedAt.`);
-    }
-  }
 }
 
 function validateQuarterOrder(records, errors) {

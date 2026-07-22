@@ -34,8 +34,6 @@
   - `startDate` (date string, required).
   - `endDate` (date string, required).
   - `partyRecords` (array<PartyQuarterRecord>, required).
-  - `updatedAt` (datetime string, required): Max timestamp for the quarter
-    record for compatibility with existing UI last-updated logic.
 
 ## 4. QuarterAggregate (Runtime Projection)
 - Persistence: Not stored in source JSON.
@@ -65,8 +63,8 @@
 - `EnergyQuarterRecord.partyRecords[].partyId` references `ProducingParty.partyId`.
 - `QuarterAggregate` derives from one `EnergyQuarterRecord`.
 - `YearAggregate` derives from all quarter records with matching `year`.
-- UI last-updated values derive from max `updatedAt` across quarter-level and
-  party-level records.
+- UI last-updated values derive from max `updatedAt` across all
+  `partyRecords` entries.
 - Producing-party lifecycle updates affect only future quarter entries and do
   not mutate historical `PartyQuarterRecord` values.
 
@@ -74,9 +72,7 @@
 - `partyId` MUST be unique within each quarter record.
 - `producedKwh` and `consumedKwh` MUST be non-negative finite numbers.
 - Quarter date ranges MUST be valid and non-overlapping by quarter identity.
-- `updatedAt` MUST be valid ISO datetime values.
-- Quarter-level `updatedAt` SHOULD equal or exceed every party record
-  `updatedAt` in that quarter.
+- `partyRecords[].updatedAt` MUST be valid ISO datetime values.
 - Removing a party MUST NOT delete previously recorded `PartyQuarterRecord`
   entries for past quarters.
 
