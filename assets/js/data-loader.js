@@ -14,6 +14,58 @@ function formatQuarterLabel(year, quarter) {
   return `Q${quarter} ${year}`;
 }
 
+function formatQuarterId(year, quarter) {
+  return `${year}-Q${quarter}`;
+}
+
+function parseQuarterId(quarterId) {
+  const match = /^(\d{4})-Q([1-4])$/.exec(quarterId);
+
+  if (!match) {
+    return null;
+  }
+
+  return {
+    year: Number(match[1]),
+    quarter: Number(match[2])
+  };
+}
+
+function quarterToNumber(quarterId) {
+  const parsed = parseQuarterId(quarterId);
+
+  if (!parsed) {
+    return null;
+  }
+
+  return parsed.year * 10 + parsed.quarter;
+}
+
+function isPartyActiveForQuarter(party, quarterId) {
+  const target = quarterToNumber(quarterId);
+
+  if (target === null) {
+    return false;
+  }
+
+  const activeFrom = party.activeFromQuarterId ? quarterToNumber(party.activeFromQuarterId) : null;
+  const inactiveAfter = party.inactiveAfterQuarterId ? quarterToNumber(party.inactiveAfterQuarterId) : null;
+
+  if (activeFrom !== null && target < activeFrom) {
+    return false;
+  }
+
+  if (inactiveAfter !== null && target > inactiveAfter) {
+    return false;
+  }
+
+  if (party.isActive === false && inactiveAfter === null) {
+    return false;
+  }
+
+  return true;
+}
+
 function uniqueBy(items, selector) {
   const seen = new Set();
 
@@ -78,10 +130,89 @@ function sumRecords(records) {
   );
 }
 
+function sumPartyRecords(partyRecords) {
+  return (partyRecords ?? []).reduce(
+    (totals, partyRecord) => ({
+      producedKwh: totals.producedKwh + (partyRecord.producedKwh ?? 0),
+      consumedKwh: totals.consumedKwh + (partyRecord.consumedKwh ?? 0)
+    }),
+    { producedKwh: 0, consumedKwh: 0 }
+  );
+}
+
+function getQuarterLastUpdated(record) {
+  const partyLatest = (record.partyRecords ?? []).reduce((latest, partyRecord) => {
+    if (!partyRecord.updatedAt) {
+      return latest;
+    }
+
+    if (!latest) {
+      return partyRecord.updatedAt;
+    }
+
+    return parseJsonDate(partyRecord.updatedAt).getTime() > parseJsonDate(latest).getTime()
+      ? partyRecord.updatedAt
+      : latest;
+  }, null);
+
+  if (!record.updatedAt) {
+    return partyLatest;
+  }
+
+  if (!partyLatest) {
+    return record.updatedAt;
+  }
+
+  return parseJsonDate(partyLatest).getTime() > parseJsonDate(record.updatedAt).getTime()
+    ? partyLatest
+    : record.updatedAt;
+}
+
+function buildQuarterTotalsRecord(record) {
+  const totals = sumPartyRecords(record.partyRecords ?? []);
+
+  return {
+    ...record,
+    producedKwh: totals.producedKwh,
+    consumedKwh: totals.consumedKwh,
+    updatedAt: getQuarterLastUpdated(record)
+  };
+}
+
+export function getProducingPartiesCatalog(data) {
+  return [...(data.energy.producingPartiesCatalog ?? [])];
+}
+
+export function getActivePartiesForQuarter(data, quarterId) {
+  return getProducingPartiesCatalog(data).filter((party) => isPartyActiveForQuarter(party, quarterId));
+}
+
+export function normalizeQuarterPartyRecords(data, quarterRecord) {
+  const catalogById = new Map(
+    getProducingPartiesCatalog(data).map((party) => [party.partyId, party])
+  );
+
+  return (quarterRecord.partyRecords ?? []).map((partyRecord) => {
+    const catalogParty = catalogById.get(partyRecord.partyId);
+
+    return {
+      ...partyRecord,
+      partyLabel: catalogParty?.partyLabel ?? partyRecord.partyLabel
+    };
+  });
+}
+
 export function deriveEnergyOverview(data, now = new Date()) {
-  const records = sortRecords(data.energy.quarterlyRecords);
+  const records = sortRecords(data.energy.quarterlyRecords).map((record) => {
+    const normalizedPartyRecords = normalizeQuarterPartyRecords(data, record);
+    return buildQuarterTotalsRecord({
+      ...record,
+      partyRecords: normalizedPartyRecords
+    });
+  });
   const currentYear = now.getFullYear();
   const currentQuarter = getQuarterFromDate(now);
+  const currentQuarterId = formatQuarterId(currentYear, currentQuarter);
   const quarterRecord = records.find((record) => {
     return record.year === currentYear && record.quarter === currentQuarter;
   }) ?? null;
@@ -100,6 +231,7 @@ export function deriveEnergyOverview(data, now = new Date()) {
   return {
     currentQuarter: {
       label: formatQuarterLabel(currentYear, currentQuarter),
+      id: currentQuarterId,
       record: quarterRecord,
       totals: quarterRecord ? {
         producedKwh: quarterRecord.producedKwh,
@@ -144,7 +276,13 @@ export function getAboutContent(data) {
 }
 
 export function getHistoryOptions(data) {
-  const records = sortRecords(data.energy.quarterlyRecords);
+  const records = sortRecords(data.energy.quarterlyRecords).map((record) => {
+    const normalizedPartyRecords = normalizeQuarterPartyRecords(data, record);
+    return buildQuarterTotalsRecord({
+      ...record,
+      partyRecords: normalizedPartyRecords
+    });
+  });
   const quarterOptions = records.map((record) => ({
     value: record.id,
     label: formatQuarterLabel(record.year, record.quarter)
@@ -164,7 +302,13 @@ export function getHistoryOptions(data) {
 }
 
 export function getHistoryComparisonSeries(data, mode) {
-  const records = sortRecords(data.energy.quarterlyRecords);
+  const records = sortRecords(data.energy.quarterlyRecords).map((record) => {
+    const normalizedPartyRecords = normalizeQuarterPartyRecords(data, record);
+    return buildQuarterTotalsRecord({
+      ...record,
+      partyRecords: normalizedPartyRecords
+    });
+  });
 
   if (mode === "year") {
     const yearMap = new Map();
@@ -195,7 +339,13 @@ export function getHistoryComparisonSeries(data, mode) {
 }
 
 export function deriveHistorySelection(data, mode, selectedValue) {
-  const records = sortRecords(data.energy.quarterlyRecords);
+  const records = sortRecords(data.energy.quarterlyRecords).map((record) => {
+    const normalizedPartyRecords = normalizeQuarterPartyRecords(data, record);
+    return buildQuarterTotalsRecord({
+      ...record,
+      partyRecords: normalizedPartyRecords
+    });
+  });
   const latestUpdatedRecord = records.reduce((latest, record) => {
     if (!latest) {
       return record;

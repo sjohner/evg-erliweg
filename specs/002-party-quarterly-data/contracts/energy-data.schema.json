@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/energy-data.schema.json",
+  "title": "EVG Erliweg Energy Data with Party-Level Quarterly Values",
+  "type": "object",
+  "required": [
+    "community",
+    "aboutContent",
+    "contact",
+    "energy"
+  ],
+  "properties": {
+    "community": {
+      "type": "object",
+      "required": [
+        "name",
+        "city",
+        "country",
+        "startDate",
+        "totalParties",
+        "producingParties"
+      ],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "city": { "type": "string", "minLength": 1 },
+        "country": { "type": "string", "minLength": 1 },
+        "startDate": { "type": "string", "format": "date" },
+        "totalParties": { "type": "integer", "minimum": 1 },
+        "producingParties": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "aboutContent": {
+      "type": "object",
+      "required": ["summary", "termsUrl", "lastReviewedAt"],
+      "properties": {
+        "summary": { "type": "string", "minLength": 1 },
+        "termsUrl": {
+          "type": "string",
+          "format": "uri",
+          "const": "https://www.elektra.ch/energiedienstleistungen/elektraeigenstrom/"
+        },
+        "lastReviewedAt": { "type": "string", "format": "date" }
+      },
+      "additionalProperties": false
+    },
+    "contact": {
+      "type": "object",
+      "required": ["label", "type", "target"],
+      "properties": {
+        "label": { "type": "string", "minLength": 1 },
+        "type": { "type": "string", "enum": ["email", "form-link"] },
+        "target": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "energy": {
+      "type": "object",
+      "required": ["producingPartiesCatalog", "quarterlyRecords"],
+      "properties": {
+        "producingPartiesCatalog": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "partyId",
+              "partyLabel"
+            ],
+            "properties": {
+              "partyId": { "type": "string", "minLength": 1 },
+              "partyLabel": { "type": "string", "minLength": 1 },
+              "isActive": { "type": "boolean" },
+              "activeFromQuarterId": {
+                "type": "string",
+                "pattern": "^[0-9]{4}-Q[1-4]$"
+              },
+              "inactiveAfterQuarterId": {
+                "type": "string",
+                "pattern": "^[0-9]{4}-Q[1-4]$"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "quarterlyRecords": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "year",
+              "quarter",
+              "startDate",
+              "endDate",
+              "partyRecords",
+              "updatedAt"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[0-9]{4}-Q[1-4]$"
+              },
+              "year": { "type": "integer", "minimum": 2025 },
+              "quarter": { "type": "integer", "minimum": 1, "maximum": 4 },
+              "startDate": { "type": "string", "format": "date" },
+              "endDate": { "type": "string", "format": "date" },
+              "partyRecords": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "partyId",
+                    "partyLabel",
+                    "producedKwh",
+                    "consumedKwh",
+                    "updatedAt"
+                  ],
+                  "properties": {
+                    "partyId": { "type": "string", "minLength": 1 },
+                    "partyLabel": { "type": "string", "minLength": 1 },
+                    "producedKwh": { "type": "number", "minimum": 0 },
+                    "consumedKwh": { "type": "number", "minimum": 0 },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "updatedAt": { "type": "string", "format": "date-time" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "description": "Cross-field checks (e.g., catalog-party references, lifecycle window enforcement, partyId uniqueness per quarter, and producingParties <= totalParties) are enforced through maintainer and CI validation checks."
+    }
+  ]
+}
