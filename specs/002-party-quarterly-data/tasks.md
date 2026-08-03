@@ -16,7 +16,7 @@
 
 ## Path Conventions
 
-- Static site pages live at repository root: `index.html`, `index.html`, `index.html`
+- Static site pages live at repository root: `index.html`
 - Shared browser logic lives under `assets/js/`
 - Canonical source data lives in `data/energy-data.json`
 - Maintainer validation tooling lives in `scripts/` and `package.json`
