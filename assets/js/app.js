@@ -97,13 +97,13 @@ function renderMissing(selector, message) {
 function renderHomePage(data) {
   const overview = deriveEnergyOverview(data);
   const community = getCommunitySummary(data);
+  const lastUpdatedText = overview.lastUpdated
+    ? `Letzte Aktualisierung der Daten am ${overview.lastUpdated.label}`
+    : "Letzte Aktualisierung der Daten: Noch keine Daten";
 
-  setText(
-    "#footer-last-updated",
-    overview.lastUpdated
-      ? `Letzte Aktualisierung der Daten am ${overview.lastUpdated.label}`
-      : "Letzte Aktualisierung der Daten: Noch keine Daten"
-  );
+  setText("#home-last-updated", lastUpdatedText);
+  setText("#history-last-updated", lastUpdatedText);
+  setText("#footer-last-updated", lastUpdatedText);
 
   setText("#quarter-label", overview.currentQuarter.label);
   if (overview.currentQuarter.totals) {
@@ -148,6 +148,8 @@ function renderError(message) {
     target.innerHTML = `<article class="metric-card error-alert" role="alert"><h3>Daten derzeit nicht verfügbar</h3><p>${message}</p></article>`;
   }
 
+  setText("#home-last-updated", "Letzte Aktualisierung der Daten: Nicht verfügbar");
+  setText("#history-last-updated", "Letzte Aktualisierung der Daten: Nicht verfügbar");
   setText("#footer-last-updated", "Letzte Aktualisierung der Daten: Nicht verfügbar");
 }
 

@@ -96,7 +96,7 @@ All components in this design system must satisfy these contracts to maintain co
   <ul class="navbar__menu">
     <li><a href="/index.html#about-title">About</a></li>
     <li><a href="/index.html#history-title">History</a></li>
-    <li><a href="/data.html">Data</a></li>
+    <li><a href="/index.html#kennzahlen-title">Data</a></li>
   </ul>
 </nav>
 ```
@@ -338,4 +338,3 @@ Every implementation must verify:
 - [ ] Header and in-page section links do not obscure content
 - [ ] Page load < 2s on 4G (target)
 - [ ] No unauthorized animations (check prefers-reduced-motion)
-
