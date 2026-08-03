@@ -51,16 +51,16 @@
 
 ## Phase 3: User Story 1 - Current and Total Energy Performance (Priority: P1) 🎯 MVP
 
-**Goal**: Deliver a German homepage that clearly shows current quarter, current year, cumulative totals since 2025-10-01, reporting periods, and last-updated date
+**Goal**: Deliver a German homepage that clearly shows the latest available quarter, its corresponding year, cumulative totals since 2025-10-01, reporting periods, dynamic producing-party count, and last-updated date
 
-**Independent Test**: Open `index.html` via local preview and verify current quarter, current year, cumulative values, reporting-period labels, and last-updated date render correctly in German on desktop and mobile.
+**Independent Test**: Open `index.html` via local preview and verify latest-available-quarter, corresponding-year, cumulative values, reporting-period labels, dynamic producing-party count, and last-updated date render correctly in German on desktop and mobile.
 
 ### Implementation for User Story 1
 
 - [X] T011 [US1] Build semantic German homepage structure and metric placeholders in `index.html`
 - [X] T012 [P] [US1] Add homepage metric-card, summary, and last-updated presentation styles in `assets/css/styles.css`
-- [X] T013 [P] [US1] Implement homepage rendering for current quarter, current year, cumulative totals, and reporting-period labels in `assets/js/app.js`
-- [X] T014 [US1] Connect homepage rendering to quarterly source data and derived summary helpers in `assets/js/data-loader.js` and `index.html`
+- [X] T013 [P] [US1] Implement homepage rendering for latest available quarter, corresponding year, cumulative totals, and reporting-period labels in `assets/js/app.js`
+- [X] T014 [US1] Connect homepage rendering to quarterly source data and derived summary helpers (including dynamic producing-party count from active parties in latest quarter) in `assets/js/data-loader.js` and `index.html`
 - [X] T015 [US1] Tune homepage accessibility and PageSpeed-critical markup/asset loading in `index.html`, `assets/css/styles.css`, and `assets/js/app.js`
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
@@ -171,7 +171,7 @@
 
 ```text
 Task: "T012 [P] [US1] Add homepage metric-card, summary, and last-updated presentation styles in assets/css/styles.css"
-Task: "T013 [P] [US1] Implement homepage rendering for current quarter, current year, cumulative totals, and reporting-period labels in assets/js/app.js"
+Task: "T013 [P] [US1] Implement homepage rendering for latest available quarter, corresponding year, cumulative totals, and reporting-period labels in assets/js/app.js"
 ```
 
 ## Parallel Example: User Story 2

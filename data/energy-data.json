@@ -5,8 +5,7 @@
     "country": "Schweiz",
     "startDate": "2025-10-01",
     "totalParties": 10,
-    "totalPeople": 30,
-    "producingParties": 3
+    "totalPeople": 30
   },
   "aboutContent": {
     "summary": "Die EVG Erliweg ist eine Eigenverbrauchsgemeinschaft in Fraubrunnen. Drei Parteien produzieren Solarstrom, der innerhalb der Gemeinschaft genutzt wird.",
@@ -49,14 +48,12 @@
         "partyRecords": [
           {
             "partyId": "erliweg27",
-            "partyLabel": "Erliweg 27",
             "producedKwh": 1438.2,
             "consumedKwh": 450,
             "updatedAt": "2026-08-03T07:20:00Z"
           },
           {
             "partyId": "erliweg37",
-            "partyLabel": "Erliweg 37",
             "producedKwh": 1300,
             "consumedKwh": 1700,
             "updatedAt": "2026-01-10T07:40:00Z"
@@ -72,14 +69,12 @@
         "partyRecords": [
           {
             "partyId": "erliweg27",
-            "partyLabel": "Erliweg 27",
             "producedKwh": 2350.7,
             "consumedKwh": 1060,
             "updatedAt": "2026-08-03T07:15:00Z"
           },
           {
             "partyId": "erliweg37",
-            "partyLabel": "Erliweg 37",
             "producedKwh": 1300,
             "consumedKwh": 1600,
             "updatedAt": "2026-04-10T07:55:00Z"
@@ -95,14 +90,12 @@
         "partyRecords": [
           {
             "partyId": "erliweg27",
-            "partyLabel": "Erliweg 27",
             "producedKwh": 7100,
             "consumedKwh": 2104,
             "updatedAt": "2026-08-03T07:10:00Z"
           },
           {
             "partyId": "erliweg37",
-            "partyLabel": "Erliweg 37",
             "producedKwh": 1900,
             "consumedKwh": 1500,
             "updatedAt": "2026-07-10T07:50:00Z"

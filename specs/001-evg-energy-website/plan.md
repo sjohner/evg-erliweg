@@ -7,7 +7,7 @@
 ## Summary
 
 Build a static, mobile-responsive EVG Erliweg website hosted on GitHub Pages
-that publishes current quarter/year metrics, cumulative totals since 2025-10-01,
+that publishes latest-available-quarter/corresponding-year metrics, cumulative totals since 2025-10-01,
 and historical quarter/year views. The implementation uses vanilla HTML, CSS,
 and JavaScript, with energy data managed in a repository data file and published
 through build/deploy automation after quarterly updates.

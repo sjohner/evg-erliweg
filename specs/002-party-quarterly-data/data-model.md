@@ -18,8 +18,6 @@
   quarter.
 - Fields:
   - `partyId` (string, required): Reference to `ProducingParty.partyId`.
-  - `partyLabel` (string, required): Current display label for maintenance
-    readability.
   - `producedKwh` (number, required, >= 0).
   - `consumedKwh` (number, required, >= 0).
   - `updatedAt` (datetime string, required): Last update timestamp for this
@@ -61,6 +59,8 @@
 
 ## Relationships
 - `EnergyQuarterRecord.partyRecords[].partyId` references `ProducingParty.partyId`.
+- Quarter party labels are resolved from `ProducingParty.partyLabel` using
+  `partyId` as the single source of truth.
 - `QuarterAggregate` derives from one `EnergyQuarterRecord`.
 - `YearAggregate` derives from all quarter records with matching `year`.
 - UI last-updated values derive from max `updatedAt` across all

@@ -16,9 +16,10 @@ Define the contract between repository data updates and public website publicati
 
 ## Guaranteed Outputs
 1. Homepage presents:
-   - Current quarter produced/consumed kWh
-   - Current year produced/consumed kWh
+   - Latest available quarter produced/consumed kWh
+   - Year containing the latest available quarter produced/consumed kWh
    - Cumulative produced/consumed kWh since `community.startDate`
+   - Producing-party count derived from active parties in the latest available quarter
    - Visible "last updated" date derived from latest quarterly record update
 2. History view presents quarter and year records derived from quarterly source data.
    - Visible "last updated" date for the currently displayed energy dataset

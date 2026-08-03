@@ -21,10 +21,11 @@
   - Compute totals in a backend API: rejected as out of scope for static site.
 
 ## Decision 3: Party identity strategy
-- Decision: Use stable `partyId` and `partyLabel` fields for each producing
-  party record.
-- Rationale: Enables reliable updates, duplicate detection, and readable UI
-  context during maintenance.
+- Decision: Use stable `partyId` as the single source of truth in quarterly
+  party records; keep `partyLabel` only in the producing-party catalog.
+- Rationale: Removes redundant data in quarter records while preserving
+  reliable identity, duplicate detection, and readable UI labels from the
+  catalog.
 - Alternatives considered:
   - Label-only identity: rejected because label edits can break matching.
   - Numeric positional index only: rejected because it is fragile over time.

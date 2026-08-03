@@ -21,17 +21,17 @@
 
 ## User Scenarios & Testing *(mandatory)*
 
-### User Story 1 - View Current and Total Energy Performance (Priority: P1)
+### User Story 1 - View Latest and Total Energy Performance (Priority: P1)
 
-As a visitor, I want to see current quarter, current year, and all-time production and consumption figures on the main page so I can quickly understand how EVG Erliweg performs.
+As a visitor, I want to see the latest available quarter, the corresponding year, and all-time production and consumption figures on the main page so I can quickly understand how EVG Erliweg performs.
 
 **Why this priority**: This is the core value of the website and the primary reason visitors will use it.
 
-**Independent Test**: Can be fully tested by opening the homepage and verifying that current quarter, current year, and cumulative metrics since 2025-10-01 are displayed clearly and consistently.
+**Independent Test**: Can be fully tested by opening the homepage and verifying that latest-available-quarter, corresponding-year, and cumulative metrics since 2025-10-01 are displayed clearly and consistently.
 
 **Acceptance Scenarios**:
 
-1. **Given** a visitor opens the homepage, **When** energy data exists, **Then** the page shows produced and consumed energy for the current quarter, current year, and the cumulative period starting 2025-10-01.
+1. **Given** a visitor opens the homepage, **When** energy data exists, **Then** the page shows produced and consumed energy for the latest available quarter, the year containing that quarter, and the cumulative period starting 2025-10-01.
 2. **Given** a visitor opens the homepage on a mobile device, **When** the page renders, **Then** all primary metrics remain readable without horizontal scrolling.
 3. **Given** a visitor prefers dark mode, **When** dark mode is enabled, **Then** the same homepage metrics are accessible with sufficient visual contrast.
 4. **Given** a visitor uses the theme switcher, **When** they view and activate the control, **Then** it appears as an icon-only button (without visible text labels) and remains accessible via ARIA label and pressed state.
@@ -96,7 +96,7 @@ As a maintainer, I want to update produced and consumed energy values in a struc
 
 ### Edge Cases
 
-- What happens when no quarterly record has been entered yet for the current quarter?
+- What happens when no quarterly record exists yet in the dataset?
 - How does the system handle invalid data-file updates such as negative energy values or impossible date periods?
 - What happens when cumulative totals are requested but one or more historical periods are missing?
 - How does the site behave when the external elektraeigenstrom link target is temporarily unavailable?
@@ -106,8 +106,8 @@ As a maintainer, I want to update produced and consumed energy values in a struc
 ### Functional Requirements
 
 - **FR-001**: System MUST publish a public website for EVG Erliweg on GitHub Pages.
-- **FR-002**: System MUST display produced and consumed energy for the current quarter on the homepage.
-- **FR-003**: System MUST display produced and consumed energy for the current calendar year on the homepage.
+- **FR-002**: System MUST display produced and consumed energy for the latest available quarter on the homepage.
+- **FR-003**: System MUST display produced and consumed energy for the year that contains the latest available quarter on the homepage.
 - **FR-004**: System MUST display cumulative produced and consumed energy totals from 2025-10-01 through the latest available reporting period.
 - **FR-005**: System MUST provide a history section on the single-page website allowing visitors to inspect energy production and consumption for past quarters and past years.
 - **FR-006**: System MUST provide a mobile-responsive experience where key metrics, navigation, and contact actions are usable on common phone screen sizes.
@@ -147,13 +147,15 @@ As a maintainer, I want to update produced and consumed energy values in a struc
 	prominently on the homepage and wherever historical energy metrics are shown.
 - **FR-022**: System MUST render the theme switcher as an icon-only control (no visible mode text), while still exposing an accessible localized `aria-label` and `aria-pressed` state that reflects the current toggle action.
 - **FR-023**: System MUST place the history period selector (quarter/year) inside the comparison card and display it directly below the heading "Vergleich ueber alle Zeitraeume".
+- **FR-024**: System MUST derive the displayed "Produzierende Parteien" count from active producing parties in the latest available quarter (based on party lifecycle rules), rather than relying only on a static community field.
 
 ### Key Entities *(include if feature involves data)*
 
 - **EnergyPeriodRecord**: Represents one reporting period with period type (quarter or year), period label, period start, period end, produced energy value, consumed energy value, and last updated timestamp.
 - **DerivedYearSummary**: Runtime-calculated year-level aggregation from quarterly records for display only (not persisted in source data).
 - **CumulativeSummary**: Runtime-calculated all-time aggregation from 2025-10-01 to latest available period for display only (not persisted in source data).
-- **CommunityProfile**: Represents EVG Erliweg profile information including name, location, start date, number of total parties, and number of producing parties.
+- **CommunityProfile**: Represents EVG Erliweg profile information including name, location, start date, number of total parties, and number of people.
+- **ProducingPartiesSummary**: Runtime-calculated count of active producing parties for the latest available quarter.
 - **AboutContent**: Represents static public informational text about EVG
 	Erliweg and elektraeigenstrom, including the official external link.
 - **ContactRequest**: Represents an incoming interest message from a visitor including contact details, message content, and submission timestamp.
@@ -163,7 +165,7 @@ As a maintainer, I want to update produced and consumed energy values in a struc
 
 ### Measurable Outcomes
 
-- **SC-001**: 95% of sampled visitors can find current quarter, current year, and all-time totals within 30 seconds of landing on the homepage.
+- **SC-001**: 95% of sampled visitors can find latest-available-quarter, corresponding-year, and all-time totals within 30 seconds of landing on the homepage.
 - **SC-002**: 100% of manually reviewed quarterly data-file updates merged to the private repository are reflected on public views within one deployment cycle.
 - **SC-003**: At least 95% of tested mobile sessions complete key viewing tasks (current metrics and one historical lookup) without layout or navigation failure.
 - **SC-004**: At least 90% of test users correctly identify what EVG Erliweg is,
