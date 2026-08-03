@@ -63,31 +63,30 @@
 
 ---
 
-### Scenario 2: Sticky Navigation & Page Navigation
+### Scenario 2: Section Navigation & In-Page Links
 
-**Goal**: Verify navigation remains visible and functional during scrolling.
+**Goal**: Verify section links remain functional and accessible during scrolling.
 
 **Steps**:
 
 1. **Load the homepage and scroll**:
-   - [ ] Navigation bar stays visible at top of viewport during scroll
-   - [ ] Navigation doesn't obscure main content (z-index working correctly)
-   - [ ] Navigation has subtle bottom border (#D1D9E0)
+   - [ ] Header remains stable and does not obscure main content
+   - [ ] In-page links can still be triggered reliably after scrolling
 
-2. **Test navigation links**:
-   - [ ] All main links are present: Home, About, History, Data
+2. **Test section links**:
+   - [ ] Main in-page links are present (e.g., data, history, about)
    - [ ] Links use consistent styling (dark text, blue on hover)
    - [ ] Hover state shows underline or blue color shift
-   - [ ] Navigation links are keyboard accessible (Tab through them)
+   - [ ] Links are keyboard accessible (Tab through them)
 
 3. **Test focus states**:
    - [ ] Click on a navigation link, then press Tab to focus it
    - [ ] [ ] Verify 2px blue focus ring appears around link text
    - [ ] Focus ring is clearly visible (not hidden or cut off)
 
-4. **Test responsive navigation** (use DevTools to resize):
-   - [ ] Tablet (768px): Navigation adjusts but remains fully functional
-   - [ ] Mobile (375px): Navigation remains accessible (no horizontal overflow)
+4. **Test responsive section links** (use DevTools to resize):
+   - [ ] Tablet (768px): Links and section anchors remain fully functional
+   - [ ] Mobile (375px): Links remain accessible (no horizontal overflow)
    - [ ] All links remain clickable/tappable
 
 ---
@@ -387,15 +386,15 @@ This section records the implementation-phase checks completed for Phases 1-7.
 
 ### Story-Level Acceptance Evidence
 
-- US1 (Homepage + Sticky Navigation): Implemented and verified in markup/CSS for index.html with sticky header, CTA cluster, keyboard focus visibility, and data navigation link.
+- US1 (Homepage + Section Navigation): Implemented and verified in markup/CSS for index.html with stable header, CTA cluster, keyboard focus visibility, and in-page section links.
 - US2 (Data Card Presentation): Implemented and verified in markup/CSS for metric cards and history comparison cards with rounded borders, subtle hover states, and readable type hierarchy.
-- US3 (Cross-Page Consistency): Implemented and verified across index.html, about.html, and history.html for shared header/navigation/footer patterns and common interactive styling.
+- US3 (Cross-Section Consistency): Implemented and verified across home, data, history, and about sections in index.html for shared header/footer patterns and common interactive styling.
 - US4 (Responsive Behavior): Implemented breakpoint rules at mobile/tablet/desktop in layout.css; controls retain 44px minimum touch target styles.
 - US5 (Enterprise Visual Polish): Implemented contrast-aligned token palette, reduced-motion support, subtle transitions, and polished loading/error states.
 
 ### Async Feedback Evidence (FR-013, SC-011)
 
-- Added skeleton loading states using .is-loading class for dynamic content placeholders on all pages.
+- Added skeleton loading states using .is-loading class for dynamic content placeholders across all major sections.
 - Added styled error alert component with role="alert" and consistent design-system styling.
 - Updated app.js to clear loading skeleton classes after data hydration.
 

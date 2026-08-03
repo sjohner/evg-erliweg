@@ -34,6 +34,7 @@ As a visitor, I want to see current quarter, current year, and all-time producti
 1. **Given** a visitor opens the homepage, **When** energy data exists, **Then** the page shows produced and consumed energy for the current quarter, current year, and the cumulative period starting 2025-10-01.
 2. **Given** a visitor opens the homepage on a mobile device, **When** the page renders, **Then** all primary metrics remain readable without horizontal scrolling.
 3. **Given** a visitor prefers dark mode, **When** dark mode is enabled, **Then** the same homepage metrics are accessible with sufficient visual contrast.
+4. **Given** a visitor uses the theme switcher, **When** they view and activate the control, **Then** it appears as an icon-only button (without visible text labels) and remains accessible via ARIA label and pressed state.
 
 ---
 
@@ -43,13 +44,14 @@ As a visitor, I want to browse past quarters and years so I can compare the comm
 
 **Why this priority**: Historical context is explicitly required and strengthens transparency beyond a single snapshot.
 
-**Independent Test**: Can be fully tested by navigating to the history view and selecting multiple prior quarters and years to confirm corresponding values are shown.
+**Independent Test**: Can be fully tested by navigating to the historical section on the single-page site and selecting multiple prior quarters and years to confirm corresponding values are shown.
 
 **Acceptance Scenarios**:
 
 1. **Given** historical records exist, **When** a visitor selects a past quarter, **Then** the page shows the production and consumption values for that quarter.
 2. **Given** historical records exist, **When** a visitor selects a past year, **Then** the page shows the production and consumption values for that year.
 3. **Given** no record exists for a selected period, **When** the visitor requests that period, **Then** the site displays a clear no-data message instead of misleading values.
+4. **Given** a visitor uses the historical comparison card, **When** they inspect "Vergleich ueber alle Zeitraeume", **Then** the quarter/year selector is shown directly below the card heading in the same card.
 
 ---
 
@@ -107,7 +109,7 @@ As a maintainer, I want to update produced and consumed energy values in a struc
 - **FR-002**: System MUST display produced and consumed energy for the current quarter on the homepage.
 - **FR-003**: System MUST display produced and consumed energy for the current calendar year on the homepage.
 - **FR-004**: System MUST display cumulative produced and consumed energy totals from 2025-10-01 through the latest available reporting period.
-- **FR-005**: System MUST provide a history view allowing visitors to inspect energy production and consumption for past quarters and past years.
+- **FR-005**: System MUST provide a history section on the single-page website allowing visitors to inspect energy production and consumption for past quarters and past years.
 - **FR-006**: System MUST provide a mobile-responsive experience where key metrics, navigation, and contact actions are usable on common phone screen sizes.
 - **FR-007**: System MUST provide a dark mode option that visitors can enable while preserving readability of all key content.
 - **FR-008**: System MUST include an external link to https://www.elektra.ch/energiedienstleistungen/elektraeigenstrom/.
@@ -143,6 +145,8 @@ As a maintainer, I want to update produced and consumed energy values in a struc
 	of at least 95 for each primary page in production configuration.
 - **FR-020**: System MUST display the date of the most recent energy-data update
 	prominently on the homepage and wherever historical energy metrics are shown.
+- **FR-022**: System MUST render the theme switcher as an icon-only control (no visible mode text), while still exposing an accessible localized `aria-label` and `aria-pressed` state that reflects the current toggle action.
+- **FR-023**: System MUST place the history period selector (quarter/year) inside the comparison card and display it directly below the heading "Vergleich ueber alle Zeitraeume".
 
 ### Key Entities *(include if feature involves data)*
 
@@ -165,10 +169,10 @@ As a maintainer, I want to update produced and consumed energy values in a struc
 - **SC-004**: At least 90% of test users correctly identify what EVG Erliweg is,
   where to read about elektraeigenstrom, and how to contact the community.
 - **SC-005**: 100% of historical records entered remain retrievable by selecting their quarter or year.
-- **SC-006**: 100% of user-visible primary interface content on core pages
-	(homepage, history, about/contact) is in German.
+- **SC-006**: 100% of user-visible primary interface content on core sections
+	(home, history, about/contact) of the single-page site is in German.
 - **SC-007**: 100% of critical accessibility checks for WCAG 2.1 AA on core
-	pages (homepage, history, about/contact) pass before release.
+	sections (home, history, about/contact) of the single-page site pass before release.
 - **SC-008**: Google PageSpeed Insights performance score is >=95 on each core
 	page in production configuration.
 - **SC-009**: 100% of core pages that present energy metrics display a visible

@@ -94,8 +94,8 @@ All components in this design system must satisfy these contracts to maintain co
 <nav class="navbar" aria-label="Main navigation">
   <a href="/" class="navbar__logo">Logo/Title</a>
   <ul class="navbar__menu">
-    <li><a href="/about.html">About</a></li>
-    <li><a href="/history.html">History</a></li>
+    <li><a href="/index.html#about-title">About</a></li>
+    <li><a href="/index.html#history-title">History</a></li>
     <li><a href="/data.html">Data</a></li>
   </ul>
 </nav>
@@ -335,7 +335,7 @@ Every implementation must verify:
 - [ ] Spacing follows 8px grid system
 - [ ] Components use semantic HTML tags
 - [ ] Form labels associated with inputs
-- [ ] Sticky navigation doesn't obscure content
+- [ ] Header and in-page section links do not obscure content
 - [ ] Page load < 2s on 4G (target)
 - [ ] No unauthorized animations (check prefers-reduced-motion)
 

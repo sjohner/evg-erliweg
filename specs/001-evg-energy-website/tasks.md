@@ -16,7 +16,7 @@
 
 ## Path Conventions
 
-- Static site pages live at repository root: `index.html`, `history.html`, `about.html`
+- Public website content lives in the single entry page at repository root: `index.html`
 - Shared assets live under `assets/`
 - Canonical source data lives under `data/`
 - Deployment automation lives under `.github/workflows/`
@@ -25,7 +25,7 @@
 
 **Purpose**: Create the base static-site structure and minimal project tooling
 
-- [X] T001 Create static site scaffold files `index.html`, `history.html`, `about.html`, `assets/css/styles.css`, `assets/js/app.js`, `assets/js/data-loader.js`, `assets/js/charts.js`, and `data/energy-data.json`
+- [X] T001 Create static site scaffold files `index.html`, `assets/css/styles.css`, `assets/js/app.js`, `assets/js/data-loader.js`, `assets/js/charts.js`, and `data/energy-data.json`
 - [X] T002 Initialize minimal development tooling in `package.json`
 - [X] T003 [P] Add repository usage, local preview, and quarterly update prerequisites to `README.md`
 - [X] T004 [P] Create GitHub Pages repository configuration notes and publish-branch setup instructions in `README.md`
@@ -71,14 +71,14 @@
 
 **Goal**: Deliver a history view for quarter/year exploration with clear no-data handling and visible last-updated context
 
-**Independent Test**: Open `history.html`, switch between available quarters and years, and confirm correct values, reporting periods, no-data handling, and last-updated date are shown in German.
+**Independent Test**: Open `index.html`, navigate to the history section, switch between available quarters and years, and confirm correct values, reporting periods, no-data handling, and last-updated date are shown in German.
 
 ### Implementation for User Story 2
 
-- [X] T016 [US2] Build German history page structure with period selectors, results regions, and empty-state messaging in `history.html`
+- [X] T016 [US2] Build German history section structure with period selectors, results regions, and empty-state messaging in `index.html`
 - [X] T017 [P] [US2] Implement history data derivation, year/quarter selection logic, and last-updated rendering in `assets/js/app.js`
 - [X] T018 [P] [US2] Add history table/chart presentation and responsive interaction styling in `assets/css/styles.css` and `assets/js/charts.js`
-- [X] T019 [US2] Wire history page to canonical quarterly data and derived summaries in `assets/js/data-loader.js` and `history.html`
+- [X] T019 [US2] Wire history section to canonical quarterly data and derived summaries in `assets/js/data-loader.js` and `index.html`
 
 **Checkpoint**: At this point, User Stories 1 and 2 should both work independently
 
@@ -86,16 +86,16 @@
 
 ## Phase 5: User Story 3 - About and Learn More (Priority: P3)
 
-**Goal**: Deliver a German about/contact page with EVG Erliweg context, elektraeigenstrom explanation, official external link, and clear contact details
+**Goal**: Deliver a German about/contact section with EVG Erliweg context, elektraeigenstrom explanation, official external link, and clear contact details
 
-**Independent Test**: Open `about.html` and verify German static content, external link destination, accessible link labeling, and visible contact details.
+**Independent Test**: Open `index.html` and verify German static content, external link destination, accessible link labeling, and visible contact details.
 
 ### Implementation for User Story 3
 
-- [X] T020 [US3] Create German about/contact page content structure and semantic sections in `about.html`
+- [X] T020 [US3] Create German about/contact content structure and semantic sections in `index.html`
 - [X] T021 [P] [US3] Add about/contact layout, external-link, and focus-state styling in `assets/css/styles.css`
 - [X] T022 [P] [US3] Render EVG Erliweg, elektraeigenstrom, and contact content from `data/energy-data.json` in `assets/js/app.js`
-- [X] T023 [US3] Ensure about/contact semantics, external-link text, and language metadata satisfy WCAG expectations in `about.html` and `assets/js/app.js`
+- [X] T023 [US3] Ensure about/contact semantics, external-link text, and language metadata satisfy WCAG expectations in `index.html` and `assets/js/app.js`
 
 **Checkpoint**: At this point, User Stories 1, 2, and 3 should all be independently functional
 
@@ -112,7 +112,7 @@
 - [X] T024 [US4] Seed realistic quarterly records plus about/contact source content in `data/energy-data.json`
 - [X] T025 [P] [US4] Add maintainer instructions for quarterly edits, manual review, and deploy steps in `README.md`
 - [X] T026 [US4] Implement the simple reviewed publish flow in `.github/workflows/deploy-pages.yml` and `README.md`
-- [X] T027 [US4] Ensure homepage and history pages derive displayed last-updated date from the latest `updatedAt` value in `assets/js/data-loader.js`, `assets/js/app.js`, `index.html`, and `history.html`
+- [X] T027 [US4] Ensure home and history sections derive displayed last-updated date from the latest `updatedAt` value in `assets/js/data-loader.js`, `assets/js/app.js`, and `index.html`
 - [X] T028 [US4] Finalize default GitHub Pages publishing behavior in `.github/workflows/deploy-pages.yml` and `README.md`
 
 **Checkpoint**: All user stories should now be independently usable, and the maintainer workflow should safely publish data updates
@@ -123,7 +123,7 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [X] T029 [P] Add final metadata, browser theming, and page-level SEO polish in `index.html`, `history.html`, and `about.html`
+- [X] T029 [P] Add final metadata, browser theming, and page-level SEO polish in `index.html`, `index.html`, and `index.html`
 - [X] T030 [P] Run cross-page accessibility and performance refinements in `assets/css/styles.css`, `assets/js/app.js`, and `assets/js/charts.js`
 - [X] T031 Run end-to-end quickstart validation and update the completion checklist in `specs/001-evg-energy-website/quickstart.md`
 

@@ -8,6 +8,7 @@
   - `country` (string, required): Country, e.g. "Switzerland".
   - `startDate` (date string, required): Baseline date for cumulative metrics (`2025-10-01`).
   - `totalParties` (integer, required, >= 1).
+  - `totalPeople` (integer, required, >= `totalParties`).
   - `producingParties` (integer, required, >= 1 and <= `totalParties`).
 
 ## 2. EnergyPeriodRecord
@@ -87,6 +88,7 @@
 - `producedKwh` and `consumedKwh` must be non-negative finite numbers.
 - `startDate`/`endDate` must be valid ISO dates.
 - `CommunityProfile.producingParties <= CommunityProfile.totalParties`.
+- `CommunityProfile.totalPeople >= CommunityProfile.totalParties`.
 
 ## State Transitions
 

@@ -249,13 +249,14 @@ export function deriveEnergyOverview(data, now = new Date()) {
     } : null,
     reportingPeriod: latestUpdatedRecord
       ? `${formatQuarterLabel(latestUpdatedRecord.year, latestUpdatedRecord.quarter)} · Stand ${formatGermanDate(latestUpdatedRecord.endDate)}`
-      : "Kein Berichtszeitraum verfuegbar"
+      : "Kein Berichtszeitraum verfügbar"
   };
 }
 
 export function getCommunitySummary(data) {
   return {
     totalParties: data.community.totalParties,
+    totalPeople: data.community.totalPeople,
     producingParties: data.community.producingParties,
     location: `${data.community.city}, ${data.community.country}`
   };
@@ -360,7 +361,7 @@ export function deriveHistorySelection(data, mode, selectedValue) {
       totals: sumRecords(yearRecords),
       note: yearRecords.length > 0
         ? `${yearRecords.length} Quartal(e) in diesem Jahr vorhanden.`
-        : "Fuer dieses Jahr sind keine Daten vorhanden.",
+        : "Für dieses Jahr sind keine Daten vorhanden.",
       chartItems: [
         { label: "Produktion", value: sumRecords(yearRecords).producedKwh },
         { label: "Verbrauch", value: sumRecords(yearRecords).consumedKwh }
@@ -380,7 +381,7 @@ export function deriveHistorySelection(data, mode, selectedValue) {
     } : { producedKwh: 0, consumedKwh: 0 },
     note: quarterRecord
       ? `Berichtszeitraum ${formatGermanDate(quarterRecord.startDate)} bis ${formatGermanDate(quarterRecord.endDate)}.`
-      : "Fuer dieses Quartal sind keine Daten vorhanden.",
+      : "Für dieses Quartal sind keine Daten vorhanden.",
     chartItems: [
       { label: "Produktion", value: quarterRecord?.producedKwh ?? 0 },
       { label: "Verbrauch", value: quarterRecord?.consumedKwh ?? 0 }

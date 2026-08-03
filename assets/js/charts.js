@@ -26,7 +26,7 @@ export function renderComparisonBars(selector, items) {
     const safeLabel = escapeHtml(item.label);
 
     return `
-      <article class="history-period-row" aria-label="Vergleich fuer ${safeLabel}">
+      <article class="history-period-row" aria-label="Vergleich für ${safeLabel}">
         <div class="history-period-row__head">
           <p class="history-period-row__label">${safeLabel}</p>
         </div>

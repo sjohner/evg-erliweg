@@ -11,6 +11,23 @@ import { renderComparisonBars } from "./charts.js";
 
 const THEME_STORAGE_KEY = "evg-erliweg-theme";
 
+function getThemeIconMarkup(icon) {
+  if (icon === "sun") {
+    return `
+      <svg class="theme-toggle__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="4" fill="currentColor"></circle>
+        <path d="M12 2.5v2.2M12 19.3v2.2M4.7 4.7l1.6 1.6M17.7 17.7l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.7 19.3l1.6-1.6M17.7 6.3l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+      </svg>
+    `;
+  }
+
+  return `
+    <svg class="theme-toggle__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M14.5 2.2a1 1 0 0 0-1.2 1.2 8.5 8.5 0 0 1-10 10 1 1 0 0 0-1.2 1.2 10.5 10.5 0 1 0 12.4-12.4Z" fill="currentColor"></path>
+    </svg>
+  `;
+}
+
 function setTheme(theme) {
   document.body.dataset.theme = theme;
 }
@@ -34,11 +51,11 @@ function setupThemeToggle() {
 
   const updateButtonLabel = () => {
     const isDark = document.body.dataset.theme === "dark";
-    toggle.textContent = isDark ? "Hellmodus" : "Dunkelmodus";
+    toggle.innerHTML = isDark ? getThemeIconMarkup("sun") : getThemeIconMarkup("moon");
     toggle.setAttribute("aria-pressed", String(isDark));
     toggle.setAttribute(
       "aria-label",
-      isDark ? "Farbmodus wechseln, aktuell dunkel" : "Farbmodus wechseln, aktuell hell"
+      isDark ? "Hellmodus aktivieren" : "Dunkelmodus aktivieren"
     );
   };
 
@@ -81,18 +98,22 @@ function renderHomePage(data) {
   const overview = deriveEnergyOverview(data);
   const community = getCommunitySummary(data);
 
-  setText("#last-updated", overview.lastUpdated ? overview.lastUpdated.label : "Noch keine Daten");
-  setText("#reporting-period", overview.reportingPeriod);
+  setText(
+    "#footer-last-updated",
+    overview.lastUpdated
+      ? `Letzte Aktualisierung der Daten am ${overview.lastUpdated.label}`
+      : "Letzte Aktualisierung der Daten: Noch keine Daten"
+  );
 
   setText("#quarter-label", overview.currentQuarter.label);
   if (overview.currentQuarter.totals) {
     setText("#quarter-produced", formatKwh(overview.currentQuarter.totals.producedKwh));
     setText("#quarter-consumed", formatKwh(overview.currentQuarter.totals.consumedKwh));
-    setText("#quarter-note", "Werte fuer das laufende Quartal.");
+    setText("#quarter-note", "Werte für das laufende Quartal.");
   } else {
     renderMissing("#quarter-produced", "Noch keine Daten");
     renderMissing("#quarter-consumed", "Noch keine Daten");
-    setText("#quarter-note", "Fuer das laufende Quartal liegt noch kein Datensatz vor.");
+    setText("#quarter-note", "Für das laufende Quartal liegt noch kein Datensatz vor.");
   }
 
   setText("#year-label", overview.currentYear.label);
@@ -103,7 +124,7 @@ function renderHomePage(data) {
   } else {
     renderMissing("#year-produced", "Noch keine Daten");
     renderMissing("#year-consumed", "Noch keine Daten");
-    setText("#year-note", "Fuer das laufende Jahr wurden noch keine Daten erfasst.");
+    setText("#year-note", "Für das laufende Jahr wurden noch keine Daten erfasst.");
   }
 
   setText("#total-label", overview.cumulative.label);
@@ -111,7 +132,11 @@ function renderHomePage(data) {
   setText("#total-consumed", formatKwh(overview.cumulative.totals.consumedKwh));
   setText("#total-note", "Gesamtsumme seit dem Start der EVG am 01.10.2025.");
 
-  setText("#community-total", String(community.totalParties));
+  const communityTotalLabel = Number.isInteger(community.totalPeople)
+    ? `${community.totalParties} (${community.totalPeople} Personen)`
+    : String(community.totalParties);
+
+  setText("#community-total", communityTotalLabel);
   setText("#community-producers", String(community.producingParties));
   setText("#community-location", community.location);
 }
@@ -120,17 +145,15 @@ function renderError(message) {
   const target = document.querySelector("#metric-grid");
 
   if (target) {
-    target.innerHTML = `<article class="metric-card error-alert" role="alert"><h3>Daten derzeit nicht verfuegbar</h3><p>${message}</p></article>`;
+    target.innerHTML = `<article class="metric-card error-alert" role="alert"><h3>Daten derzeit nicht verfügbar</h3><p>${message}</p></article>`;
   }
 
-  setText("#last-updated", "Nicht verfuegbar");
-  setText("#reporting-period", "Bitte spaeter erneut versuchen.");
+  setText("#footer-last-updated", "Letzte Aktualisierung der Daten: Nicht verfügbar");
 }
 
 function renderHistoryPage(data) {
   const modeSelect = document.querySelector("#history-mode");
   const emptyState = document.querySelector("#history-empty");
-  const overview = deriveEnergyOverview(data);
 
   if (!modeSelect) {
     return;
@@ -139,9 +162,6 @@ function renderHistoryPage(data) {
   const syncView = () => {
     const mode = modeSelect.value;
     const comparisonSeries = getHistoryComparisonSeries(data, mode);
-
-    setText("#history-last-updated", overview.lastUpdated ? overview.lastUpdated.label : "Noch keine Daten");
-    setText("#history-reporting-period", mode === "year" ? "Ansicht: alle verfuegbaren Jahre" : "Ansicht: alle verfuegbaren Quartale");
 
     if (emptyState) {
       emptyState.hidden = comparisonSeries.length > 0;
@@ -159,7 +179,7 @@ function renderAboutPage(data) {
   const about = getAboutContent(data);
 
   setText("#about-summary", about.summary);
-  setText("#about-reviewed", `Zuletzt inhaltlich geprueft am ${formatGermanDate(about.lastReviewedAt)}.`);
+  setText("#about-reviewed", `Zuletzt inhaltlich geprüft am ${formatGermanDate(about.lastReviewedAt)}.`);
   setText("#contact-label", about.contactLabel);
   setText("#contact-link", about.contactTarget.replace("mailto:", ""));
 
@@ -182,30 +202,27 @@ async function bootstrap() {
 
   try {
     const data = await loadSiteData();
-    const page = document.body.dataset.page;
 
-    if (page === "home") {
+    if (document.querySelector("#metric-grid")) {
       renderHomePage(data);
-      return;
     }
 
-    if (page === "history") {
+    if (document.querySelector("#history-mode")) {
       renderHistoryPage(data);
-      return;
     }
 
-    if (page === "about") {
+    if (document.querySelector("#about-summary")) {
       renderAboutPage(data);
     }
   } catch (error) {
-    if (document.body.dataset.page === "home") {
+    if (document.querySelector("#metric-grid")) {
       renderError(error instanceof Error ? error.message : "Unbekannter Fehler");
       return;
     }
 
     const main = document.querySelector("main");
     if (main) {
-      main.innerHTML = `<section class="placeholder-card error-alert" role="alert"><p class="eyebrow">Fehler</p><h2>Daten derzeit nicht verfuegbar</h2><p>${error instanceof Error ? error.message : "Unbekannter Fehler"}</p></section>`;
+      main.innerHTML = `<section class="placeholder-card error-alert" role="alert"><p class="eyebrow">Fehler</p><h2>Daten derzeit nicht verfügbar</h2><p>${error instanceof Error ? error.message : "Unbekannter Fehler"}</p></section>`;
     }
   }
 }

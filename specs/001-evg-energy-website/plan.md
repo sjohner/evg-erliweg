@@ -86,8 +86,8 @@ specs/001-evg-energy-website/
 ```text
 .
 ├── index.html
-├── history.html
-├── about.html
+├── index.html
+├── index.html
 ├── assets/
 │   ├── css/
 │   │   └── styles.css

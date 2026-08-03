@@ -5,8 +5,8 @@ Static website for EVG Erliweg on GitHub Pages.
 ## Project Structure
 
 - `index.html`: Homepage with current metrics, yearly totals, cumulative totals, and last-updated date
-- `history.html`: Historical comparison view for available quarters and years
-- `about.html`: About and contact information for EVG Erliweg
+- `index.html`: Historical comparison view for available quarters and years
+- `index.html`: About and contact information for EVG Erliweg
 - `assets/css/styles.css`: Shared styles, responsive layout, and dark mode
 - `assets/js/data-loader.js`: Loading and aggregation helpers for energy data
 - `assets/js/app.js`: Shared page bootstrap and rendering logic
@@ -62,7 +62,7 @@ Then open `http://localhost:4173` (or the URL printed by `serve`) in your browse
 ## Visible Effect of a Data Update
 
 - Homepage and history pages display "Letzte Aktualisierung" based on the latest `updatedAt` across all quarter `partyRecords`.
-- After deployment, the date shown on `index.html` and `history.html` should match the newest dataset timestamp.
+- After deployment, the date shown on `index.html` and `index.html` should match the newest dataset timestamp.
 - Quarter and year totals are calculated dynamically from `partyRecords`; maintainers should not add manual quarter/year summary fields.
 
 ## Troubleshooting Invalid or Incomplete Party Data

@@ -18,6 +18,7 @@
         "country",
         "startDate",
         "totalParties",
+        "totalPeople",
         "producingParties"
       ],
       "properties": {
@@ -26,6 +27,7 @@
         "country": { "type": "string", "minLength": 1 },
         "startDate": { "type": "string", "format": "date" },
         "totalParties": { "type": "integer", "minimum": 1 },
+        "totalPeople": { "type": "integer", "minimum": 1 },
         "producingParties": { "type": "integer", "minimum": 1 }
       },
       "additionalProperties": false

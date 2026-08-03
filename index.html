@@ -8,13 +8,13 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b110e">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="EVG Erliweg | Energieuebersicht">
+    <meta property="og:title" content="EVG Erliweg | Energieübersicht">
     <meta property="og:description" content="Aktuelle Quartals-, Jahres- und Gesamtdaten der EVG Erliweg in Fraubrunnen.">
     <meta property="og:locale" content="de_CH">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="EVG Erliweg | Energieuebersicht">
+    <meta name="twitter:title" content="EVG Erliweg | Energieübersicht">
     <meta name="twitter:description" content="Aktuelle Quartals-, Jahres- und Gesamtdaten der EVG Erliweg in Fraubrunnen.">
-    <title>EVG Erliweg | Energieuebersicht</title>
+    <title>EVG Erliweg | Energieübersicht</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <script type="module" src="assets/js/app.js"></script>
   </head>
@@ -28,17 +28,13 @@
           <p class="site-subtitle">Fraubrunnen, Schweiz</p>
         </div>
         <div class="site-header__actions">
-          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Dark Mode umschalten">
-            Dark Mode
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Dunkelmodus aktivieren" aria-pressed="false">
+            <svg class="theme-toggle__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M14.5 2.2a1 1 0 0 0-1.2 1.2 8.5 8.5 0 0 1-10 10 1 1 0 0 0-1.2 1.2 10.5 10.5 0 1 0 12.4-12.4Z" fill="currentColor"></path>
+            </svg>
           </button>
         </div>
       </div>
-      <nav class="site-nav shell" aria-label="Hauptnavigation">
-        <a class="site-nav__link site-nav__link--active" href="index.html" aria-current="page">Uebersicht</a>
-        <a class="site-nav__link" href="index.html#kennzahlen-title">Daten</a>
-        <a class="site-nav__link" href="history.html">Historie</a>
-        <a class="site-nav__link" href="about.html">Mehr erfahren</a>
-      </nav>
     </header>
 
     <main id="inhalt" class="shell page-main">
@@ -52,15 +48,10 @@
           </p>
           <div class="hero__actions">
             <a class="btn btn--primary" href="#kennzahlen-title">Daten ansehen</a>
-            <a class="btn btn--secondary" href="history.html">Zur Historie</a>
-            <a class="btn btn--secondary" href="about.html">Mehr erfahren</a>
+            <a class="btn btn--secondary" href="#history-title">Zur Historie</a>
+            <a class="btn btn--secondary" href="#about-title">Mehr erfahren</a>
           </div>
         </div>
-        <aside class="hero__aside stat-panel" aria-label="Stand der Daten">
-          <p class="stat-panel__label">Letzte Aktualisierung</p>
-          <p id="last-updated" class="stat-panel__value is-loading">Wird geladen...</p>
-          <p id="reporting-period" class="stat-panel__meta is-loading">Berichtszeitraum wird geladen...</p>
-        </aside>
       </section>
 
       <section aria-labelledby="kennzahlen-title">
@@ -104,8 +95,8 @@
           </article>
 
           <article class="metric-card metric-card--accent" aria-labelledby="total-title">
-            <p class="metric-card__kicker" id="total-label">Gesamt</p>
-            <h3 id="total-title">Seit 01.10.2025</h3>
+            <p class="metric-card__kicker" id="total-label">Seit 01.10.2025</p>
+            <h3 id="total-title">Gesamt</h3>
             <dl class="metric-values">
               <div>
                 <dt>Produktion</dt>
@@ -141,12 +132,87 @@
           </div>
         </dl>
       </section>
+
+      <section id="historie" class="hero hero--history" aria-labelledby="history-title">
+        <div class="hero__copy">
+          <p class="eyebrow">Historische Entwicklung</p>
+          <h2 id="history-title">Quartale und Jahre vergleichen</h2>
+          <p>
+            Hier sehen Sie frühere Quartals- und Jahreswerte der EVG Erliweg.
+            In der Jahresansicht werden alle verfügbaren Jahre verglichen. In der
+            Quartalsansicht zeigt das Diagramm alle verfügbaren Quartale.
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="history-results-title">
+        <div class="history-chart-card" aria-labelledby="history-chart-title">
+          <p class="metric-card__kicker">Vergleich</p>
+          <h3 id="history-chart-title">Vergleich über alle Zeiträume</h3>
+          <div class="history-chart-card__controls">
+            <label class="field">
+              <span>Ansicht</span>
+              <select id="history-mode">
+                <option value="quarter">Quartal</option>
+                <option value="year">Jahr</option>
+              </select>
+            </label>
+          </div>
+          <p class="history-chart-card__intro">
+            Die Balken zeigen Produktion und Verbrauch für alle verfügbaren Jahre oder Quartale.
+          </p>
+          <div class="history-legend" aria-hidden="true">
+            <span class="history-legend__item"><span class="history-legend__swatch history-legend__swatch--produced"></span>Produktion</span>
+            <span class="history-legend__item"><span class="history-legend__swatch history-legend__swatch--consumed"></span>Verbrauch</span>
+          </div>
+          <div id="history-chart" class="history-bars" aria-live="polite"></div>
+        </div>
+        <p id="history-empty" class="empty-state" hidden>Für diese Ansicht sind keine Daten vorhanden.</p>
+      </section>
+
+      <section id="mehr-erfahren" class="hero hero--about" aria-labelledby="about-title">
+        <div class="hero__copy">
+          <p class="eyebrow">Mehr erfahren</p>
+          <h2 id="about-title">Zur EVG Erliweg und zu Elektra Eigenstrom</h2>
+          <p id="about-summary" class="is-loading">
+            Informationen werden geladen...
+          </p>
+        </div>
+      </section>
+
+      <section class="about-grid" aria-labelledby="about-sections-title">
+        <h2 id="about-sections-title" class="sr-only">Weiterführende Informationen</h2>
+        <article class="info-card">
+          <p class="eyebrow">Offizielle Informationen</p>
+          <h3>Elektra Eigenstrom</h3>
+          <p>
+            Weitere Informationen zum genutzten Angebot finden Sie auf der offiziellen Seite.
+          </p>
+          <p>
+            <a id="about-link" class="inline-link" href="https://www.elektra.ch/energiedienstleistungen/elektraeigenstrom/" target="_blank" rel="noreferrer noopener">
+              Zur offiziellen Information von Elektra Eigenstrom
+            </a>
+          </p>
+          <p id="about-reviewed" class="info-card__meta is-loading"></p>
+        </article>
+
+        <article class="info-card">
+          <p class="eyebrow">Kontakt</p>
+          <h3>So erreichen Sie uns</h3>
+          <p id="contact-label" class="is-loading">Kontaktinformationen werden geladen...</p>
+          <p>
+            <a id="contact-link" class="inline-link is-loading" href="#">Kontakt wird geladen...</a>
+          </p>
+        </article>
+      </section>
     </main>
 
     <footer class="site-footer">
       <div class="shell site-footer__inner">
-        <p>EVG Erliweg · Energieuebersicht</p>
-        <a class="inline-link" href="about.html">Kontakt und weitere Informationen</a>
+        <p>EVG Erliweg · Energieübersicht</p>
+        <p id="footer-last-updated" class="site-footer__meta is-loading">
+          Letzte Aktualisierung der Daten wird geladen...
+        </p>
       </div>
     </footer>
   </body>

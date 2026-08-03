@@ -2,9 +2,10 @@
   "community": {
     "name": "EVG Erliweg",
     "city": "Fraubrunnen",
-    "country": "Switzerland",
+    "country": "Schweiz",
     "startDate": "2025-10-01",
     "totalParties": 10,
+    "totalPeople": 30,
     "producingParties": 3
   },
   "aboutContent": {

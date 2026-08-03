@@ -87,8 +87,8 @@ specs/002-party-quarterly-data/
 ```text
 .
 ├── index.html
-├── history.html
-├── about.html
+├── index.html
+├── index.html
 ├── assets/
 │   ├── css/
 │   │   └── styles.css

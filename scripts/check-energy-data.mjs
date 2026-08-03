@@ -70,7 +70,7 @@ function validateCommunity(data, errors) {
     return;
   }
 
-  const { totalParties, producingParties, startDate } = community;
+  const { totalParties, totalPeople, producingParties, startDate } = community;
 
   if (!Number.isInteger(totalParties) || totalParties < 1) {
     errors.push("community.totalParties must be an integer >= 1.");
@@ -78,6 +78,18 @@ function validateCommunity(data, errors) {
 
   if (!Number.isInteger(producingParties) || producingParties < 1) {
     errors.push("community.producingParties must be an integer >= 1.");
+  }
+
+  if (!Number.isInteger(totalPeople) || totalPeople < 1) {
+    errors.push("community.totalPeople must be an integer >= 1.");
+  }
+
+  if (
+    Number.isInteger(totalParties) &&
+    Number.isInteger(totalPeople) &&
+    totalPeople < totalParties
+  ) {
+    errors.push("community.totalPeople must be >= community.totalParties.");
   }
 
   if (
