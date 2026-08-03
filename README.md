@@ -41,13 +41,13 @@ Then open `http://localhost:4173` (or the URL printed by `serve`) in your browse
 2. Maintain the global producing-party catalog in `energy.producingPartiesCatalog`:
 	- Add new parties with unique `partyId` and `partyLabel`.
 	- Use `activeFromQuarterId` and optional `inactiveAfterQuarterId` to control lifecycle without deleting historical records.
-3. Update the target quarter in `energy.quarterlyRecords` using `partyRecords` entries (`partyId`, `partyLabel`, `producedKwh`, `consumedKwh`, `updatedAt`).
+3. Update the target quarter in `energy.quarterlyRecords` using `partyRecords` entries (`partyId`, `producedKwh`, `consumedKwh`, `updatedAt`).
 4. For a new quarter, add a new `energy.quarterlyRecords` entry with unique `id` (`YYYY-QN`), the correct date range, and one `partyRecords` entry per active producing party.
 4. Run data validation before pushing:
 	- `npm run check:data`
 	- This command validates quarter IDs, date ranges, negative values, duplicate IDs, party catalog references, lifecycle windows, and timestamp consistency.
 5. Run a quick sanity check before pushing:
-	- `producingParties <= totalParties`
+	- producing-party count is derived from active parties in the latest available quarter
 	- no negative kWh values in any `partyRecords` entry
 	- each `partyId` appears at most once per quarter
 	- `updatedAt` uses ISO format and reflects the latest change

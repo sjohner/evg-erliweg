@@ -9,7 +9,6 @@
   - `startDate` (date string, required): Baseline date for cumulative metrics (`2025-10-01`).
   - `totalParties` (integer, required, >= 1).
   - `totalPeople` (integer, required, >= `totalParties`).
-  - `producingParties` (integer, required, >= 1 and <= `totalParties`).
 
 ## 2. EnergyPeriodRecord
 - Purpose: Canonical quarterly source record for production/consumption.
@@ -49,6 +48,13 @@
   - `lastUpdatedAt` (datetime string, required): Max `updatedAt` value from `EnergyPeriodRecord` collection.
   - `lastUpdatedDate` (date string, required): Display-friendly date derived from `lastUpdatedAt`.
 
+## 4b. ProducingPartiesSummary (Runtime Projection)
+- Persistence: Not stored in repository data file.
+- Purpose: View-model projection of active producing-party count for the latest available quarter shown to visitors.
+- Fields:
+  - `latestQuarterId` (string, required): Quarter id used as reference for active-party evaluation.
+  - `activeProducingParties` (integer, required, >= 0): Count of active parties in `ProducingPartyCatalog` for `latestQuarterId`.
+
 ## 5. AboutContent
 - Purpose: Public about/learn-more information and external reference.
 - Fields:
@@ -68,6 +74,7 @@
 - `CommunityProfile.startDate` defines the lower bound for `CumulativeSummary.fromDate`.
 - `EnergyPeriodRecord` collection is the source for both `DerivedYearSummary` and `CumulativeSummary`.
 - `EnergyPeriodRecord.updatedAt` values are the source for `LastUpdatedSummary`.
+- `ProducingPartiesSummary` is derived from party lifecycle metadata evaluated against the latest available quarter.
 - `AboutContent` and `ContactChannel` are independent content entities rendered
   alongside metrics.
 
@@ -81,13 +88,13 @@
   - `DerivedYearSummary`
   - `CumulativeSummary`
   - `LastUpdatedSummary`
+  - `ProducingPartiesSummary`
 
 ## Validation Rules
 - No duplicate quarterly `id` values.
 - Quarter sequence must not overlap by date range.
 - `producedKwh` and `consumedKwh` must be non-negative finite numbers.
 - `startDate`/`endDate` must be valid ISO dates.
-- `CommunityProfile.producingParties <= CommunityProfile.totalParties`.
 - `CommunityProfile.totalPeople >= CommunityProfile.totalParties`.
 
 ## State Transitions

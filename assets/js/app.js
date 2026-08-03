@@ -109,22 +109,22 @@ function renderHomePage(data) {
   if (overview.currentQuarter.totals) {
     setText("#quarter-produced", formatKwh(overview.currentQuarter.totals.producedKwh));
     setText("#quarter-consumed", formatKwh(overview.currentQuarter.totals.consumedKwh));
-    setText("#quarter-note", "Werte für das laufende Quartal.");
+    setText("#quarter-note", "Werte für das zuletzt verfügbare Quartal.");
   } else {
     renderMissing("#quarter-produced", "Noch keine Daten");
     renderMissing("#quarter-consumed", "Noch keine Daten");
-    setText("#quarter-note", "Für das laufende Quartal liegt noch kein Datensatz vor.");
+    setText("#quarter-note", "Für das zuletzt verfügbare Quartal liegt noch kein Datensatz vor.");
   }
 
   setText("#year-label", overview.currentYear.label);
   if (overview.currentYear.hasData) {
     setText("#year-produced", formatKwh(overview.currentYear.totals.producedKwh));
     setText("#year-consumed", formatKwh(overview.currentYear.totals.consumedKwh));
-    setText("#year-note", "Summe aller vorhandenen Quartale im laufenden Jahr.");
+    setText("#year-note", "Summe aller vorhandenen Quartale im angezeigten Jahr.");
   } else {
     renderMissing("#year-produced", "Noch keine Daten");
     renderMissing("#year-consumed", "Noch keine Daten");
-    setText("#year-note", "Für das laufende Jahr wurden noch keine Daten erfasst.");
+    setText("#year-note", "Für das angezeigte Jahr wurden noch keine Daten erfasst.");
   }
 
   setText("#total-label", overview.cumulative.label);

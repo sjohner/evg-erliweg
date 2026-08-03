@@ -70,14 +70,10 @@ function validateCommunity(data, errors) {
     return;
   }
 
-  const { totalParties, totalPeople, producingParties, startDate } = community;
+  const { totalParties, totalPeople, startDate } = community;
 
   if (!Number.isInteger(totalParties) || totalParties < 1) {
     errors.push("community.totalParties must be an integer >= 1.");
-  }
-
-  if (!Number.isInteger(producingParties) || producingParties < 1) {
-    errors.push("community.producingParties must be an integer >= 1.");
   }
 
   if (!Number.isInteger(totalPeople) || totalPeople < 1) {
@@ -90,14 +86,6 @@ function validateCommunity(data, errors) {
     totalPeople < totalParties
   ) {
     errors.push("community.totalPeople must be >= community.totalParties.");
-  }
-
-  if (
-    Number.isInteger(totalParties) &&
-    Number.isInteger(producingParties) &&
-    producingParties > totalParties
-  ) {
-    errors.push("community.producingParties must be <= community.totalParties.");
   }
 
   if (!isValidDate(startDate)) {
@@ -268,7 +256,7 @@ function validatePartyRecords(record, prefix, errors, catalogMap) {
       continue;
     }
 
-    const { partyId, partyLabel, producedKwh, consumedKwh, updatedAt: partyUpdatedAt } = party;
+    const { partyId, producedKwh, consumedKwh, updatedAt: partyUpdatedAt } = party;
 
     if (typeof partyId !== "string" || partyId.trim().length === 0) {
       errors.push(`${partyPrefix}.partyId must be a non-empty string.`);
@@ -286,13 +274,6 @@ function validatePartyRecords(record, prefix, errors, catalogMap) {
         errors.push(`${partyPrefix}.partyId '${partyId}' is outside its active lifecycle window for quarter '${record.id}'.`);
       }
 
-      if (catalogParty && typeof partyLabel === "string" && partyLabel.trim().length > 0 && catalogParty.partyLabel !== partyLabel) {
-        errors.push(`${partyPrefix}.partyLabel must match producingPartiesCatalog label '${catalogParty.partyLabel}'.`);
-      }
-    }
-
-    if (typeof partyLabel !== "string" || partyLabel.trim().length === 0) {
-      errors.push(`${partyPrefix}.partyLabel must be a non-empty string.`);
     }
 
     if (!isNonNegativeNumber(producedKwh)) {

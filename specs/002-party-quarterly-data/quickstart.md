@@ -31,7 +31,7 @@ end-to-end.
 ### Scenario 1: Party-level quarter update
 1. Edit one quarter and update produced/consumed values for at least one party.
 2. Save and verify each party entry remains individually identifiable by
-   `partyId` and `partyLabel`.
+   `partyId`.
 
 Expected outcome:
 - Quarter data stores separate produced and consumed values per producing party.

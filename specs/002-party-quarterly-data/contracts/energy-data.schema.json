@@ -18,8 +18,7 @@
         "country",
         "startDate",
         "totalParties",
-        "totalPeople",
-        "producingParties"
+        "totalPeople"
       ],
       "properties": {
         "name": { "type": "string", "minLength": 1 },
@@ -27,8 +26,7 @@
         "country": { "type": "string", "minLength": 1 },
         "startDate": { "type": "string", "format": "date" },
         "totalParties": { "type": "integer", "minimum": 1 },
-        "totalPeople": { "type": "integer", "minimum": 1 },
-        "producingParties": { "type": "integer", "minimum": 1 }
+        "totalPeople": { "type": "integer", "minimum": 1 }
       },
       "additionalProperties": false
     },
@@ -113,14 +111,12 @@
                   "type": "object",
                   "required": [
                     "partyId",
-                    "partyLabel",
                     "producedKwh",
                     "consumedKwh",
                     "updatedAt"
                   ],
                   "properties": {
                     "partyId": { "type": "string", "minLength": 1 },
-                    "partyLabel": { "type": "string", "minLength": 1 },
                     "producedKwh": { "type": "number", "minimum": 0 },
                     "consumedKwh": { "type": "number", "minimum": 0 },
                     "updatedAt": { "type": "string", "format": "date-time" }
@@ -139,7 +135,7 @@
   "additionalProperties": false,
   "allOf": [
     {
-      "description": "Cross-field checks (e.g., catalog-party references, lifecycle window enforcement, partyId uniqueness per quarter, and producingParties <= totalParties) are enforced through maintainer and CI validation checks."
+      "description": "Cross-field checks (e.g., catalog-party references, lifecycle window enforcement, partyId uniqueness per quarter, and totalPeople >= totalParties) are enforced through maintainer and CI validation checks."
     }
   ]
 }

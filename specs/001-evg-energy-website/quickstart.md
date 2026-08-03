@@ -24,16 +24,18 @@ Validate the feature end-to-end for local development and deployment readiness.
 
 ## Validation Scenarios
 
-### Scenario 1: Homepage current + cumulative metrics
+### Scenario 1: Homepage latest + cumulative metrics
 1. Open homepage.
 2. Confirm visible values for:
-   - current quarter produced/consumed kWh
-   - current year produced/consumed kWh
+   - latest available quarter produced/consumed kWh
+   - year containing latest available quarter produced/consumed kWh
    - cumulative totals since 2025-10-01
 3. Confirm reporting period labels are shown.
+4. Confirm "Produzierende Parteien" equals the number of active parties for the latest available quarter.
 
 Expected outcome:
 - All three metric groups render with valid numbers and clear period labels.
+- The producing-party count matches active-party lifecycle rules for the latest available quarter.
 
 ### Scenario 2: History navigation
 1. Open the historical section on `index.html`.

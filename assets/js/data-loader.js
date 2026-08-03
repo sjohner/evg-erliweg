@@ -193,12 +193,12 @@ export function normalizeQuarterPartyRecords(data, quarterRecord) {
 
     return {
       ...partyRecord,
-      partyLabel: catalogParty?.partyLabel ?? partyRecord.partyLabel
+      partyLabel: catalogParty?.partyLabel ?? partyRecord.partyId
     };
   });
 }
 
-export function deriveEnergyOverview(data, now = new Date()) {
+export function deriveEnergyOverview(data) {
   const records = sortRecords(data.energy.quarterlyRecords).map((record) => {
     const normalizedPartyRecords = normalizeQuarterPartyRecords(data, record);
     return buildQuarterTotalsRecord({
@@ -206,13 +206,12 @@ export function deriveEnergyOverview(data, now = new Date()) {
       partyRecords: normalizedPartyRecords
     });
   });
-  const currentYear = now.getFullYear();
-  const currentQuarter = getQuarterFromDate(now);
-  const currentQuarterId = formatQuarterId(currentYear, currentQuarter);
-  const quarterRecord = records.find((record) => {
-    return record.year === currentYear && record.quarter === currentQuarter;
-  }) ?? null;
-  const yearRecords = records.filter((record) => record.year === currentYear);
+
+  const latestQuarterRecord = records.length > 0 ? records[records.length - 1] : null;
+  const referenceYear = latestQuarterRecord?.year ?? null;
+  const yearRecords = referenceYear === null
+    ? []
+    : records.filter((record) => record.year === referenceYear);
   const cumulativeRecords = records.filter((record) => {
     return parseJsonDate(record.endDate).getTime() >= parseJsonDate(data.community.startDate).getTime();
   });
@@ -226,16 +225,18 @@ export function deriveEnergyOverview(data, now = new Date()) {
 
   return {
     currentQuarter: {
-      label: formatQuarterLabel(currentYear, currentQuarter),
-      id: currentQuarterId,
-      record: quarterRecord,
-      totals: quarterRecord ? {
-        producedKwh: quarterRecord.producedKwh,
-        consumedKwh: quarterRecord.consumedKwh
+      label: latestQuarterRecord
+        ? formatQuarterLabel(latestQuarterRecord.year, latestQuarterRecord.quarter)
+        : "Noch keine Daten",
+      id: latestQuarterRecord?.id ?? null,
+      record: latestQuarterRecord,
+      totals: latestQuarterRecord ? {
+        producedKwh: latestQuarterRecord.producedKwh,
+        consumedKwh: latestQuarterRecord.consumedKwh
       } : null
     },
     currentYear: {
-      label: String(currentYear),
+      label: referenceYear === null ? "Noch keine Daten" : String(referenceYear),
       totals: sumRecords(yearRecords),
       hasData: yearRecords.length > 0
     },
@@ -254,10 +255,16 @@ export function deriveEnergyOverview(data, now = new Date()) {
 }
 
 export function getCommunitySummary(data) {
+  const records = sortRecords(data.energy.quarterlyRecords ?? []);
+  const latestQuarterRecord = records.length > 0 ? records[records.length - 1] : null;
+  const producingParties = latestQuarterRecord
+    ? getActivePartiesForQuarter(data, latestQuarterRecord.id).length
+    : 0;
+
   return {
     totalParties: data.community.totalParties,
     totalPeople: data.community.totalPeople,
-    producingParties: data.community.producingParties,
+    producingParties,
     location: `${data.community.city}, ${data.community.country}`
   };
 }

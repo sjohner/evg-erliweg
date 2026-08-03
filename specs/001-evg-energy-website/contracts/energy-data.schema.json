@@ -18,8 +18,7 @@
         "country",
         "startDate",
         "totalParties",
-        "totalPeople",
-        "producingParties"
+        "totalPeople"
       ],
       "properties": {
         "name": { "type": "string", "minLength": 1 },
@@ -27,8 +26,7 @@
         "country": { "type": "string", "minLength": 1 },
         "startDate": { "type": "string", "format": "date" },
         "totalParties": { "type": "integer", "minimum": 1 },
-        "totalPeople": { "type": "integer", "minimum": 1 },
-        "producingParties": { "type": "integer", "minimum": 1 }
+        "totalPeople": { "type": "integer", "minimum": 1 }
       },
       "additionalProperties": false
     },
@@ -104,7 +102,7 @@
   "additionalProperties": false,
   "allOf": [
     {
-      "description": "Cross-field constraint to enforce producingParties <= totalParties should be checked during manual review of quarterly data updates."
+      "description": "Cross-field constraints such as totalPeople >= totalParties should be checked during manual review of quarterly data updates."
     }
   ]
 }
