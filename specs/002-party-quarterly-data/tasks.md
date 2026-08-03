@@ -69,7 +69,7 @@
 
 **Goal**: Keep public quarter and year totals fully derived from party-level records without manual summary fields
 
-**Independent Test**: Change one party value in `data/energy-data.json`, reload `index.html` and `index.html`, and verify the affected quarter total and year total match the sum of the updated party-level data.
+**Independent Test**: Change one party value in `data/energy-data.json`, reload `index.html`, and verify the affected quarter total and year total match the sum of the updated party-level data.
 
 ### Implementation for User Story 2
 
