@@ -100,7 +100,7 @@ Expected outcome:
 2. Add or update quarter `partyRecords` values for each active party.
 3. Run `npm run check:data` and fix any validation issues.
 4. Push to `main` and confirm `validate-data` passes before deploy.
-5. Verify `index.html` and `index.html` totals and last-updated date.
+5. Verify `index.html` totals and last-updated date.
 
 ## Completion Checklist
 - [ ] Party-level quarter records validated
