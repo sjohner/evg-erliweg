@@ -126,7 +126,7 @@ Checkpoint: US5 is independently functional and testable.
 
 Purpose: Complete end-to-end validation and release readiness checks.
 
-- [ ] T041 [P] Run full quickstart validation flow from specs/003-github-design-modernization/quickstart.md across index.html, index.html, and index.html
+- [ ] T041 [P] Run full quickstart validation flow from specs/003-github-design-modernization/quickstart.md across index.html
 - [ ] T042 [P] Validate implementation coverage against specs/003-github-design-modernization/contracts/design-system.md and specs/003-github-design-modernization/contracts/color-contract.md
 - [ ] T043 [P] Perform final browser QA sweep and note issues in specs/003-github-design-modernization/quickstart.md for Chrome, Firefox, Safari, and Edge
 - [ ] T044 Produce final readiness summary and unresolved-risk list in specs/003-github-design-modernization/tasks.md
