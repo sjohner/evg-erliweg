@@ -103,7 +103,7 @@
 
 **Purpose**: Final refinements across data, docs, and validation flow
 
-- [X] T021 [P] Review German public copy and empty-state messaging affected by derived party totals in `index.html`, `index.html`, and `assets/js/app.js`
+- [X] T021 [P] Review German public copy and empty-state messaging affected by derived party totals in `index.html` and `assets/js/app.js`
 - [ ] T022 [P] Run JavaScript syntax validation, `npm run check:data`, and CI validation-gate sanity checks, then record evidence in `specs/002-party-quarterly-data/quickstart.md`: one failed workflow run URL/log excerpt caused by intentionally invalid test data and one subsequent passed workflow run URL/log excerpt after fix-forward correction
 - [X] T023 Update the final maintainer checklist and example update flow for party lifecycle changes in `README.md` and `specs/002-party-quarterly-data/quickstart.md`
 - [X] T024 [P] Align CI-gate rationale wording across planning artifacts in `specs/002-party-quarterly-data/plan.md`, `specs/002-party-quarterly-data/research.md`, and `specs/002-party-quarterly-data/contracts/publishing-contract.md`
