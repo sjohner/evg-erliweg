@@ -21,22 +21,22 @@
   "energy": {
     "producingPartiesCatalog": [
       {
-        "partyId": "haus-a",
-        "partyLabel": "Haus A",
+        "partyId": "erliweg27",
+        "partyLabel": "Erliweg 27",
         "isActive": true,
         "activeFromQuarterId": "2025-Q4"
       },
       {
-        "partyId": "haus-b",
-        "partyLabel": "Haus B",
+        "partyId": "erliweg37",
+        "partyLabel": "Erliweg 37",
         "isActive": true,
         "activeFromQuarterId": "2025-Q4"
       },
       {
-        "partyId": "haus-c",
-        "partyLabel": "Haus C",
-        "isActive": true,
-        "activeFromQuarterId": "2025-Q4"
+        "partyId": "erliweg13",
+        "partyLabel": "Erliweg 13",
+        "isActive": false,
+        "activeFromQuarterId": "2026-Q4"
       }
     ],
     "quarterlyRecords": [
@@ -48,25 +48,18 @@
         "endDate": "2025-12-31",
         "partyRecords": [
           {
-            "partyId": "haus-a",
-            "partyLabel": "Haus A",
-            "producedKwh": 1500,
-            "consumedKwh": 1800,
-            "updatedAt": "2026-01-10T07:20:00Z"
+            "partyId": "erliweg27",
+            "partyLabel": "Erliweg 27",
+            "producedKwh": 1438.2,
+            "consumedKwh": 450,
+            "updatedAt": "2026-08-03T07:20:00Z"
           },
           {
-            "partyId": "haus-b",
-            "partyLabel": "Haus B",
+            "partyId": "erliweg37",
+            "partyLabel": "Erliweg 37",
             "producedKwh": 1300,
             "consumedKwh": 1700,
             "updatedAt": "2026-01-10T07:40:00Z"
-          },
-          {
-            "partyId": "haus-c",
-            "partyLabel": "Haus C",
-            "producedKwh": 1400,
-            "consumedKwh": 1600,
-            "updatedAt": "2026-01-10T09:00:00Z"
           }
         ]
       },
@@ -78,25 +71,18 @@
         "endDate": "2026-03-31",
         "partyRecords": [
           {
-            "partyId": "haus-a",
-            "partyLabel": "Haus A",
-            "producedKwh": 1200,
-            "consumedKwh": 1500,
-            "updatedAt": "2026-04-10T07:15:00Z"
+            "partyId": "erliweg27",
+            "partyLabel": "Erliweg 27",
+            "producedKwh": 2350.7,
+            "consumedKwh": 1060,
+            "updatedAt": "2026-08-03T07:15:00Z"
           },
           {
-            "partyId": "haus-b",
-            "partyLabel": "Haus B",
+            "partyId": "erliweg37",
+            "partyLabel": "Erliweg 37",
             "producedKwh": 1300,
             "consumedKwh": 1600,
             "updatedAt": "2026-04-10T07:55:00Z"
-          },
-          {
-            "partyId": "haus-c",
-            "partyLabel": "Haus C",
-            "producedKwh": 1400,
-            "consumedKwh": 1600,
-            "updatedAt": "2026-04-10T09:00:00Z"
           }
         ]
       },
@@ -108,55 +94,18 @@
         "endDate": "2026-06-30",
         "partyRecords": [
           {
-            "partyId": "haus-a",
-            "partyLabel": "Haus A",
-            "producedKwh": 2100,
-            "consumedKwh": 1600,
-            "updatedAt": "2026-07-10T07:10:00Z"
+            "partyId": "erliweg27",
+            "partyLabel": "Erliweg 27",
+            "producedKwh": 7100,
+            "consumedKwh": 2104,
+            "updatedAt": "2026-08-03T07:10:00Z"
           },
           {
-            "partyId": "haus-b",
-            "partyLabel": "Haus B",
+            "partyId": "erliweg37",
+            "partyLabel": "Erliweg 37",
             "producedKwh": 1900,
             "consumedKwh": 1500,
             "updatedAt": "2026-07-10T07:50:00Z"
-          },
-          {
-            "partyId": "haus-c",
-            "partyLabel": "Haus C",
-            "producedKwh": 2100,
-            "consumedKwh": 1700,
-            "updatedAt": "2026-07-10T09:00:00Z"
-          }
-        ]
-      },
-      {
-        "id": "2026-Q3",
-        "year": 2026,
-        "quarter": 3,
-        "startDate": "2026-07-01",
-        "endDate": "2026-09-30",
-        "partyRecords": [
-          {
-            "partyId": "haus-a",
-            "partyLabel": "Haus A",
-            "producedKwh": 14300,
-            "consumedKwh": 1700,
-            "updatedAt": "2026-07-17T08:05:00Z"
-          },
-          {
-            "partyId": "haus-b",
-            "partyLabel": "Haus B",
-            "producedKwh": 3900,
-            "consumedKwh": 1600,
-            "updatedAt": "2026-07-16T08:45:00Z"
-          },
-          {
-            "partyId": "haus-c",
-            "partyLabel": "Haus C",
-            "producedKwh": 4300,
-            "consumedKwh": 1700,
-            "updatedAt": "2026-07-18T10:00:00Z"
           }
         ]
       }
