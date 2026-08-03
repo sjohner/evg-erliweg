@@ -6,8 +6,6 @@ on:
       - main
     paths:
       - index.html
-      - history.html
-      - about.html
       - assets/**
       - data/**
       - scripts/**
@@ -56,8 +54,6 @@ jobs:
         run: |
           mkdir -p _site/assets/css _site/assets/js _site/data
           cp index.html _site/
-          cp history.html _site/
-          cp about.html _site/
           cp assets/css/styles.css _site/assets/css/
           cp assets/js/app.js _site/assets/js/
           cp assets/js/data-loader.js _site/assets/js/

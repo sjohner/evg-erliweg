@@ -36,20 +36,23 @@ Expected outcome:
 - All three metric groups render with valid numbers and clear period labels.
 
 ### Scenario 2: History navigation
-1. Open history view/page.
-2. Select at least one prior quarter and one prior year.
-3. Confirm values match expected records.
+1. Open the historical section on `index.html`.
+2. Confirm the selector (`Ansicht`) appears directly below the heading `Vergleich ueber alle Zeitraeume` inside the same comparison card.
+3. Select at least one prior quarter and one prior year.
+4. Confirm values match expected records.
 
 Expected outcome:
 - Correct historical values are shown; missing periods display a clear no-data message.
 
 ### Scenario 3: Dark mode + responsive behavior
 1. Enable dark mode toggle.
-2. Verify key cards, charts, links, and text remain readable.
-3. Test common mobile viewport widths (e.g., 390px and 430px).
+2. Confirm the theme switcher is icon-only (no visible Hellmodus/Dunkelmodus text).
+3. Toggle light/dark mode and verify the icon updates and accessibility label/pressed state remain correct.
+4. Verify key cards, charts, links, and text remain readable.
+5. Test common mobile viewport widths (e.g., 390px and 430px).
 
 Expected outcome:
-- No horizontal scrolling for primary content; contrast remains acceptable in dark mode.
+- No horizontal scrolling for primary content; contrast remains acceptable in dark mode; theme switcher remains accessible as an icon-only control.
 
 ### Scenario 4: About and contact content
 1. Open about/contact section.
@@ -62,7 +65,7 @@ Expected outcome:
 - Visitors can understand EVG Erliweg context and start a contact action.
 
 ### Scenario 6: German-language content validation
-1. Open homepage, history page, and about/contact page.
+1. Open `index.html` and review home, history, and about/contact sections.
 2. Confirm navigation labels, section headings, descriptive copy, and
    user-facing messages are in German.
 3. Confirm only proper names, measurement units, and third-party linked content
@@ -72,7 +75,7 @@ Expected outcome:
 - Primary website content is consistently presented in German.
 
 ### Scenario 7: WCAG conformance validation
-1. Run accessibility checks on homepage, history page, and about/contact page
+1. Run accessibility checks on home, history, and about/contact sections of `index.html`
    using browser accessibility tooling and keyboard-only navigation.
 2. Verify semantic heading structure, alternative text, focus visibility,
    color contrast, and form/link accessibility expectations.
@@ -82,23 +85,22 @@ Expected outcome:
 - Core pages and key interactions meet WCAG 2.1 AA release criteria.
 
 ### Scenario 8: PageSpeed performance validation
-1. Run Google PageSpeed Insights against deployed homepage, history page, and
-   about/contact page.
-2. Record performance score for each page.
-3. Verify each page score is >=95.
+1. Run Google PageSpeed Insights against deployed `index.html`.
+2. Record performance score.
+3. Verify the score is >=95.
 
 Expected outcome:
-- All primary pages achieve PageSpeed performance score >=95.
+- The single-page site achieves PageSpeed performance score >=95.
 
 ### Scenario 9: Last-updated date validation
-1. Open homepage and history page after deployment.
+1. Open `index.html` after deployment.
 2. Confirm a visible "last updated" date is shown near energy metrics.
 3. Compare displayed date against the latest `updatedAt` value in
     `data/energy-data.json`.
 
 Expected outcome:
-- Displayed "last updated" date is present and matches the latest source-data
-   update timestamp.
+- Displayed "last updated" dates in home and history sections are present and
+   match the latest source-data update timestamp.
 
 ### Scenario 5: Quarterly data update publication
 1. Update one quarterly record in `data/energy-data.json`.

@@ -31,7 +31,7 @@ Modernize the energy data visualization website to adopt a GitHub-inspired desig
 - Error/loading states use skeleton screens and styled messages (no third-party libraries)
 - German public content; English code comments and documentation
 
-**Scale/Scope**: 4 primary pages (index.html, about.html, history.html, and data visualization section); consistent component library applied across all pages
+**Scale/Scope**: Single-page website (`index.html`) with distinct home, data, history, and about/contact sections; consistent component library applied across all sections
 
 ## Constitution Check
 
@@ -76,9 +76,7 @@ specs/003-github-design-modernization/
 
 ```text
 .                              # Project root
-├── index.html                 # Homepage (modernized)
-├── about.html                 # About page (modernized)
-├── history.html               # History page (modernized)
+├── index.html                 # Single-page layout with home/data/history/about sections (modernized)
 │
 ├── assets/
 │   ├── css/

@@ -67,6 +67,15 @@
   margin-bottom: var(--space-4);
 }
 
+.community-summary {
+  margin-top: var(--space-4);
+}
+
+.community-summary + .hero--history,
+section[aria-labelledby="history-results-title"] + .hero--about {
+  margin-top: var(--space-7);
+}
+
 .site-footer {
   border-top: 1px solid var(--color-border);
   padding: var(--space-5) 0 var(--space-7);

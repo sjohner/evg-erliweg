@@ -16,7 +16,7 @@
 
 ## Path Conventions
 
-- Static site pages live at repository root: `index.html`, `history.html`, `about.html`
+- Static site pages live at repository root: `index.html`
 - Shared browser logic lives under `assets/js/`
 - Canonical source data lives in `data/energy-data.json`
 - Maintainer validation tooling lives in `scripts/` and `package.json`
@@ -69,13 +69,13 @@
 
 **Goal**: Keep public quarter and year totals fully derived from party-level records without manual summary fields
 
-**Independent Test**: Change one party value in `data/energy-data.json`, reload `index.html` and `history.html`, and verify the affected quarter total and year total match the sum of the updated party-level data.
+**Independent Test**: Change one party value in `data/energy-data.json`, reload `index.html`, and verify the affected quarter total and year total match the sum of the updated party-level data.
 
 ### Implementation for User Story 2
 
 - [X] T013 [US2] Replace direct quarter summary usage with party-derived totals and derived last-updated logic in `assets/js/data-loader.js`
 - [X] T014 [P] [US2] Update homepage metric rendering and reporting-period messaging to use derived party totals in `assets/js/app.js` and `index.html`
-- [X] T015 [P] [US2] Update historical quarter/year selection, comparison series, and empty-state behavior to use derived party totals in `assets/js/app.js`, `assets/js/charts.js`, and `history.html`
+- [X] T015 [P] [US2] Update historical quarter/year selection, comparison series, and empty-state behavior to use derived party totals in `assets/js/app.js`, `assets/js/charts.js`, and `index.html`
 - [X] T016 [US2] Remove obsolete manual-total assumptions from the canonical dataset and maintainer guidance in `data/energy-data.json` and `README.md`
 
 **Checkpoint**: User Story 2 is complete when public quarter and year totals stay correct after party-level edits and no manual aggregate fields are required
@@ -103,7 +103,7 @@
 
 **Purpose**: Final refinements across data, docs, and validation flow
 
-- [X] T021 [P] Review German public copy and empty-state messaging affected by derived party totals in `index.html`, `history.html`, and `assets/js/app.js`
+- [X] T021 [P] Review German public copy and empty-state messaging affected by derived party totals in `index.html` and `assets/js/app.js`
 - [ ] T022 [P] Run JavaScript syntax validation, `npm run check:data`, and CI validation-gate sanity checks, then record evidence in `specs/002-party-quarterly-data/quickstart.md`: one failed workflow run URL/log excerpt caused by intentionally invalid test data and one subsequent passed workflow run URL/log excerpt after fix-forward correction
 - [X] T023 Update the final maintainer checklist and example update flow for party lifecycle changes in `README.md` and `specs/002-party-quarterly-data/quickstart.md`
 - [X] T024 [P] Align CI-gate rationale wording across planning artifacts in `specs/002-party-quarterly-data/plan.md`, `specs/002-party-quarterly-data/research.md`, and `specs/002-party-quarterly-data/contracts/publishing-contract.md`
@@ -157,7 +157,7 @@ Task: "T011 [P] [US1] Document party-level quarter editing, fix-forward correcti
 
 ```text
 Task: "T014 [P] [US2] Update homepage metric rendering and reporting-period messaging to use derived party totals in assets/js/app.js and index.html"
-Task: "T015 [P] [US2] Update historical quarter/year selection, comparison series, and empty-state behavior to use derived party totals in assets/js/app.js, assets/js/charts.js, and history.html"
+Task: "T015 [P] [US2] Update historical quarter/year selection, comparison series, and empty-state behavior to use derived party totals in assets/js/app.js, assets/js/charts.js, and index.html"
 ```
 
 ## Parallel Example: User Story 3

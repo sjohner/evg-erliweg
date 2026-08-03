@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description: "Change the website design to a modern developer-focused website inspired by GitHub's design language. Use a clean, minimal, and professional aesthetic with generous whitespace, strong typography, subtle borders, rounded cards, and a light colour palette with blue accents. Prioritise readability, usability, and clear information hierarchy. Include a simple sticky navigation, polished UI components, responsive layouts, and product-focused sections. Avoid excessive animations, gradients, glassmorphism, or marketing-heavy visuals. The result should feel technical, trustworthy, enterprise-ready, and highly polished."
+**Input**: User description: "Change the website design to a modern developer-focused website inspired by GitHub's design language. Use a clean, minimal, and professional aesthetic with generous whitespace, strong typography, subtle borders, rounded cards, and a light colour palette with blue accents. Prioritise readability, usability, and clear information hierarchy. Include simple section navigation, polished UI components, responsive layouts, and product-focused sections. Avoid excessive animations, gradients, glassmorphism, or marketing-heavy visuals. The result should feel technical, trustworthy, enterprise-ready, and highly polished."
 
 ## Clarifications
 
@@ -20,18 +20,18 @@
 
 ## User Scenarios & Testing *(mandatory)*
 
-### User Story 1 - Browse Updated Homepage with Modern Navigation (Priority: P1)
+### User Story 1 - Browse Updated Homepage with Modern Section Navigation (Priority: P1)
 
-A first-time visitor navigates the website and immediately understands the energy data visualization project through a clean, professional homepage with sticky navigation. The new design establishes credibility and guides them to key sections (About, History, Data) without distraction.
+A first-time visitor navigates the website and immediately understands the energy data visualization project through a clean, professional single-page layout with clear in-page links. The new design establishes credibility and guides them to key sections (About, History, Data) without distraction.
 
 **Why this priority**: P1 establishes the foundation. The homepage is the entry point for all users and must communicate the project's value clearly and professionally. Without a modern, trustworthy homepage, users won't engage further.
 
-**Independent Test**: The updated homepage can be deployed and tested independently. Success is verified by: users can identify the project purpose within 5 seconds, sticky navigation functions correctly, and pages remain responsive on mobile/desktop.
+**Independent Test**: The updated homepage can be deployed and tested independently. Success is verified by: users can identify the project purpose within 5 seconds, in-page section links function correctly, and the page remains responsive on mobile/desktop.
 
 **Acceptance Scenarios**:
 
 1. **Given** a user visits the homepage, **When** the page loads, **Then** they see a clean hero section with project title, description, and clear call-to-action buttons (to data/about/history)
-2. **Given** a user scrolls down the page, **When** the sticky navigation comes into view, **Then** it remains visible at the top with subtle styling and does not obscure content
+2. **Given** a user interacts with hero or footer section links, **When** they navigate within the page, **Then** the browser scrolls to the corresponding section anchors without layout breakage
 3. **Given** a user is on a mobile device, **When** they visit the homepage, **Then** the layout adapts responsively with readable typography and properly spaced components
 4. **Given** a user hovers over a navigation link, **When** they interact with the element, **Then** they see a subtle visual feedback (e.g., color shift, underline) without jarring animations
 
@@ -54,13 +54,13 @@ Users can view energy data visualizations with a modernized, minimal aesthetic. 
 
 ---
 
-### User Story 3 - Navigate Multi-Page Site with Consistent Styling (Priority: P1)
+### User Story 3 - Navigate Single-Page Sections with Consistent Styling (Priority: P1)
 
-Users navigate between About, History, Data, and Home pages seamlessly. Every page reflects the same modern, minimal design language with consistent component styling, color scheme, and information hierarchy.
+Users navigate between About, History, Data, and Home sections seamlessly on one page. Each section reflects the same modern, minimal design language with consistent component styling, color scheme, and information hierarchy.
 
 **Why this priority**: P1 consistency is essential for establishing trust and professionalism. Inconsistent styling across pages undermines the "enterprise-ready" goal and confuses users about what the site represents.
 
-**Independent Test**: Each page (About, History, Data) can be updated independently but must conform to the same design system. Success is verified by: consistent navigation, matching color palette, similar component styling, and no conflicting design patterns across pages.
+**Independent Test**: Each section (About, History, Data) can be validated independently but must conform to the same design system. Success is verified by: consistent in-page navigation, matching color palette, similar component styling, and no conflicting design patterns across sections.
 
 **Acceptance Scenarios**:
 
@@ -82,7 +82,7 @@ Users access the modernized website from various devices (desktop, tablet, mobil
 **Acceptance Scenarios**:
 
 1. **Given** a user views the website on a mobile device (375px width), **When** the page loads, **Then** the layout stacks vertically with no horizontal overflow
-2. **Given** navigation appears on mobile, **When** the screen is narrow, **Then** the sticky navigation remains functional and accessible (e.g., hamburger menu optional but not required for main content)
+2. **Given** section links appear on mobile, **When** the screen is narrow, **Then** in-page navigation remains functional and accessible with no horizontal overflow
 3. **Given** data cards or content blocks display on tablet (768px width), **When** the user views them, **Then** they adapt to tablet layout with appropriate spacing, no longer using mobile stack
 4. **Given** buttons and interactive elements appear on all devices, **When** the user touches/clicks them, **Then** they have sufficient size (minimum 44px) and spacing for comfortable interaction
 
@@ -108,7 +108,7 @@ The overall visual presentation conveys technical expertise, trustworthiness, an
 ### Edge Cases
 
 - What happens when a user visits the website on a browser with limited CSS support? → Fallback styling ensures content remains readable.
-- How does the sticky navigation behave when the viewport is extremely narrow (<320px)? → The navigation remains accessible (no horizontal overflow).
+- How do section links behave when the viewport is extremely narrow (<320px)? → In-page navigation remains accessible (no horizontal overflow).
 - What occurs if an image fails to load on a rounded card? → The card maintains its border and spacing; placeholder or alternative text is displayed.
 - How are extremely long data labels or titles handled in cards? → Text wrapping and truncation rules ensure cards maintain consistent dimensions and readability.
 
@@ -116,14 +116,14 @@ The overall visual presentation conveys technical expertise, trustworthiness, an
 
 ### Functional Requirements
 
-- **FR-001**: Homepage MUST display a clear hero section with project title, description, and call-to-action buttons linking to Data, About, and History pages
-- **FR-002**: Sticky navigation MUST remain visible when users scroll and MUST include links to all main pages (Home, About, History, Data)
+- **FR-001**: Homepage MUST display a clear hero section with project title, description, and call-to-action buttons linking to Data, About, and History sections
+- **FR-002**: The single-page layout MUST provide clear in-page navigation links to main sections (Home, About, History, Data)
 - **FR-003**: All pages MUST use a light color palette with blue accents as primary interactive elements (links, buttons, highlights)
 - **FR-004**: Data visualization sections MUST present data in rounded cards with subtle borders, generous whitespace, and clear typography
 - **FR-005**: Website MUST be fully responsive and adapt to mobile (375px+), tablet (768px+), and desktop (1024px+) viewports without horizontal overflow
 - **FR-006**: All interactive components (buttons, links, inputs) MUST have consistent hover and focus states with subtle visual feedback (no jarring animations)
 - **FR-007**: Typography MUST follow a consistent scale with 2–3 distinct heading sizes and readable body text (minimum 16px on mobile, proper line-height)
-- **FR-008**: Pages MUST maintain consistent navigation, header, footer, and component styling across About, History, Data, and Home
+- **FR-008**: Sections MUST maintain consistent header, footer, and component styling across About, History, Data, and Home content blocks
 - **FR-009**: The design MUST avoid excessive animations, gradients, glassmorphism, and marketing-heavy visuals; any animations present MUST be subtle and purposeful
 - **FR-010**: All form elements and interactive components MUST use professional, polished styling consistent with the GitHub-inspired design language
 - **FR-011**: Website MUST meet WCAG AAA accessibility standards (Level AAA conformance) including: proper heading hierarchy, sufficient color contrast (minimum 7:1 for normal text), descriptive alt text for images, keyboard navigation support for all interactive elements, and appropriate ARIA labels where needed
@@ -154,13 +154,13 @@ No data model changes are required; this feature is purely presentational.
 
 ## Assumptions
 
-- The website will continue to use the same HTML structure and assets (index.html, about.html, history.html) with CSS/styling updates; no server-side changes are required
+- The website will use a single-page HTML entry (`index.html`) with section-based layout and shared assets; no server-side changes are required
 - Existing JavaScript functionality (app.js, charts.js, data-loader.js) will not require modifications; the redesign is purely visual/CSS with performance optimizations applied carefully
 - Energy data in data/energy-data.json will remain unchanged; the redesign adapts to existing data structures
 - Blue accent color and light palette are compatible with existing brand perception; if brand colors change in the future, CSS variables will be updated
 - Browsers targeted include modern evergreen browsers (Chrome, Firefox, Safari, Edge) with CSS Grid and Flexbox support; no specific minimum version requirement; assume users have auto-update enabled; IE11 support is not required
 - No new dependencies (e.g., CSS frameworks, animation libraries) will be introduced; the redesign uses vanilla CSS where possible to maintain simplicity and achieve PageSpeed targets
-- The sticky navigation will not conflict with existing JavaScript event handlers; navigation interactivity is implemented cleanly
+- In-page section links will not conflict with existing JavaScript event handlers; anchor navigation interactivity is implemented cleanly
 - WCAG AAA compliance will be achieved through semantic HTML, proper contrast ratios, keyboard navigation, and ARIA attributes without requiring external accessibility libraries
 - Performance optimizations (lazy loading, efficient animations, caching) will be implemented using standard web platform APIs; no external performance libraries required
 - Google PageSpeed 100 target assumes reasonable image optimization and CDN delivery; any third-party scripts will be evaluated for performance impact

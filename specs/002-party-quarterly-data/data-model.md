@@ -73,6 +73,7 @@
 - `producedKwh` and `consumedKwh` MUST be non-negative finite numbers.
 - Quarter date ranges MUST be valid and non-overlapping by quarter identity.
 - `partyRecords[].updatedAt` MUST be valid ISO datetime values.
+- `community.totalPeople` MUST be an integer and MUST be >= `community.totalParties`.
 - Removing a party MUST NOT delete previously recorded `PartyQuarterRecord`
   entries for past quarters.
 
