@@ -167,10 +167,11 @@ As a maintainer, I want to update produced and consumed energy values in a struc
 
 ### Measurable Outcomes
 
-- **SC-001**: At least 9 of 10 first-time test participants can find the latest-quarter, corresponding-year, and all-time totals within 30 seconds of landing on the homepage.
-- **SC-002**: 100% of quarterly data-file updates pushed to `main` are reflected on public views within one completed deployment cycle.
-- **SC-003**: Key viewing flows for current metrics and one historical lookup complete without horizontal overflow or navigation failure at 390px, 430px, 768px, and 1280px viewport widths.
-- **SC-004**: At least 9 of 10 first-time test participants can identify what EVG Erliweg is, find the elektraeigenstrom reference, and locate contact details without assistance.
+- **SC-001**: 95% of sampled visitors can find latest-available-quarter, corresponding-year, and all-time totals within 30 seconds of landing on the homepage.
+- **SC-002**: 100% of manually reviewed quarterly data-file updates merged to the private repository are reflected on public views within one deployment cycle.
+- **SC-003**: At least 95% of tested mobile sessions complete key viewing tasks (current metrics and one historical lookup) without layout or navigation failure.
+- **SC-004**: At least 90% of test users correctly identify what EVG Erliweg is,
+  where to read about elektraeigenstrom, and how to contact the community.
 - **SC-005**: 100% of historical records entered remain retrievable by selecting their quarter or year.
 - **SC-006**: 100% of user-visible primary interface content on core sections
 	(home, history, about/contact) of the single-page site is in German.

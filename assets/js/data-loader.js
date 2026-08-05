@@ -224,7 +224,7 @@ export function deriveEnergyOverview(data) {
   }, null);
 
   return {
-    currentQuarter: {
+    latestQuarter: {
       label: latestQuarterRecord
         ? formatQuarterLabel(latestQuarterRecord.year, latestQuarterRecord.quarter)
         : "Noch keine Daten",
@@ -235,7 +235,7 @@ export function deriveEnergyOverview(data) {
         consumedKwh: latestQuarterRecord.consumedKwh
       } : null
     },
-    currentYear: {
+    latestYear: {
       label: referenceYear === null ? "Noch keine Daten" : String(referenceYear),
       totals: sumRecords(yearRecords),
       hasData: yearRecords.length > 0
