@@ -33,3 +33,6 @@
 
 - Validation pass completed in one iteration.
 - No unresolved clarifications. Ready for /speckit.plan.
+- 2026-08-05 amendment validation passed for the accessible GitHub repository header link requirement; all checklist items remain satisfied.
+- 2026-08-05 responsive-header amendment validation passed for single-row title/action alignment at all required viewport widths; all checklist items remain satisfied.
+- 2026-08-05 consistency remediation validation passed for the direct-push workflow, public canonical repository, duplicate requirement removal, and measurable success criteria.

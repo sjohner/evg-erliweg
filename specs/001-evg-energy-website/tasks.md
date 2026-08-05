@@ -4,7 +4,7 @@
 
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 
-**Tests**: No separate automated test suite was explicitly requested in the specification. This task list therefore prioritizes implementation and quickstart-based accessibility/performance/manual-review verification.
+**Tests**: No separate automated test suite was explicitly requested. This task list therefore uses quickstart-based accessibility, performance, participant, viewport-matrix, and direct-push publication verification.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
@@ -103,15 +103,15 @@
 
 ## Phase 6: User Story 4 - Quarterly Data Update via Repository File (Priority: P4)
 
-**Goal**: Enable maintainers to update quarterly figures through the private repository and publish them through a simple manual-review + deployment flow
+**Goal**: Enable maintainers to update quarterly figures in the public repository and publish them by pushing directly to `main`
 
-**Independent Test**: Edit one quarterly record in `data/energy-data.json`, manually review the change, publish through the workflow, and verify updated values and last-updated date appear on public pages.
+**Independent Test**: Edit one quarterly record in `data/energy-data.json`, push the change directly to `main`, wait for the GitHub Pages workflow, and verify updated values and last-updated date appear on public pages.
 
 ### Implementation for User Story 4
 
 - [X] T024 [US4] Seed realistic quarterly records plus about/contact source content in `data/energy-data.json`
-- [X] T025 [P] [US4] Add maintainer instructions for quarterly edits, manual review, and deploy steps in `README.md`
-- [X] T026 [US4] Implement the simple reviewed publish flow in `.github/workflows/deploy-pages.yml` and `README.md`
+- [X] T025 [P] [US4] Add maintainer instructions for quarterly edits, direct pushes to `main`, fix-forward corrections, and deploy verification in `README.md`
+- [X] T026 [US4] Implement the direct-push GitHub Pages publication flow in `.github/workflows/deploy-pages.yml` and `README.md`
 - [X] T027 [US4] Ensure home and history sections derive displayed last-updated date from the latest `updatedAt` value in `assets/js/data-loader.js`, `assets/js/app.js`, and `index.html`
 - [X] T028 [US4] Finalize default GitHub Pages publishing behavior in `.github/workflows/deploy-pages.yml` and `README.md`
 
@@ -129,6 +129,58 @@
 
 ---
 
+## Phase 8: User Story 1 Amendment - GitHub Repository Header Action (Priority: P1)
+
+**Goal**: Let visitors open the canonical project repository from an accessible icon-only link immediately left of the dark-mode toggle.
+
+**Independent Test**: Open `index.html` at 390px, 430px, 768px, and 1280px widths in light and dark modes; verify the website title stays left-aligned while the equal-sized GitHub icon link and theme toggle stay right-aligned on the same horizontal level, the link targets `https://github.com/sjohner/evg-erliweg`, has a German accessible name and visible keyboard focus, and causes no overlap or horizontal overflow.
+
+### Implementation for User Story 1 Amendment
+
+- [X] T032 [P] [US1] Add a semantic icon-only anchor targeting `https://github.com/sjohner/evg-erliweg` immediately before `#theme-toggle`, with a German `aria-label` and accessibility-hidden inline GitHub mark, in `index.html`
+- [X] T033 [P] [US1] Add repository-link sizing, current-color icon, hover, focus-visible, light/dark theme, and responsive header-action styles that preserve equal 44px targets and keep the left-aligned website title level with the right-aligned action group in `assets/css/components.css` and `assets/css/accessibility.css`
+- [X] T034 [US1] Run the desktop/mobile, pointer/keyboard, light/dark, target-URL, control-order, and overflow checks from `specs/001-evg-energy-website/quickstart.md`, then record evidence and mark the GitHub repository header action complete in `specs/001-evg-energy-website/quickstart.md`
+
+**Checkpoint**: The GitHub repository action satisfies FR-025, SC-010, and `specs/001-evg-energy-website/contracts/header-actions-contract.md` independently of energy-data loading and theme-toggle JavaScript.
+
+---
+
+## Phase 9: User Story 1 - First-Time Metric Discovery Validation (Priority: P1)
+
+**Goal**: Produce participant evidence that first-time visitors can find the three primary metric groups within 30 seconds.
+
+**Independent Test**: Run Scenario 1a from `specs/001-evg-energy-website/quickstart.md` with 10 first-time participants and confirm at least 9 identify the latest-quarter, corresponding-year, and all-time totals within 30 seconds.
+
+- [X] T035 [US1] Run the 10-participant metric-discovery protocol for SC-001 and record anonymized completion counts, timing outcome, and pass/fail evidence in `specs/001-evg-energy-website/quickstart.md`
+
+**Checkpoint**: SC-001 has reproducible participant evidence.
+
+---
+
+## Phase 10: User Story 2 - Responsive Flow Validation (Priority: P2)
+
+**Goal**: Verify current-metric and historical-lookup flows at every viewport required by SC-003.
+
+**Independent Test**: Complete both flows at 390px, 430px, 768px, and 1280px with no horizontal overflow, clipped controls, or navigation failure.
+
+- [X] T036 [US2] Run the SC-003 current-metrics and historical-lookup flows at 390px, 430px, 768px, and 1280px, then record per-viewport pass/fail and overflow evidence in `specs/001-evg-energy-website/quickstart.md`
+
+**Checkpoint**: SC-003 has evidence for the complete viewport matrix.
+
+---
+
+## Phase 11: User Story 3 - First-Time Context Discovery Validation (Priority: P3)
+
+**Goal**: Produce participant evidence that first-time visitors can understand the project and find its reference and contact paths without assistance.
+
+**Independent Test**: Run Scenario 4a from `specs/001-evg-energy-website/quickstart.md` with 10 first-time participants and confirm at least 9 complete all three discovery tasks without assistance.
+
+- [X] T037 [US3] Run the 10-participant project, elektraeigenstrom-reference, and contact-discovery protocol for SC-004, then record anonymized completion counts and pass/fail evidence in `specs/001-evg-energy-website/quickstart.md`
+
+**Checkpoint**: SC-004 has reproducible participant evidence.
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
@@ -140,6 +192,10 @@
 - **User Story 3 (Phase 5)**: Depends on Foundational completion; can proceed in parallel with User Stories 1 and 2
 - **User Story 4 (Phase 6)**: Depends on Foundational completion; full validation references public metric pages from User Stories 1 and 2
 - **Polish (Phase 7)**: Depends on all desired user stories being complete
+- **User Story 1 Amendment (Phase 8)**: Depends on the existing header and theme-toggle foundation; `T032` and `T033` can run in parallel, and both block `T034`
+- **US1 Discovery Validation (Phase 9)**: Depends on the completed homepage and can run independently of Phases 8, 10, and 11
+- **US2 Responsive Validation (Phase 10)**: Depends on completed current-metric and history flows; run after `T034` so the header action is included in the viewport matrix
+- **US3 Discovery Validation (Phase 11)**: Depends on the completed about/contact experience and can run independently of Phases 8, 9, and 10
 
 ### User Story Dependencies
 
@@ -147,6 +203,7 @@
 - **User Story 2 (P2)**: Can start after Foundational (Phase 2) - shares aggregation and rendering helpers with US1
 - **User Story 3 (P3)**: Can start after Foundational (Phase 2) - largely independent of US1/US2 beyond shared layout and language conventions
 - **User Story 4 (P4)**: Can start after Foundational (Phase 2) - publish-flow proof is strongest once US1/US2 displays exist
+- **User Story 1 Amendment (P1)**: Extends the completed US1 header without depending on US2-US4 data or workflows
 
 ### Within Each User Story
 
@@ -164,6 +221,8 @@
 - After Foundational, `T021` and `T022` can run in parallel for US3
 - In US4, `T025` can run in parallel with `T024`
 - `T029` and `T030` can run in parallel during Polish
+- `T032` and `T033` can run in parallel because they modify separate implementation concerns; both must complete before `T034`
+- `T035` and `T037` can be conducted concurrently by separate facilitators, but their shared evidence file must be updated sequentially
 
 ---
 
@@ -188,6 +247,13 @@ Task: "T021 [P] [US3] Add about/contact layout, external-link, and focus-state s
 Task: "T022 [P] [US3] Render EVG Erliweg, elektraeigenstrom, and contact content from data/energy-data.json in assets/js/app.js"
 ```
 
+## Parallel Example: User Story 1 Amendment
+
+```text
+Task: "T032 [P] [US1] Add the semantic GitHub repository anchor and inline icon in index.html"
+Task: "T033 [P] [US1] Add repository-link interaction and responsive styles in assets/css/components.css and assets/css/accessibility.css"
+```
+
 ## Implementation Strategy
 
 ### MVP First (User Story 1 Only)
@@ -206,6 +272,8 @@ Task: "T022 [P] [US3] Render EVG Erliweg, elektraeigenstrom, and contact content
 4. Add User Story 3 -> validate about/contact independently -> deploy/demo
 5. Add User Story 4 -> validate maintainer update flow independently -> deploy/demo
 6. Finish with cross-cutting accessibility, performance, and quickstart validation
+7. Add the User Story 1 repository action -> validate its contract independently -> deploy/demo
+8. Complete T035-T037 -> record participant and viewport evidence -> close measurable validation gates
 
 ### Parallel Team Strategy
 
@@ -228,3 +296,4 @@ With multiple developers:
 - Each user story is designed to be demonstrable with the existing quickstart scenarios
 - CI validation is part of implementation because the maintainer workflow depends on safe publication
 - Avoid broad rewrites that break the static-site simplicity constraint
+- The current MVP implementation scope is T032-T034; T035-T037 are release-evidence gates for SC-001, SC-003, and SC-004

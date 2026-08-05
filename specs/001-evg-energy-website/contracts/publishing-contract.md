@@ -6,6 +6,7 @@ Define the contract between repository data updates and public website publicati
 ## Inputs
 - Canonical data file: `data/energy-data.json`
 - Data schema: `contracts/energy-data.schema.json`
+- Public repository: `https://github.com/sjohner/evg-erliweg`
 
 ## Publication Preconditions
 1. Maintainer updates `data/energy-data.json` and pushes directly to `main`.
