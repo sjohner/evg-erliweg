@@ -25,6 +25,7 @@ input:focus-visible,
 
 .site-nav__link:focus-visible,
 .btn:focus-visible,
+.header-icon-link:focus-visible,
 .theme-toggle:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-focus) 35%, transparent);
 }

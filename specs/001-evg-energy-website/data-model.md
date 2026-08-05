@@ -55,6 +55,18 @@
   - `latestQuarterId` (string, required): Quarter id used as reference for active-party evaluation.
   - `activeProducingParties` (integer, required, >= 0): Count of active parties in `ProducingPartyCatalog` for `latestQuarterId`.
 
+## 4c. HeaderRepositoryAction (Static UI Configuration)
+- Persistence: Not stored in the energy data file.
+- Purpose: Describes the header action that lets visitors inspect the project source.
+- Fields:
+  - `repositoryUrl` (absolute HTTPS URL, required): `https://github.com/sjohner/evg-erliweg`.
+  - `accessibleLabel` (string, required): German label identifying the repository destination.
+  - `position` (constant, required): Immediately before the theme-toggle control.
+  - `responsiveAlignment` (constant, required): Right-aligned with the theme toggle on the same horizontal level as the left-aligned website title.
+  - `targetSize` (constant, required): 44 by 44 CSS pixels, equal to the theme-toggle target.
+  - `secondaryContextPolicy` (constant, required): The header eyebrow and subtitle may be omitted at constrained mobile widths while the website title remains visible.
+  - `icon` (constant, required): GitHub mark rendered decoratively and hidden from assistive technology.
+
 ## 5. AboutContent
 - Purpose: Public about/learn-more information and external reference.
 - Fields:
@@ -75,6 +87,7 @@
 - `EnergyPeriodRecord` collection is the source for both `DerivedYearSummary` and `CumulativeSummary`.
 - `EnergyPeriodRecord.updatedAt` values are the source for `LastUpdatedSummary`.
 - `ProducingPartiesSummary` is derived from party lifecycle metadata evaluated against the latest available quarter.
+- `HeaderRepositoryAction` is independent of energy data and adjacent to the theme-toggle control in the header action group.
 - `AboutContent` and `ContactChannel` are independent content entities rendered
   alongside metrics.
 
@@ -89,6 +102,7 @@
   - `CumulativeSummary`
   - `LastUpdatedSummary`
   - `ProducingPartiesSummary`
+  - `HeaderRepositoryAction`
 
 ## Validation Rules
 - No duplicate quarterly `id` values.
@@ -100,7 +114,9 @@
 ## State Transitions
 
 ### RepositoryDataUpdate lifecycle
-1. `Draft` -> Maintainer edits `data/energy-data.json` in feature branch.
-2. `Reviewed` -> Maintainer or reviewer confirms the changed values are correct.
-3. `Merged` -> Change merged to publish branch.
-4. `Published` -> GitHub Pages deploy completes and site serves new metrics.
+1. `Draft` -> Maintainer edits `data/energy-data.json` locally.
+2. `Committed` -> Maintainer commits the quarterly update.
+3. `Pushed` -> Maintainer pushes the commit directly to `main`.
+4. `Published` -> GitHub Pages deploy completes and the site serves the new metrics.
+
+Corrections follow the same lifecycle as a new fix-forward commit.

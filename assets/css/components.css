@@ -34,6 +34,13 @@ a:hover {
   padding: var(--space-4) 0;
 }
 
+.site-header__actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--space-2);
+}
+
 .site-title {
   margin: 0;
   font-size: clamp(1.25rem, 2vw, 1.625rem);
@@ -85,6 +92,7 @@ a:hover {
   text-decoration: underline;
 }
 
+.header-icon-link,
 .theme-toggle {
   width: 44px;
   min-width: 44px;
@@ -101,6 +109,15 @@ a:hover {
   cursor: pointer;
 }
 
+.header-icon-link {
+  text-decoration: none;
+}
+
+.header-icon-link:hover {
+  color: var(--color-accent);
+}
+
+.header-icon-link__icon,
 .theme-toggle__icon {
   width: 1.25rem;
   height: 1.25rem;
@@ -413,9 +430,9 @@ a:hover {
 }
 
 @media (max-width: 47.9375rem) {
-  .site-header__inner {
-    flex-direction: column;
-    align-items: stretch;
+  .site-header__inner > div:first-child .eyebrow,
+  .site-header__inner > div:first-child .site-subtitle {
+    display: none;
   }
 
   .site-nav {
@@ -423,7 +440,6 @@ a:hover {
   }
 
   .site-nav__link,
-  .theme-toggle,
   .btn {
     width: 100%;
   }
