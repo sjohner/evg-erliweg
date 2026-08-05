@@ -430,8 +430,8 @@ a:hover {
 }
 
 @media (max-width: 47.9375rem) {
-  .site-header__inner > div:first-child .eyebrow,
-  .site-header__inner > div:first-child .site-subtitle {
+  .site-header .eyebrow,
+  .site-header .site-subtitle {
     display: none;
   }
 
