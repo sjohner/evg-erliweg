@@ -1,22 +1,46 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.com/schemas/energy-data.schema.json",
-  "title": "EVG Erliweg Party-Level Energy Data",
+  "title": "EVG Erliweg All-Party Energy Data",
   "type": "object",
-  "required": ["reportingStartDate", "producingPartiesCatalog", "quarterlyRecords"],
+  "required": ["reportingStartDate", "partiesCatalog", "quarterlyRecords"],
   "properties": {
     "reportingStartDate": { "type": "string", "format": "date" },
-    "producingPartiesCatalog": {
+    "partiesCatalog": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["partyId", "partyLabel", "activeFromQuarterId"],
+        "required": ["partyId", "partyLabel", "joinedOn", "producerConfigurations"],
         "properties": {
           "partyId": { "type": "string", "minLength": 1 },
           "partyLabel": { "type": "string", "minLength": 1 },
-          "activeFromQuarterId": { "type": "string", "pattern": "^[0-9]{4}-Q[1-4]$" },
-          "inactiveAfterQuarterId": { "type": "string", "pattern": "^[0-9]{4}-Q[1-4]$" }
+          "joinedOn": { "type": "string", "format": "date" },
+          "leftOn": { "type": "string", "format": "date" },
+          "producerConfigurations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["isProducer", "activeFromQuarterId"],
+              "properties": {
+                "isProducer": { "type": "boolean" },
+                "activeFromQuarterId": { "type": "string", "pattern": "^[0-9]{4}-Q[1-4]$" },
+                "inactiveAfterQuarterId": { "type": "string", "pattern": "^[0-9]{4}-Q[1-4]$" },
+                "pvSystem": {
+                  "type": "object",
+                  "required": ["peakPowerKwp", "orientation", "hasBattery"],
+                  "properties": {
+                    "peakPowerKwp": { "type": "number", "exclusiveMinimum": 0 },
+                    "orientation": { "enum": ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "FLAT"] },
+                    "hasBattery": { "type": "boolean" }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
+            }
+          }
         },
         "additionalProperties": false
       }

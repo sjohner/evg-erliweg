@@ -4,14 +4,17 @@
 
 `index.html` is the canonical manually maintained source for `community`, `about`, and `contact` presentation content. `data/energy-data.json` remains the canonical structured source for energy-domain entities, including `reportingStartDate` for cumulative calculations.
 
+## Amendment: All-Party Count Source (2026-08-06)
+
+Feature 004 removes the interim HTML-owned total-party value. `index.html` remains canonical for total people and presentation content, while `data/energy-data.json` `partiesCatalog` is canonical for party identity, membership, producer configuration, PV attributes, and battery presence. Total-party and producing-party counts are runtime projections from the latest available quarter.
+
 ## 1. CommunityProfile
 - Purpose: Stores stable identity/context displayed to visitors.
 - Fields:
   - `name` (string, required): Community name, e.g. "EVG Erliweg".
   - `city` (string, required): Community location, e.g. "Fraubrunnen".
   - `country` (string, required): Country, e.g. "Switzerland".
-  - `totalParties` (integer, required, >= 1).
-  - `totalPeople` (integer, required, >= `totalParties`).
+  - `totalPeople` (integer, required, >= active party count).
 
 ## 2. EnergyPeriodRecord
 - Purpose: Canonical quarterly source record for production/consumption.
@@ -51,12 +54,13 @@
   - `lastUpdatedAt` (datetime string, required): Max `updatedAt` value from `EnergyPeriodRecord` collection.
   - `lastUpdatedDate` (date string, required): Display-friendly date derived from `lastUpdatedAt`.
 
-## 4b. ProducingPartiesSummary (Runtime Projection)
+## 4b. CommunityPartiesSummary (Runtime Projection)
 - Persistence: Not stored in repository data file.
-- Purpose: View-model projection of active producing-party count for the latest available quarter shown to visitors.
+- Purpose: View-model projection of active party and active producing-party counts for the latest available quarter shown to visitors.
 - Fields:
   - `latestQuarterId` (string, required): Quarter id used as reference for active-party evaluation.
-  - `activeProducingParties` (integer, required, >= 0): Count of active parties in `ProducingPartyCatalog` for `latestQuarterId`.
+  - `activeParties` (integer, required, >= 0): Count of parties whose membership overlaps the latest quarter.
+  - `activeProducingParties` (integer, required, >= 0): Count of active parties with `isProducer: true` configuration for `latestQuarterId`.
 
 ## 4c. HeaderRepositoryAction (Static UI Configuration)
 - Persistence: Not stored in the energy data file.
@@ -88,7 +92,7 @@
 - `ReportingStartDate.reportingStartDate` defines the lower bound for `CumulativeSummary.fromDate`.
 - `EnergyPeriodRecord` collection is the source for both `DerivedYearSummary` and `CumulativeSummary`.
 - `EnergyPeriodRecord.updatedAt` values are the source for `LastUpdatedSummary`.
-- `ProducingPartiesSummary` is derived from party lifecycle metadata evaluated against the latest available quarter.
+- `CommunityPartiesSummary` is derived from all-party membership and producer configuration metadata evaluated against the latest available quarter.
 - `HeaderRepositoryAction` is independent of energy data and adjacent to the theme-toggle control in the header action group.
 - `AboutContent` and `ContactChannel` are independent content entities rendered
   alongside metrics.
@@ -97,7 +101,7 @@
 - Persisted source entities in `data/energy-data.json`:
   - `ReportingStartDate`
   - `EnergyPeriodRecord` collection
-  - `ProducingPartiesCatalog` (defined by Feature 002)
+  - `PartiesCatalog` (defined by Feature 004)
 - Persisted manual presentation entities in `index.html`:
   - `CommunityProfile`
   - `AboutContent`
@@ -106,7 +110,7 @@
   - `DerivedYearSummary`
   - `CumulativeSummary`
   - `LastUpdatedSummary`
-  - `ProducingPartiesSummary`
+  - `CommunityPartiesSummary`
   - `HeaderRepositoryAction`
 
 ## Validation Rules
@@ -114,7 +118,7 @@
 - Quarter sequence must not overlap by date range.
 - `producedKwh` and `consumedKwh` must be non-negative finite numbers.
 - `startDate`/`endDate` must be valid ISO dates.
-- `CommunityProfile.totalPeople >= CommunityProfile.totalParties` (manual HTML maintenance rule).
+- `CommunityProfile.totalPeople >= active party count` (manual HTML plus runtime data review rule).
 
 ## State Transitions
 

@@ -8,6 +8,10 @@
 
 This feature owns the sole canonical schema for `data/energy-data.json`. It contains the global party catalog and quarterly measurements only. Lifecycle uses `activeFromQuarterId` and optional `inactiveAfterQuarterId`; a shared quarter utility is consumed by rendering and validation so lifecycle normalization has one implementation.
 
+## Amendment: All-Party Catalog Decision (2026-08-06)
+
+Feature 004 updates the canonical schema from a producer-only catalog to `partiesCatalog`. Party identity and exact membership dates now live on all catalog parties; producer status and PV system details live in non-overlapping `producerConfigurations`. Quarterly measurements remain producer-only.
+
 ## Summary
 
 Extend the canonical quarterly data model so each producing party has explicit
@@ -69,6 +73,9 @@ Post-Phase-1 re-check:
 - PASS: `research.md`, `data-model.md`, `contracts/`, and `quickstart.md`
   retain clear traceability, maintain static-site simplicity, and preserve
   English documentation with German public UI requirements.
+- PASS: The Feature 004 re-check resolves the producer-only catalog conflict,
+  keeps one canonical JSON contract, and uses existing validation/runtime
+  helpers without adding dependencies.
 
 ## Project Structure
 

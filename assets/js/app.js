@@ -131,6 +131,7 @@ function renderHomePage(data) {
   setText("#total-consumed", formatKwh(overview.cumulative.totals.consumedKwh));
   setText("#total-note", `Gesamtsumme seit dem Start der EVG am ${formatGermanDate(data.reportingStartDate)}.`);
 
+  setText("#community-total", `${community.totalParties} (30 Personen)`);
   setText("#community-producers", String(community.producingParties));
 }
 

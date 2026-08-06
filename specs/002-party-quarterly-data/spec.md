@@ -12,6 +12,10 @@
 
 `data/energy-data.json` is the canonical party-level energy source and contains `reportingStartDate`, `producingPartiesCatalog`, and `quarterlyRecords`. Community, editorial, and contact content is manually maintained in Feature 001's `index.html`. A party's lifecycle is defined solely by required `activeFromQuarterId` and optional `inactiveAfterQuarterId`; `isActive` is not part of the schema. The catalog remains authoritative for party identity and lifecycle metadata.
 
+## Amendment: All-Party Catalog Supersedes Producer-Only Catalog (2026-08-06)
+
+Feature 004 supersedes the producer-only `producingPartiesCatalog` described above. The current authoritative energy contract contains `reportingStartDate`, `partiesCatalog`, and producer-only `quarterlyRecords`. `partiesCatalog` owns party identity, exact community membership dates (`joinedOn`, optional `leftOn`), and effective-dated `producerConfigurations`. Quarterly records continue to reference stable `partyId` values and may reference a party only when that party's membership overlaps the quarter and the resolved configuration is `isProducer: true`.
+
 ## Clarifications
 
 ### Session 2026-07-21
@@ -90,13 +94,13 @@ As a maintainer, I want clear rules for missing or invalid party-level values so
 - **FR-009**: System MUST continue displaying public website content in German.
 - **FR-010**: Repository documentation for this feature (maintenance instructions, plans, and contracts) MUST be written in English.
 - **FR-011**: System MUST allow maintainers to add new producing parties or mark existing parties as no longer active for future quarters while preserving all historical quarter records and derived totals.
-- **FR-012**: System MUST maintain a global producing-party catalog as the authoritative source of party identity and lifecycle metadata (`activeFromQuarterId`, `inactiveAfterQuarterId`), and quarter-level records MUST reference catalog parties via `partyId`.
+- **FR-012**: System MUST maintain a global all-party catalog as the authoritative source of party identity, exact membership dates, and effective producer configuration history; producer-only quarter-level records MUST reference catalog parties via `partyId`.
 - **FR-013**: System MUST run an automated data-validation pipeline job before the GitHub Pages deployment job and MUST block deployment when validation fails.
 
 ### Key Entities *(include if feature involves data)*
 
-- **ProducingParty**: Represents one producing party with a stable identifier and display label used across quarters.
-- **PartyQuarterRecord**: Represents produced and consumed energy for one producing party in one quarter, including `partyId` reference to the global producing-party catalog and update timestamp.
+- **Party**: Represents one EVG household or metering participant with a stable identifier, display label, membership dates, and producer configuration history.
+- **PartyQuarterRecord**: Represents produced and consumed energy for one producing party in one quarter, including `partyId` reference to the all-party catalog and update timestamp.
 - **QuarterAggregate**: Runtime projection of total produced and consumed energy for one quarter, calculated from all PartyQuarterRecord entries in that quarter.
 - **YearAggregate**: Runtime projection of total produced and consumed energy for one year, calculated from all quarter data in that year.
 - **RepositoryDataUpdate**: Represents one published data-file change that can add, modify, or correct party-level quarter records.
@@ -115,10 +119,10 @@ As a maintainer, I want clear rules for missing or invalid party-level values so
 
 - The existing maintainer workflow remains direct push-to-main with fix-forward corrections.
 - Quarter and year totals continue to be computed from source data at runtime rather than stored as manual summary fields.
-- Producing parties can be represented with stable identifiers in the data file.
+- Producing parties are represented with stable identifiers from the all-party catalog in the data file.
 - If a party entry is missing for a quarter, totals are calculated from available party records and completed in a later update.
 - Public-facing pages continue using German content, while repository documentation for maintainers stays English.
 - Party removal is modeled as inactivity for new quarters, not deletion of
 	historical quarter records.
-- The global producing-party catalog is the authoritative source for party
-	identity and lifecycle metadata across all quarters.
+- The global all-party catalog is the authoritative source for party identity,
+	membership metadata, and producer configuration history across all quarters.

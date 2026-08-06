@@ -14,6 +14,10 @@ This amendment supersedes the prior `data/site-content.json` ownership decision 
 
 Runtime JavaScript MUST continue to derive metrics, history, last-updated labels, cumulative labels, and producing-party counts from `data/energy-data.json`. Cumulative calculations MUST use `reportingStartDate` from structured data and MUST NOT parse calculation inputs from rendered HTML.
 
+## Amendment: Catalog-Derived Community Counts (2026-08-06)
+
+Feature 004 supersedes the interim total-party value from `index.html`. `index.html` remains canonical for total people and German presentation copy, but total-party and producing-party counts MUST be runtime projections derived from `data/energy-data.json` `partiesCatalog` for the latest available quarter. Party identity, membership dates, producer status, PV details, and battery details MUST NOT be copied into HTML.
+
 ## Clarifications
 
 ### Session 2026-07-20
@@ -155,7 +159,7 @@ As a maintainer, I want to update produced and consumed energy values in a struc
 	prominently on the homepage and wherever historical energy metrics are shown.
 - **FR-022**: System MUST render the theme switcher as an icon-only control (no visible mode text), while still exposing an accessible localized `aria-label` and `aria-pressed` state that reflects the current toggle action.
 - **FR-023**: System MUST place the history period selector (quarter/year) inside the comparison card and display it directly below the heading "Vergleich ueber alle Zeitraeume".
-- **FR-024**: System MUST derive the displayed "Produzierende Parteien" count from active producing parties in the latest available quarter (based on party lifecycle rules), rather than relying only on a static community field.
+- **FR-024**: System MUST derive the displayed "Parteien gesamt" and "Produzierende Parteien" counts from the all-party catalog in the latest available quarter (based on membership and producer configuration rules), rather than relying on static community fields or only quarter measurement records.
 - **FR-025**: System MUST provide an icon-only link to the public repository at https://github.com/sjohner/evg-erliweg in the header, positioned immediately to the left of the dark-mode toggle, with an accessible German label identifying its destination. At supported desktop and mobile widths, the website title MUST remain left-aligned and the two equal-sized actions MUST remain right-aligned together on the same horizontal level without overlap; secondary header context MAY be omitted on constrained mobile widths to preserve this layout.
 
 ### Key Entities *(include if feature involves data)*
@@ -163,8 +167,8 @@ As a maintainer, I want to update produced and consumed energy values in a struc
 - **EnergyPeriodRecord**: Represents one reporting period with period type (quarter or year), period label, period start, period end, produced energy value, consumed energy value, and last updated timestamp.
 - **DerivedYearSummary**: Runtime-calculated year-level aggregation from quarterly records for display only (not persisted in source data).
 - **CumulativeSummary**: Runtime-calculated all-time aggregation from 2025-10-01 to latest available period for display only (not persisted in source data).
-- **CommunityProfile**: Represents EVG Erliweg profile information including name, location, start date, number of total parties, and number of people.
-- **ProducingPartiesSummary**: Runtime-calculated count of active producing parties for the latest available quarter.
+- **CommunityProfile**: Represents EVG Erliweg profile information including name, location, start date, and number of people; party counts are runtime projections from structured energy data.
+- **CommunityPartiesSummary**: Runtime-calculated count of active parties and active producing parties for the latest available quarter.
 - **AboutContent**: Represents static public informational text about EVG
 	Erliweg and elektraeigenstrom, including the official external link.
 - **RepositoryDataUpdate**: Represents a repository change to the quarterly data file including changed period records, maintainer identity, and update timestamp.

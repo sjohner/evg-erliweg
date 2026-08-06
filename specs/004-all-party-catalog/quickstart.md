@@ -42,7 +42,8 @@ Expected outcome: `Parteien gesamt` and `Produzierende Parteien` match the catal
 
 ## Completion Evidence
 
-- `npm run check:data`: pending
-- `npm run check:js`: pending
-- Latest-quarter total-party count: pending
-- Latest-quarter producer count: pending
+- `npm run check:data`: passed on 2026-08-06 (`Energy data validation passed.`)
+- `npm run check:js`: passed on 2026-08-06
+- Latest-quarter total-party count: `10` for `2026-Q2`, derived from active `partiesCatalog` memberships
+- Latest-quarter producer count: `2` for `2026-Q2`, derived from active producer configurations
+- Runtime totals check for `2026-Q2`: produced `9000` kWh, consumed `3604` kWh; cumulative produced `15388.9` kWh, consumed `8414` kWh

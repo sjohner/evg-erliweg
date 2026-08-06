@@ -5,6 +5,7 @@
 - [X] T020 Amend Feature 002 as the canonical party-level energy schema and remove `isActive`.
 - [X] T021 Share lifecycle-quarter normalization between the renderer and data validator and remove unused history helpers.
 - [X] T022 Validate `reportingStartDate`, lifecycle, catalog, and quarterly records through `npm run check:data`.
+- [X] T025 Amend Feature 002 for Feature 004's all-party `partiesCatalog`, exact membership dates, producer configuration history, PV details, and producer-only quarter-reference validation.
 
 **Input**: Design documents from `/specs/002-party-quarterly-data/`
 

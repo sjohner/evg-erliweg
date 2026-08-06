@@ -1,4 +1,4 @@
-import { isPartyActiveForQuarter } from "./quarter-utils.js";
+import { isPartyActiveForQuarter, isPartyProducerForQuarter } from "./quarter-utils.js";
 
 const ENERGY_DATA_URL = "data/energy-data.json";
 
@@ -105,17 +105,22 @@ function buildQuarterTotalsRecord(record) {
   };
 }
 
-export function getProducingPartiesCatalog(data) {
-  return [...(data.producingPartiesCatalog ?? [])];
+export function getPartiesCatalog(data) {
+  return [...(data.partiesCatalog ?? [])];
 }
 
-export function getActivePartiesForQuarter(data, quarterId) {
-  return getProducingPartiesCatalog(data).filter((party) => isPartyActiveForQuarter(party, quarterId));
+export function getActivePartiesForQuarter(data, quarterRecord) {
+  return getPartiesCatalog(data).filter((party) => isPartyActiveForQuarter(party, quarterRecord));
+}
+
+export function getActiveProducingPartiesForQuarter(data, quarterRecord) {
+  return getActivePartiesForQuarter(data, quarterRecord)
+    .filter((party) => isPartyProducerForQuarter(party, quarterRecord.id));
 }
 
 export function normalizeQuarterPartyRecords(data, quarterRecord) {
   const catalogById = new Map(
-    getProducingPartiesCatalog(data).map((party) => [party.partyId, party])
+    getPartiesCatalog(data).map((party) => [party.partyId, party])
   );
 
   return (quarterRecord.partyRecords ?? []).map((partyRecord) => {
@@ -191,11 +196,15 @@ export function deriveEnergyOverview(data) {
 export function getCommunitySummary(data) {
   const records = sortRecords(data.quarterlyRecords ?? []);
   const latestQuarterRecord = records.length > 0 ? records[records.length - 1] : null;
+  const activeParties = latestQuarterRecord
+    ? getActivePartiesForQuarter(data, latestQuarterRecord)
+    : [];
   const producingParties = latestQuarterRecord
-    ? getActivePartiesForQuarter(data, latestQuarterRecord.id).length
+    ? getActiveProducingPartiesForQuarter(data, latestQuarterRecord).length
     : 0;
 
   return {
+    totalParties: activeParties.length,
     producingParties
   };
 }

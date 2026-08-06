@@ -4,6 +4,10 @@
 
 Update only `reportingStartDate`, the global catalog, and quarterly records in `data/energy-data.json`. Use `activeFromQuarterId` and optional `inactiveAfterQuarterId` for lifecycle changes; do not add `isActive`. Site facts are maintained directly in `index.html`.
 
+## Amendment: All-Party Catalog (2026-08-06)
+
+Feature 004 replaces the global producing-party catalog with `partiesCatalog`. Maintain exact `joinedOn`/`leftOn` membership dates on every party and non-overlapping `producerConfigurations` for producer status and PV system details. Quarterly `partyRecords` remain producer-only.
+
 ## Purpose
 Validate party-level quarterly data maintenance and dynamic aggregate behavior
 end-to-end.
@@ -23,9 +27,8 @@ end-to-end.
 1. Open the repository root.
 2. Open `data/energy-data.json`.
 3. Ensure `reportingStartDate` is present and valid (YYYY-MM-DD).
-4. Ensure `energy.producingPartiesCatalog` is the authoritative source of
-   party identity and lifecycle metadata (`activeFromQuarterId`,
-   `inactiveAfterQuarterId`).
+4. Ensure `partiesCatalog` is the authoritative source of party identity,
+   membership dates, and producer configuration metadata.
 5. Ensure quarter records include `partyRecords` entries with per-party
    `producedKwh` and `consumedKwh` values referencing catalog `partyId` values.
 6. Run `npm run check:data` locally before pushing.
@@ -101,8 +104,8 @@ Expected outcome:
 - Historical quarter and year totals remain preserved.
 
 ## Example Maintainer Update Flow
-1. Add or update catalog entries in `energy.producingPartiesCatalog`.
-2. Add or update quarter `partyRecords` values for each active party.
+1. Add or update catalog entries in `partiesCatalog`.
+2. Add or update quarter `partyRecords` values for each active producer when measurements are available.
 3. Run `npm run check:data` and fix any validation issues.
 4. Push to `main` and confirm `validate-data` passes before deploy.
 5. Verify `index.html` totals and last-updated date.
