@@ -76,7 +76,7 @@ Feature 004 supersedes the producer-only catalog above. The current `data/energy
 
 ## Relationships
 - `EnergyQuarterRecord.partyRecords[].partyId` references `Party.partyId`.
-- Quarter party labels are resolved from `ProducingParty.partyLabel` using
+- Quarter party labels are resolved from `Party.partyLabel` using
   `partyId` as the single source of truth.
 - `QuarterAggregate` derives from one `EnergyQuarterRecord`.
 - `YearAggregate` derives from all quarter records with matching `year`.
