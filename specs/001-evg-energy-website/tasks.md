@@ -5,6 +5,7 @@
 - [X] T026 Amend Feature 001 contracts and documentation to make `index.html` canonical for mutable site facts and keep the structured energy schema in Feature 002.
 - [X] T027 Move manually maintained community, about, and contact facts into semantic HTML while retaining dynamic energy rendering.
 - [X] T028 Validate energy data and deploy with `data/energy-data.json` as the sole structured publication input.
+- [X] T029 Amend Feature 001 to replace the interim static total-party value with Feature 004 catalog-derived total-party and producer counts while keeping total people in HTML.
 
 **Input**: Design documents from `/specs/001-evg-energy-website/`
 

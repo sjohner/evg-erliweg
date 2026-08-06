@@ -8,6 +8,10 @@
 
 Keep manually maintained presentation content in `index.html` and keep structured energy-domain inputs in Feature 002's `data/energy-data.json`. This removes content-maintenance indirection for the static site while preserving a single canonical structured energy contract for calculations, projections, and validation.
 
+## Amendment: Dynamic Party Counts (2026-08-06)
+
+Feature 004 replaces the interim static total-party value with runtime derivation from `data/energy-data.json` `partiesCatalog`. `index.html` continues to own total people and German presentation text only; structured party identity, membership, producer, PV, and battery data remain outside HTML.
+
 ## Summary
 
 Build a static, mobile-responsive EVG Erliweg website hosted on GitHub Pages
@@ -86,6 +90,9 @@ Post-Phase-1 re-check:
 - PASS: Ownership re-check confirms `index.html` is canonical for manual
   presentation content and `data/energy-data.json` is canonical for
   structured calculation inputs including `reportingStartDate`.
+- PASS: Feature 004 count derivation keeps one structured party source of truth
+  and removes the interim static total-party value without changing the HTML
+  presentation-content ownership boundary.
 - PASS: The repository link uses existing header and icon-control patterns,
   adds no dependency or persisted data, and is independently reversible.
 - PASS: The single-row layout keeps the website title left-aligned and both

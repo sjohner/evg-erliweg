@@ -20,7 +20,7 @@ Validate the feature end-to-end for local development and deployment readiness.
 
 ## Setup
 1. Open the repository root.
-2. Ensure the canonical energy data file exists at `data/energy-data.json` and contains `reportingStartDate`, producing-party catalog, and quarterly records.
+2. Ensure the canonical energy data file exists at `data/energy-data.json` and contains `reportingStartDate`, `partiesCatalog`, and quarterly records.
 3. Serve static files locally with one of:
    - `python -m http.server 8080`
    - `npx serve .`

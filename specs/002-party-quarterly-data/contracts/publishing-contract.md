@@ -4,6 +4,10 @@
 
 `data/energy-data.json` is the canonical source for `reportingStartDate`, the global party catalog, and quarterly party records. Validation rejects ambiguous `isActive` lifecycle metadata and validates this file before deployment.
 
+## Amendment: All-Party Catalog Source (2026-08-06)
+
+Feature 004 defines the current global party catalog as `partiesCatalog`, not `producingPartiesCatalog`. `partiesCatalog` owns all party identity, exact membership dates, producer configuration periods, PV peak output, orientation, and battery presence. Quarterly `partyRecords` remain producer-only and are valid only for parties active as members and producers in the referenced quarter.
+
 ## Purpose
 Define the contract between party-level quarterly data updates and public
 website publication.
@@ -30,8 +34,10 @@ website publication.
 3. No manual year/quarter summary fields are required in source data.
 4. Cumulative totals use `reportingStartDate` from structured data.
 5. Last-updated date shown on energy pages reflects latest source update.
-6. Producing parties can be added or removed for future quarters without
-   deleting or changing historical quarter records.
+6. Producing parties can be added or removed through effective configuration
+   periods without deleting or changing historical quarter records.
+7. Latest-quarter total-party and producing-party counts are derived from
+   `partiesCatalog`, not static HTML fields or measurement record counts.
 
 ## Failure Behavior
 - If a party-level number issue is discovered post-publish, maintainer performs
@@ -43,6 +49,8 @@ website publication.
    follow-up fix-forward update.
 - If an orphaned `partyId` or lifecycle-window mismatch is detected, maintainer
    resolves the catalog/quarter reference mismatch before the next publish.
+- If producer configuration or PV system validation fails, maintainer corrects
+   the relevant `producerConfigurations` entry before publication.
 
 ## CI Gate Rationale
 - The validation gate is mandatory because publication is push-to-main.

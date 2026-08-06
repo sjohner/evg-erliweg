@@ -22,7 +22,7 @@
 
 ## Decision 3: Party identity strategy
 - Decision: Use stable `partyId` as the single source of truth in quarterly
-  party records; keep `partyLabel` only in the producing-party catalog.
+  party records; keep `partyLabel` only in the all-party catalog.
 - Rationale: Removes redundant data in quarter records while preserving
   reliable identity, duplicate detection, and readable UI labels from the
   catalog.
@@ -69,6 +69,18 @@
     transparency.
   - Disallow party set changes after initial setup: rejected because it blocks
     normal community evolution.
+
+## Decision 8: All-party catalog for identity and producer status
+- Decision: Supersede the producer-only catalog with `partiesCatalog`, containing
+    all EVG parties, exact membership dates, and effective producer configuration
+    history.
+- Rationale: The all-party catalog is the only current authoritative identity
+    source and supports total-party counts without duplicating party data in HTML.
+- Alternatives considered:
+    - Keep producer-only identity and add a separate total-party list: rejected
+      because it creates multiple lifecycle sources.
+    - Derive producer count from quarter records: rejected because missing producer
+      measurements must not reduce the producer count.
 
 ## Clarification Resolution Summary
 All technical and operational uncertainties for this feature are resolved. No
