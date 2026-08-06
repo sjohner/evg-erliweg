@@ -1,5 +1,9 @@
 # Quickstart: Party-Level Quarterly Data Updates
 
+## Amendment: Updating Energy Data (2026-08-06)
+
+Update only the global catalog and quarterly records in `data/energy-data.json`. Use `activeFromQuarterId` and optional `inactiveAfterQuarterId` for lifecycle changes; do not add `isActive`. Site facts are maintained separately in `data/site-content.json`.
+
 ## Purpose
 Validate party-level quarterly data maintenance and dynamic aggregate behavior
 end-to-end.

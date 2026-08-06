@@ -9,7 +9,8 @@ Static website for EVG Erliweg on GitHub Pages.
 - `assets/js/data-loader.js`: Loading and aggregation helpers for energy data
 - `assets/js/app.js`: Shared page bootstrap and rendering logic
 - `assets/js/charts.js`: Historical comparison chart rendering
-- `data/energy-data.json`: Quarterly data plus static about/contact content
+- `data/site-content.json`: Mutable community, about, and contact facts
+- `data/energy-data.json`: Party catalog and quarterly measurements
 
 ## Local Preview
 
@@ -37,12 +38,12 @@ Then open `http://localhost:4173` (or the URL printed by `serve`) in your browse
 
 ## Quarterly Data Update and Publishing
 
-1. Open `data/energy-data.json` in the private repository.
-2. Maintain the global producing-party catalog in `energy.producingPartiesCatalog`:
+1. Update mutable community, about, and contact facts in `data/site-content.json`.
+2. Open `data/energy-data.json` in the private repository and maintain the global producing-party catalog in `producingPartiesCatalog`:
 	- Add new parties with unique `partyId` and `partyLabel`.
 	- Use `activeFromQuarterId` and optional `inactiveAfterQuarterId` to control lifecycle without deleting historical records.
-3. Update the target quarter in `energy.quarterlyRecords` using `partyRecords` entries (`partyId`, `producedKwh`, `consumedKwh`, `updatedAt`).
-4. For a new quarter, add a new `energy.quarterlyRecords` entry with unique `id` (`YYYY-QN`), the correct date range, and one `partyRecords` entry per active producing party.
+3. Update the target quarter in `quarterlyRecords` using `partyRecords` entries (`partyId`, `producedKwh`, `consumedKwh`, `updatedAt`).
+4. For a new quarter, add a new `quarterlyRecords` entry with unique `id` (`YYYY-QN`), the correct date range, and one `partyRecords` entry per active producing party.
 4. Run data validation before pushing:
 	- `npm run check:data`
 	- This command validates quarter IDs, date ranges, negative values, duplicate IDs, party catalog references, lifecycle windows, and timestamp consistency.
@@ -70,7 +71,7 @@ Then open `http://localhost:4173` (or the URL printed by `serve`) in your browse
 - `npm run check:data` fails with negative values:
 	- Replace negative `producedKwh` or `consumedKwh` values with the corrected non-negative values.
 - `npm run check:data` fails with unknown `partyId`:
-	- Add the missing party to `energy.producingPartiesCatalog` or correct the quarter record to an existing `partyId`.
+	- Add the missing party to `producingPartiesCatalog` or correct the quarter record to an existing `partyId`.
 - `npm run check:data` fails with lifecycle window mismatch:
 	- Align the quarter record with the catalog lifecycle (`activeFromQuarterId` and optional `inactiveAfterQuarterId`) or update lifecycle metadata for the intended future-quarter change.
 - A quarter is temporarily missing one active party record:
@@ -82,4 +83,4 @@ Then open `http://localhost:4173` (or the URL printed by `serve`) in your browse
 - Repository documentation (including this README) is in English.
 - Vanilla HTML, CSS, and JavaScript stack.
 - Dark mode and WCAG 2.1 AA as quality target.
-- Metrics are calculated dynamically from `data/energy-data.json`.
+- Metrics are calculated dynamically from `data/energy-data.json`; mutable site facts are loaded from `data/site-content.json`.

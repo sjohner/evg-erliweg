@@ -1,5 +1,9 @@
 # Publishing Contract: Party-Level Quarterly Data
 
+## Amendment: Canonical Energy Source (2026-08-06)
+
+`data/energy-data.json` is the canonical source for the global party catalog and quarterly party records only. It is published with `data/site-content.json`; validation rejects ambiguous `isActive` lifecycle metadata and validates both files before deployment.: Party-Level Quarterly Data
+
 ## Purpose
 Define the contract between party-level quarterly data updates and public
 website publication.

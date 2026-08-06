@@ -130,7 +130,7 @@ function renderHomePage(data) {
   setText("#total-label", overview.cumulative.label);
   setText("#total-produced", formatKwh(overview.cumulative.totals.producedKwh));
   setText("#total-consumed", formatKwh(overview.cumulative.totals.consumedKwh));
-  setText("#total-note", "Gesamtsumme seit dem Start der EVG am 01.10.2025.");
+  setText("#total-note", `Gesamtsumme seit dem Start der EVG am ${formatGermanDate(data.community.startDate)}.`);
 
   const communityTotalLabel = Number.isInteger(community.totalPeople)
     ? `${community.totalParties} (${community.totalPeople} Personen)`

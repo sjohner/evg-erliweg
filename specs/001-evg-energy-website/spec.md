@@ -8,6 +8,12 @@
 
 **Input**: User description: "Build a public EVG Erliweg website for quarterly, yearly, and cumulative production/consumption transparency, historical browsing, contact/join information, mobile-responsive modern design with dark mode, and simple quarterly admin updates."
 
+## Amendment: Content and Energy Boundaries (2026-08-06)
+
+This amendment supersedes prior single-file references in this feature. `data/site-content.json` is the canonical persisted source for community, about, and contact facts. `data/energy-data.json` is the canonical party-level measurement source defined by Feature 002; Feature 001 does not define a second energy schema.
+
+Mutable displayed dates, locations, party counts, reporting periods, contact details, and energy values MUST be rendered from these sources. Stable German headings, controls, accessibility labels, and number-free explanatory text remain in HTML. Lifecycle is defined only by `activeFromQuarterId` and optional `inactiveAfterQuarterId`.
+
 ## Clarifications
 
 ### Session 2026-07-20

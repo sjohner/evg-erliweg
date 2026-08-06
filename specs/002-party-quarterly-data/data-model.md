@@ -1,5 +1,9 @@
 # Data Model: Party-Level Quarterly Data Updates
 
+## Amendment: Lifecycle and Ownership (2026-08-06)
+
+`data/energy-data.json` contains only `producingPartiesCatalog` and `quarterlyRecords`. Each catalog entry requires `partyId`, `partyLabel`, and `activeFromQuarterId`; `inactiveAfterQuarterId` is optional and inclusive. `isActive` is removed because it conflicts with lifecycle boundaries.
+
 ## 1. ProducingParty
 - Purpose: Identifies a producing party consistently across reporting periods.
 - Fields:

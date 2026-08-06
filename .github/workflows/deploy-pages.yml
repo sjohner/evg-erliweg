@@ -58,6 +58,7 @@ jobs:
           cp -R assets/js _site/assets/
           if [ -d assets/images ]; then cp -R assets/images _site/assets/; fi
           cp data/energy-data.json _site/data/
+          cp data/site-content.json _site/data/
 
       - name: Artefakt hochladen
         uses: actions/upload-pages-artifact@v3

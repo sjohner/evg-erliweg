@@ -8,6 +8,10 @@
 
 **Input**: User description: "As a maintainer I would like to be able to update data for each producing party individually for each quarter. consumed energy and produced energy per party. The totals per quarter and year should still be calculated dynamically afterwards"
 
+## Amendment: Canonical Energy Boundary (2026-08-06)
+
+`data/energy-data.json` is the canonical party-level energy source and contains only `producingPartiesCatalog` and `quarterlyRecords`. Community, editorial, and contact content belongs to Feature 001's `data/site-content.json`. A party's lifecycle is defined solely by required `activeFromQuarterId` and optional `inactiveAfterQuarterId`; `isActive` is not part of the schema. The catalog remains authoritative for party identity and lifecycle metadata.
+
 ## Clarifications
 
 ### Session 2026-07-21

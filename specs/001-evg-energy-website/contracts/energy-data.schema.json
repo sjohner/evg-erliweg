@@ -1,25 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.com/schemas/energy-data.schema.json",
-  "title": "EVG Erliweg Energy Data",
+  "$id": "https://example.com/schemas/site-content.schema.json",
+  "title": "EVG Erliweg Site Content",
   "type": "object",
-  "required": [
-    "community",
-    "aboutContent",
-    "contact",
-    "energy"
-  ],
+  "required": ["community", "aboutContent", "contact"],
   "properties": {
     "community": {
       "type": "object",
-      "required": [
-        "name",
-        "city",
-        "country",
-        "startDate",
-        "totalParties",
-        "totalPeople"
-      ],
+      "required": ["name", "city", "country", "startDate", "totalParties", "totalPeople"],
       "properties": {
         "name": { "type": "string", "minLength": 1 },
         "city": { "type": "string", "minLength": 1 },
@@ -35,11 +23,7 @@
       "required": ["summary", "termsUrl", "lastReviewedAt"],
       "properties": {
         "summary": { "type": "string", "minLength": 1 },
-        "termsUrl": {
-          "type": "string",
-          "format": "uri",
-          "const": "https://www.elektra.ch/energiedienstleistungen/elektraeigenstrom/"
-        },
+        "termsUrl": { "type": "string", "format": "uri" },
         "lastReviewedAt": { "type": "string", "format": "date" }
       },
       "additionalProperties": false
@@ -53,56 +37,7 @@
         "target": { "type": "string", "minLength": 1 }
       },
       "additionalProperties": false
-    },
-    "energy": {
-      "type": "object",
-      "required": ["quarterlyRecords"],
-      "properties": {
-        "quarterlyRecords": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": [
-              "id",
-              "year",
-              "quarter",
-              "startDate",
-              "endDate",
-              "producedKwh",
-              "consumedKwh",
-              "updatedAt"
-            ],
-            "properties": {
-              "id": {
-                "type": "string",
-                "pattern": "^[0-9]{4}-Q[1-4]$"
-              },
-              "year": {
-                "type": "integer",
-                "minimum": 2025
-              },
-              "quarter": {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 4
-              },
-              "startDate": { "type": "string", "format": "date" },
-              "endDate": { "type": "string", "format": "date" },
-              "producedKwh": { "type": "number", "minimum": 0 },
-              "consumedKwh": { "type": "number", "minimum": 0 },
-              "updatedAt": { "type": "string", "format": "date-time" }
-            },
-            "additionalProperties": false
-          }
-        }
-      },
-      "additionalProperties": false
     }
   },
-  "additionalProperties": false,
-  "allOf": [
-    {
-      "description": "Cross-field constraints such as totalPeople >= totalParties should be checked during manual review of quarterly data updates."
-    }
-  ]
+  "additionalProperties": false
 }

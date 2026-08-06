@@ -1,5 +1,11 @@
 # Tasks: Party-Level Quarterly Data Updates
 
+## Amendment Tasks (2026-08-06)
+
+- [X] T020 Amend Feature 002 as the canonical party-level energy schema and remove `isActive`.
+- [X] T021 Share lifecycle-quarter normalization between the renderer and data validator and remove unused history helpers.
+- [X] T022 Validate lifecycle, catalog, quarterly records, and the linked site-content source through `npm run check:data`.
+
 **Input**: Design documents from `/specs/002-party-quarterly-data/`
 
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/

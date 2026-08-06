@@ -1,7 +1,9 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { isPartyActiveForQuarter, quarterToNumber } from "../assets/js/quarter-utils.js";
 
-const dataFilePath = path.resolve(process.cwd(), "data", "energy-data.json");
+const siteContentFilePath = path.resolve(process.cwd(), "data", "site-content.json");
+const energyDataFilePath = path.resolve(process.cwd(), "data", "energy-data.json");
 
 function isFiniteNumber(value) {
   return typeof value === "number" && Number.isFinite(value);
@@ -34,36 +36,12 @@ function isValidDateTime(value) {
   return !Number.isNaN(date.getTime());
 }
 
-function parseQuarterId(quarterId) {
-  const match = /^(\d{4})-Q([1-4])$/.exec(quarterId);
-
-  if (!match) {
-    return null;
-  }
-
-  return {
-    year: Number(match[1]),
-    quarter: Number(match[2])
-  };
+async function loadData(filePath) {
+  return JSON.parse(await readFile(filePath, "utf8"));
 }
 
-function quarterToNumber(quarterId) {
-  const parsed = parseQuarterId(quarterId);
-
-  if (!parsed) {
-    return null;
-  }
-
-  return parsed.year * 10 + parsed.quarter;
-}
-
-async function loadData() {
-  const raw = await readFile(dataFilePath, "utf8");
-  return JSON.parse(raw);
-}
-
-function validateCommunity(data, errors) {
-  const community = data?.community;
+function validateCommunity(siteContent, errors) {
+  const community = siteContent?.community;
 
   if (!community || typeof community !== "object") {
     errors.push("Missing required object: community.");
@@ -93,11 +71,47 @@ function validateCommunity(data, errors) {
   }
 }
 
-function validateProducingPartiesCatalog(data, errors) {
-  const catalog = data?.energy?.producingPartiesCatalog;
+function validateSiteContent(siteContent, errors) {
+  const aboutContent = siteContent?.aboutContent;
+  const contact = siteContent?.contact;
+
+  if (!aboutContent || typeof aboutContent !== "object") {
+    errors.push("Missing required object: aboutContent.");
+  } else {
+    if (typeof aboutContent.summary !== "string" || aboutContent.summary.trim().length === 0) {
+      errors.push("aboutContent.summary must be a non-empty string.");
+    }
+    if (aboutContent.termsUrl !== "https://www.elektra.ch/energiedienstleistungen/elektraeigenstrom/") {
+      errors.push("aboutContent.termsUrl must be the official Elektra Eigenstrom URL.");
+    }
+    if (!isValidDate(aboutContent.lastReviewedAt)) {
+      errors.push("aboutContent.lastReviewedAt must be a valid date in YYYY-MM-DD format.");
+    }
+  }
+
+  if (!contact || typeof contact !== "object") {
+    errors.push("Missing required object: contact.");
+  } else {
+    if (typeof contact.label !== "string" || contact.label.trim().length === 0) {
+      errors.push("contact.label must be a non-empty string.");
+    }
+    if (!["email", "form-link"].includes(contact.type)) {
+      errors.push("contact.type must be email or form-link.");
+    }
+    const validTarget = contact.type === "email"
+      ? typeof contact.target === "string" && /^mailto:[^@\s]+@[^@\s]+$/.test(contact.target)
+      : typeof contact.target === "string" && /^https:\/\//.test(contact.target);
+    if (!validTarget) {
+      errors.push("contact.target must match its contact.type.");
+    }
+  }
+}
+
+function validateProducingPartiesCatalog(energyData, errors) {
+  const catalog = energyData?.producingPartiesCatalog;
 
   if (!Array.isArray(catalog) || catalog.length === 0) {
-    errors.push("energy.producingPartiesCatalog must be a non-empty array.");
+    errors.push("producingPartiesCatalog must be a non-empty array.");
     return new Map();
   }
 
@@ -105,7 +119,7 @@ function validateProducingPartiesCatalog(data, errors) {
 
   for (let i = 0; i < catalog.length; i += 1) {
     const entry = catalog[i];
-    const prefix = `energy.producingPartiesCatalog[${i}]`;
+    const prefix = `producingPartiesCatalog[${i}]`;
 
     if (!entry || typeof entry !== "object") {
       errors.push(`${prefix} must be an object.`);
@@ -127,6 +141,9 @@ function validateProducingPartiesCatalog(data, errors) {
       errors.push(`${prefix}.partyLabel must be a non-empty string.`);
     }
 
+    if (typeof activeFromQuarterId !== "string") {
+      errors.push(`${prefix}.activeFromQuarterId is required.`);
+    }
     const activeFromNum = activeFromQuarterId ? quarterToNumber(activeFromQuarterId) : null;
     const inactiveAfterNum = inactiveAfterQuarterId ? quarterToNumber(inactiveAfterQuarterId) : null;
 
@@ -148,33 +165,8 @@ function validateProducingPartiesCatalog(data, errors) {
   return catalogMap;
 }
 
-function isPartyActiveForQuarter(party, quarterId) {
-  const target = quarterToNumber(quarterId);
-
-  if (target === null) {
-    return false;
-  }
-
-  const activeFrom = party.activeFromQuarterId ? quarterToNumber(party.activeFromQuarterId) : null;
-  const inactiveAfter = party.inactiveAfterQuarterId ? quarterToNumber(party.inactiveAfterQuarterId) : null;
-
-  if (activeFrom !== null && target < activeFrom) {
-    return false;
-  }
-
-  if (inactiveAfter !== null && target > inactiveAfter) {
-    return false;
-  }
-
-  if (party.isActive === false && inactiveAfter === null) {
-    return false;
-  }
-
-  return true;
-}
-
 function validateQuarterRecord(record, index, errors, duplicateIds, catalogMap) {
-  const prefix = `energy.quarterlyRecords[${index}]`;
+  const prefix = `quarterlyRecords[${index}]`;
 
   if (!record || typeof record !== "object") {
     errors.push(`${prefix} must be an object.`);
@@ -269,7 +261,7 @@ function validatePartyRecords(record, prefix, errors, catalogMap) {
       const catalogParty = catalogMap.get(partyId);
 
       if (!catalogParty) {
-        errors.push(`${partyPrefix}.partyId '${partyId}' is not defined in energy.producingPartiesCatalog.`);
+        errors.push(`${partyPrefix}.partyId '${partyId}' is not defined in producingPartiesCatalog.`);
       } else if (!isPartyActiveForQuarter(catalogParty, record.id)) {
         errors.push(`${partyPrefix}.partyId '${partyId}' is outside its active lifecycle window for quarter '${record.id}'.`);
       }
@@ -326,22 +318,23 @@ function validateQuarterOrder(records, errors) {
 
     if (currStart <= prevEnd) {
       errors.push(
-        `energy.quarterlyRecords[${curr.index}] overlaps with previous quarter (${prev.id ?? "unknown"} -> ${curr.id ?? "unknown"}).`
+        `quarterlyRecords[${curr.index}] overlaps with previous quarter (${prev.id ?? "unknown"} -> ${curr.id ?? "unknown"}).`
       );
     }
   }
 }
 
-function validateData(data) {
+function validateData(siteContent, energyData) {
   const errors = [];
 
-  validateCommunity(data, errors);
-  const catalogMap = validateProducingPartiesCatalog(data, errors);
+  validateCommunity(siteContent, errors);
+  validateSiteContent(siteContent, errors);
+  const catalogMap = validateProducingPartiesCatalog(energyData, errors);
 
-  const records = data?.energy?.quarterlyRecords;
+  const records = energyData?.quarterlyRecords;
 
   if (!Array.isArray(records)) {
-    errors.push("energy.quarterlyRecords must be an array.");
+    errors.push("quarterlyRecords must be an array.");
     return errors;
   }
 
@@ -358,11 +351,14 @@ function validateData(data) {
 
 async function main() {
   try {
-    const data = await loadData();
-    const errors = validateData(data);
+    const [siteContent, energyData] = await Promise.all([
+      loadData(siteContentFilePath),
+      loadData(energyDataFilePath)
+    ]);
+    const errors = validateData(siteContent, energyData);
 
     if (errors.length > 0) {
-      console.error(`Energy data validation failed with ${errors.length} issue(s):`);
+      console.error(`Site content and energy data validation failed with ${errors.length} issue(s):`);
       for (const error of errors) {
         console.error(`- ${error}`);
       }
@@ -370,10 +366,10 @@ async function main() {
       return;
     }
 
-    console.log("Energy data validation passed.");
+    console.log("Site content and energy data validation passed.");
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    console.error(`Energy data validation failed: ${message}`);
+    console.error(`Site content and energy data validation failed: ${message}`);
     process.exitCode = 1;
   }
 }

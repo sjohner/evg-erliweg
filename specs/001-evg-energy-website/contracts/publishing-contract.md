@@ -1,5 +1,9 @@
 # Publishing Contract
 
+## Amendment: Canonical Site Content (2026-08-06)
+
+`data/site-content.json` is the canonical source for community, about, and contact content. `data/energy-data.json` is the separately validated canonical party-level source defined by Feature 002. Publication requires `npm run check:data`, which validates both sources, and deploys both files.
+
 ## Purpose
 Define the contract between repository data updates and public website publication.
 

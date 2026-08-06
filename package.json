@@ -5,6 +5,6 @@
   "type": "module",
   "scripts": {
     "check:data": "node scripts/check-energy-data.mjs",
-    "check:js": "node --check assets/js/data-loader.js && node --check assets/js/app.js && node --check assets/js/charts.js"
+    "check:js": "node --check assets/js/quarter-utils.js && node --check assets/js/data-loader.js && node --check assets/js/app.js && node --check assets/js/charts.js"
   }
 }
