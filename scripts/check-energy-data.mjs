@@ -91,18 +91,21 @@ function validateProducerConfiguration(configuration, prefix, errors) {
     errors.push(`${prefix}.isProducer must be a boolean.`);
   }
 
-  if (typeof activeFromQuarterId !== "string") {
+  const trimmedActiveFromQuarterId = typeof activeFromQuarterId === "string" ? activeFromQuarterId.trim() : "";
+  const trimmedInactiveAfterQuarterId = typeof inactiveAfterQuarterId === "string" ? inactiveAfterQuarterId.trim() : "";
+
+  if (!trimmedActiveFromQuarterId) {
     errors.push(`${prefix}.activeFromQuarterId is required.`);
   }
 
-  const activeFromNum = activeFromQuarterId ? quarterToNumber(activeFromQuarterId) : null;
-  const inactiveAfterNum = inactiveAfterQuarterId ? quarterToNumber(inactiveAfterQuarterId) : null;
+  const activeFromNum = trimmedActiveFromQuarterId ? quarterToNumber(trimmedActiveFromQuarterId) : null;
+  const inactiveAfterNum = trimmedInactiveAfterQuarterId ? quarterToNumber(trimmedInactiveAfterQuarterId) : null;
 
-  if (activeFromQuarterId && activeFromNum === null) {
+  if (trimmedActiveFromQuarterId && activeFromNum === null) {
     errors.push(`${prefix}.activeFromQuarterId must match YYYY-QN when provided.`);
   }
 
-  if (inactiveAfterQuarterId && inactiveAfterNum === null) {
+  if (trimmedInactiveAfterQuarterId && inactiveAfterNum === null) {
     errors.push(`${prefix}.inactiveAfterQuarterId must match YYYY-QN when provided.`);
   }
 
