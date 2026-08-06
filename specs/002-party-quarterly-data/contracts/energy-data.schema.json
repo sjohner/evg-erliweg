@@ -3,8 +3,9 @@
   "$id": "https://example.com/schemas/energy-data.schema.json",
   "title": "EVG Erliweg Party-Level Energy Data",
   "type": "object",
-  "required": ["producingPartiesCatalog", "quarterlyRecords"],
+  "required": ["reportingStartDate", "producingPartiesCatalog", "quarterlyRecords"],
   "properties": {
+    "reportingStartDate": { "type": "string", "format": "date" },
     "producingPartiesCatalog": {
       "type": "array",
       "minItems": 1,

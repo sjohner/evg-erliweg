@@ -2,7 +2,6 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { isPartyActiveForQuarter, quarterToNumber } from "../assets/js/quarter-utils.js";
 
-const siteContentFilePath = path.resolve(process.cwd(), "data", "site-content.json");
 const energyDataFilePath = path.resolve(process.cwd(), "data", "energy-data.json");
 
 function isFiniteNumber(value) {
@@ -40,70 +39,9 @@ async function loadData(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
 }
 
-function validateCommunity(siteContent, errors) {
-  const community = siteContent?.community;
-
-  if (!community || typeof community !== "object") {
-    errors.push("Missing required object: community.");
-    return;
-  }
-
-  const { totalParties, totalPeople, startDate } = community;
-
-  if (!Number.isInteger(totalParties) || totalParties < 1) {
-    errors.push("community.totalParties must be an integer >= 1.");
-  }
-
-  if (!Number.isInteger(totalPeople) || totalPeople < 1) {
-    errors.push("community.totalPeople must be an integer >= 1.");
-  }
-
-  if (
-    Number.isInteger(totalParties) &&
-    Number.isInteger(totalPeople) &&
-    totalPeople < totalParties
-  ) {
-    errors.push("community.totalPeople must be >= community.totalParties.");
-  }
-
-  if (!isValidDate(startDate)) {
-    errors.push("community.startDate must be a valid date in YYYY-MM-DD format.");
-  }
-}
-
-function validateSiteContent(siteContent, errors) {
-  const aboutContent = siteContent?.aboutContent;
-  const contact = siteContent?.contact;
-
-  if (!aboutContent || typeof aboutContent !== "object") {
-    errors.push("Missing required object: aboutContent.");
-  } else {
-    if (typeof aboutContent.summary !== "string" || aboutContent.summary.trim().length === 0) {
-      errors.push("aboutContent.summary must be a non-empty string.");
-    }
-    if (aboutContent.termsUrl !== "https://www.elektra.ch/energiedienstleistungen/elektraeigenstrom/") {
-      errors.push("aboutContent.termsUrl must be the official Elektra Eigenstrom URL.");
-    }
-    if (!isValidDate(aboutContent.lastReviewedAt)) {
-      errors.push("aboutContent.lastReviewedAt must be a valid date in YYYY-MM-DD format.");
-    }
-  }
-
-  if (!contact || typeof contact !== "object") {
-    errors.push("Missing required object: contact.");
-  } else {
-    if (typeof contact.label !== "string" || contact.label.trim().length === 0) {
-      errors.push("contact.label must be a non-empty string.");
-    }
-    if (!["email", "form-link"].includes(contact.type)) {
-      errors.push("contact.type must be email or form-link.");
-    }
-    const validTarget = contact.type === "email"
-      ? typeof contact.target === "string" && /^mailto:[^@\s]+@[^@\s]+$/.test(contact.target)
-      : typeof contact.target === "string" && /^https:\/\//.test(contact.target);
-    if (!validTarget) {
-      errors.push("contact.target must match its contact.type.");
-    }
+function validateReportingStartDate(energyData, errors) {
+  if (!isValidDate(energyData?.reportingStartDate)) {
+    errors.push("reportingStartDate must be a valid date in YYYY-MM-DD format.");
   }
 }
 
@@ -237,7 +175,6 @@ function validatePartyRecords(record, prefix, errors, catalogMap) {
   const seenPartyIds = new Set();
   let producedTotal = 0;
   let consumedTotal = 0;
-  let newestPartyUpdatedAt = null;
 
   for (let i = 0; i < partyRecords.length; i += 1) {
     const party = partyRecords[i];
@@ -265,7 +202,6 @@ function validatePartyRecords(record, prefix, errors, catalogMap) {
       } else if (!isPartyActiveForQuarter(catalogParty, record.id)) {
         errors.push(`${partyPrefix}.partyId '${partyId}' is outside its active lifecycle window for quarter '${record.id}'.`);
       }
-
     }
 
     if (!isNonNegativeNumber(producedKwh)) {
@@ -282,8 +218,6 @@ function validatePartyRecords(record, prefix, errors, catalogMap) {
 
     if (!isValidDateTime(partyUpdatedAt)) {
       errors.push(`${partyPrefix}.updatedAt must be a valid ISO datetime string.`);
-    } else if (!newestPartyUpdatedAt || new Date(partyUpdatedAt).getTime() > new Date(newestPartyUpdatedAt).getTime()) {
-      newestPartyUpdatedAt = partyUpdatedAt;
     }
   }
 
@@ -294,7 +228,6 @@ function validatePartyRecords(record, prefix, errors, catalogMap) {
   if (isFiniteNumber(record.consumedKwh) && Math.abs(record.consumedKwh - consumedTotal) > 0.000001) {
     errors.push(`${prefix}.consumedKwh must equal the sum of partyRecords[].consumedKwh when both are present.`);
   }
-
 }
 
 function validateQuarterOrder(records, errors) {
@@ -324,11 +257,10 @@ function validateQuarterOrder(records, errors) {
   }
 }
 
-function validateData(siteContent, energyData) {
+function validateData(energyData) {
   const errors = [];
 
-  validateCommunity(siteContent, errors);
-  validateSiteContent(siteContent, errors);
+  validateReportingStartDate(energyData, errors);
   const catalogMap = validateProducingPartiesCatalog(energyData, errors);
 
   const records = energyData?.quarterlyRecords;
@@ -351,14 +283,11 @@ function validateData(siteContent, energyData) {
 
 async function main() {
   try {
-    const [siteContent, energyData] = await Promise.all([
-      loadData(siteContentFilePath),
-      loadData(energyDataFilePath)
-    ]);
-    const errors = validateData(siteContent, energyData);
+    const energyData = await loadData(energyDataFilePath);
+    const errors = validateData(energyData);
 
     if (errors.length > 0) {
-      console.error(`Site content and energy data validation failed with ${errors.length} issue(s):`);
+      console.error(`Energy data validation failed with ${errors.length} issue(s):`);
       for (const error of errors) {
         console.error(`- ${error}`);
       }
@@ -366,10 +295,10 @@ async function main() {
       return;
     }
 
-    console.log("Site content and energy data validation passed.");
+    console.log("Energy data validation passed.");
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    console.error(`Site content and energy data validation failed: ${message}`);
+    console.error(`Energy data validation failed: ${message}`);
     process.exitCode = 1;
   }
 }

@@ -6,7 +6,7 @@
 
 ## Amendment: Content Boundary Decision (2026-08-06)
 
-Split mutable site content from measurements: `data/site-content.json` owns community, about, and contact facts; Feature 002's `data/energy-data.json` owns party-level energy data. This prevents unrelated editorial updates from changing measurement data and gives each source one canonical schema. The loader combines both sources; the deployment and validator require both.
+Keep manually maintained presentation content in `index.html` and keep structured energy-domain inputs in Feature 002's `data/energy-data.json`. This removes content-maintenance indirection for the static site while preserving a single canonical structured energy contract for calculations, projections, and validation.
 
 ## Summary
 
@@ -83,6 +83,9 @@ Post-Phase-1 re-check:
 - PASS: `research.md`, `data-model.md`, `contracts/`, and `quickstart.md`
   preserve requirement traceability and keep design decisions simple and
   reversible.
+- PASS: Ownership re-check confirms `index.html` is canonical for manual
+  presentation content and `data/energy-data.json` is canonical for
+  structured calculation inputs including `reportingStartDate`.
 - PASS: The repository link uses existing header and icon-control patterns,
   adds no dependency or persisted data, and is independently reversible.
 - PASS: The single-row layout keeps the website title left-aligned and both
@@ -102,7 +105,6 @@ specs/001-evg-energy-website/
 ├── data-model.md
 ├── quickstart.md
 ├── contracts/
-│   ├── energy-data.schema.json
 │   ├── header-actions-contract.md
 │   └── publishing-contract.md
 └── tasks.md

@@ -2,7 +2,7 @@
 
 ## Amendment: Updating Energy Data (2026-08-06)
 
-Update only the global catalog and quarterly records in `data/energy-data.json`. Use `activeFromQuarterId` and optional `inactiveAfterQuarterId` for lifecycle changes; do not add `isActive`. Site facts are maintained separately in `data/site-content.json`.
+Update only `reportingStartDate`, the global catalog, and quarterly records in `data/energy-data.json`. Use `activeFromQuarterId` and optional `inactiveAfterQuarterId` for lifecycle changes; do not add `isActive`. Site facts are maintained directly in `index.html`.
 
 ## Purpose
 Validate party-level quarterly data maintenance and dynamic aggregate behavior
@@ -22,13 +22,14 @@ end-to-end.
 ## Setup
 1. Open the repository root.
 2. Open `data/energy-data.json`.
-3. Ensure `energy.producingPartiesCatalog` is the authoritative source of
+3. Ensure `reportingStartDate` is present and valid (YYYY-MM-DD).
+4. Ensure `energy.producingPartiesCatalog` is the authoritative source of
    party identity and lifecycle metadata (`activeFromQuarterId`,
    `inactiveAfterQuarterId`).
-4. Ensure quarter records include `partyRecords` entries with per-party
+5. Ensure quarter records include `partyRecords` entries with per-party
    `producedKwh` and `consumedKwh` values referencing catalog `partyId` values.
-5. Run `npm run check:data` locally before pushing.
-4. Preview locally (or push and validate on deployed pages).
+6. Run `npm run check:data` locally before pushing.
+7. Preview locally (or push and validate on deployed pages).
 
 ## Validation Scenarios
 
