@@ -10,7 +10,7 @@
 
 ## Amendment: Canonical Energy Boundary (2026-08-06)
 
-`data/energy-data.json` is the canonical party-level energy source and contains only `producingPartiesCatalog` and `quarterlyRecords`. Community, editorial, and contact content belongs to Feature 001's `data/site-content.json`. A party's lifecycle is defined solely by required `activeFromQuarterId` and optional `inactiveAfterQuarterId`; `isActive` is not part of the schema. The catalog remains authoritative for party identity and lifecycle metadata.
+`data/energy-data.json` is the canonical party-level energy source and contains `reportingStartDate`, `producingPartiesCatalog`, and `quarterlyRecords`. Community, editorial, and contact content is manually maintained in Feature 001's `index.html`. A party's lifecycle is defined solely by required `activeFromQuarterId` and optional `inactiveAfterQuarterId`; `isActive` is not part of the schema. The catalog remains authoritative for party identity and lifecycle metadata.
 
 ## Clarifications
 

@@ -1,6 +1,5 @@
 import { isPartyActiveForQuarter } from "./quarter-utils.js";
 
-const SITE_CONTENT_URL = "data/site-content.json";
 const ENERGY_DATA_URL = "data/energy-data.json";
 
 let cachedDataPromise;
@@ -34,13 +33,12 @@ export function formatKwh(value) {
 
 export async function loadSiteData() {
   if (!cachedDataPromise) {
-    cachedDataPromise = Promise.all([SITE_CONTENT_URL, ENERGY_DATA_URL].map(async (url) => {
-      const response = await fetch(url);
+    cachedDataPromise = fetch(ENERGY_DATA_URL).then(async (response) => {
       if (!response.ok) {
         throw new Error(`Daten konnten nicht geladen werden (${response.status}).`);
       }
       return response.json();
-    })).then(([siteContent, energy]) => ({ ...siteContent, energy }));
+    });
   }
 
   return cachedDataPromise;
@@ -108,7 +106,7 @@ function buildQuarterTotalsRecord(record) {
 }
 
 export function getProducingPartiesCatalog(data) {
-  return [...(data.energy.producingPartiesCatalog ?? [])];
+  return [...(data.producingPartiesCatalog ?? [])];
 }
 
 export function getActivePartiesForQuarter(data, quarterId) {
@@ -131,7 +129,7 @@ export function normalizeQuarterPartyRecords(data, quarterRecord) {
 }
 
 function getNormalizedQuarterRecords(data) {
-  return sortRecords(data.energy.quarterlyRecords).map((record) => {
+  return sortRecords(data.quarterlyRecords).map((record) => {
     const normalizedPartyRecords = normalizeQuarterPartyRecords(data, record);
     return buildQuarterTotalsRecord({
       ...record,
@@ -149,7 +147,7 @@ export function deriveEnergyOverview(data) {
     ? []
     : records.filter((record) => record.year === referenceYear);
   const cumulativeRecords = records.filter((record) => {
-    return parseJsonDate(record.endDate).getTime() >= parseJsonDate(data.community.startDate).getTime();
+    return parseJsonDate(record.endDate).getTime() >= parseJsonDate(data.reportingStartDate).getTime();
   });
   const latestUpdatedRecord = records.reduce((latest, record) => {
     if (!latest) {
@@ -177,7 +175,7 @@ export function deriveEnergyOverview(data) {
       hasData: yearRecords.length > 0
     },
     cumulative: {
-      label: `Seit ${formatGermanDate(data.community.startDate)}`,
+      label: `Seit ${formatGermanDate(data.reportingStartDate)}`,
       totals: sumRecords(cumulativeRecords)
     },
     lastUpdated: latestUpdatedRecord ? {
@@ -191,27 +189,14 @@ export function deriveEnergyOverview(data) {
 }
 
 export function getCommunitySummary(data) {
-  const records = sortRecords(data.energy.quarterlyRecords ?? []);
+  const records = sortRecords(data.quarterlyRecords ?? []);
   const latestQuarterRecord = records.length > 0 ? records[records.length - 1] : null;
   const producingParties = latestQuarterRecord
     ? getActivePartiesForQuarter(data, latestQuarterRecord.id).length
     : 0;
 
   return {
-    totalParties: data.community.totalParties,
-    totalPeople: data.community.totalPeople,
-    producingParties,
-    location: `${data.community.city}, ${data.community.country}`
-  };
-}
-
-export function getAboutContent(data) {
-  return {
-    summary: data.aboutContent.summary,
-    termsUrl: data.aboutContent.termsUrl,
-    lastReviewedAt: data.aboutContent.lastReviewedAt,
-    contactLabel: data.contact.label,
-    contactTarget: data.contact.target
+    producingParties
   };
 }
 

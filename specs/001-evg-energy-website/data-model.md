@@ -2,7 +2,7 @@
 
 ## Amendment: Site Content Source (2026-08-06)
 
-`data/site-content.json` is the canonical persisted source for `community`, `aboutContent`, and `contact`. `community.startDate`, location, party totals, editorial summary, official URL, review date, and contact target are validated before publication. Energy entities are defined only by Feature 002.
+`index.html` is the canonical manually maintained source for `community`, `about`, and `contact` presentation content. `data/energy-data.json` remains the canonical structured source for energy-domain entities, including `reportingStartDate` for cumulative calculations.
 
 ## 1. CommunityProfile
 - Purpose: Stores stable identity/context displayed to visitors.
@@ -10,7 +10,6 @@
   - `name` (string, required): Community name, e.g. "EVG Erliweg".
   - `city` (string, required): Community location, e.g. "Fraubrunnen".
   - `country` (string, required): Country, e.g. "Switzerland".
-  - `startDate` (date string, required): Baseline date for cumulative metrics (`2025-10-01`).
   - `totalParties` (integer, required, >= 1).
   - `totalPeople` (integer, required, >= `totalParties`).
 
@@ -71,23 +70,22 @@
   - `secondaryContextPolicy` (constant, required): The header eyebrow and subtitle may be omitted at constrained mobile widths while the website title remains visible.
   - `icon` (constant, required): GitHub mark rendered decoratively and hidden from assistive technology.
 
-## 5. AboutContent
-- Purpose: Public about/learn-more information and external reference.
+## 5. ReportingStartDate
+- Persistence: Stored in `data/energy-data.json`.
+- Purpose: Canonical lower bound for cumulative totals.
 - Fields:
-  - `summary` (string, required): Human-readable description of EVG Erliweg and
-    elektraeigenstrom.
-  - `termsUrl` (URL string, required): `https://www.elektra.ch/energiedienstleistungen/elektraeigenstrom/`.
-  - `lastReviewedAt` (date string, required).
+  - `reportingStartDate` (date string, required): Baseline date used by runtime cumulative calculations.
 
-## 6. ContactChannel
+## 6. AboutContent
+- Persistence: Canonical manual HTML content in `index.html`.
+- Purpose: Public about/learn-more information and external reference.
+
+## 7. ContactChannel
+- Persistence: Canonical manual HTML content in `index.html`.
 - Purpose: Publicly displayed means for interested users to contact EVG.
-- Fields:
-  - `label` (string, required): e.g. "Contact EVG Erliweg".
-  - `type` (enum, required): `email` or `form-link`.
-  - `target` (string, required): Email address or external form URL.
 
 ## Relationships
-- `CommunityProfile.startDate` defines the lower bound for `CumulativeSummary.fromDate`.
+- `ReportingStartDate.reportingStartDate` defines the lower bound for `CumulativeSummary.fromDate`.
 - `EnergyPeriodRecord` collection is the source for both `DerivedYearSummary` and `CumulativeSummary`.
 - `EnergyPeriodRecord.updatedAt` values are the source for `LastUpdatedSummary`.
 - `ProducingPartiesSummary` is derived from party lifecycle metadata evaluated against the latest available quarter.
@@ -97,8 +95,11 @@
 
 ## Persistence Model
 - Persisted source entities in `data/energy-data.json`:
-  - `CommunityProfile`
+  - `ReportingStartDate`
   - `EnergyPeriodRecord` collection
+  - `ProducingPartiesCatalog` (defined by Feature 002)
+- Persisted manual presentation entities in `index.html`:
+  - `CommunityProfile`
   - `AboutContent`
   - `ContactChannel`
 - Non-persisted runtime projections:
@@ -113,7 +114,7 @@
 - Quarter sequence must not overlap by date range.
 - `producedKwh` and `consumedKwh` must be non-negative finite numbers.
 - `startDate`/`endDate` must be valid ISO dates.
-- `CommunityProfile.totalPeople >= CommunityProfile.totalParties`.
+- `CommunityProfile.totalPeople >= CommunityProfile.totalParties` (manual HTML maintenance rule).
 
 ## State Transitions
 

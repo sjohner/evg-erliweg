@@ -2,7 +2,7 @@
 
 ## Amendment: Updating Data (2026-08-06)
 
-Update mutable community, about, and contact facts in `data/site-content.json`; update party catalog and measurements in `data/energy-data.json`. Run `npm run check:data` and `npm run check:js` before publishing. The Pages workflow publishes both files.
+Update manually maintained community/about/contact text directly in `index.html`; update party catalog, measurements, and `reportingStartDate` in `data/energy-data.json`. Run `npm run check:data` and `npm run check:js` before publishing. The Pages workflow publishes only `data/energy-data.json` as structured input.
 
 ## Purpose
 Validate the feature end-to-end for local development and deployment readiness.
@@ -15,12 +15,12 @@ Validate the feature end-to-end for local development and deployment readiness.
 ## Artifact References
 - Plan: `plan.md`
 - Data model: `data-model.md`
-- Data schema contract: `contracts/energy-data.schema.json`
+- Data schema contract: `../002-party-quarterly-data/contracts/energy-data.schema.json`
 - Publishing contract: `contracts/publishing-contract.md`
 
 ## Setup
 1. Open the repository root.
-2. Ensure the canonical data file exists at `data/energy-data.json` and contains the expected community and quarterly data.
+2. Ensure the canonical energy data file exists at `data/energy-data.json` and contains `reportingStartDate`, producing-party catalog, and quarterly records.
 3. Serve static files locally with one of:
    - `python -m http.server 8080`
    - `npx serve .`

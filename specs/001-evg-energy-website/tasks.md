@@ -2,9 +2,9 @@
 
 ## Amendment Tasks (2026-08-06)
 
-- [X] T026 Amend Feature 001 contracts and documentation to make `data/site-content.json` canonical for mutable site facts and defer the energy schema to Feature 002.
-- [X] T027 Move community, about, and contact facts to `data/site-content.json`; render mutable dates and facts from structured data while retaining stable UI copy in HTML.
-- [X] T028 Validate site content and deploy both canonical files.
+- [X] T026 Amend Feature 001 contracts and documentation to make `index.html` canonical for mutable site facts and keep the structured energy schema in Feature 002.
+- [X] T027 Move manually maintained community, about, and contact facts into semantic HTML while retaining dynamic energy rendering.
+- [X] T028 Validate energy data and deploy with `data/energy-data.json` as the sole structured publication input.
 
 **Input**: Design documents from `/specs/001-evg-energy-website/`
 

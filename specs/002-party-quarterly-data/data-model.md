@@ -2,9 +2,14 @@
 
 ## Amendment: Lifecycle and Ownership (2026-08-06)
 
-`data/energy-data.json` contains only `producingPartiesCatalog` and `quarterlyRecords`. Each catalog entry requires `partyId`, `partyLabel`, and `activeFromQuarterId`; `inactiveAfterQuarterId` is optional and inclusive. `isActive` is removed because it conflicts with lifecycle boundaries.
+`data/energy-data.json` contains `reportingStartDate`, `producingPartiesCatalog`, and `quarterlyRecords`. Each catalog entry requires `partyId`, `partyLabel`, and `activeFromQuarterId`; `inactiveAfterQuarterId` is optional and inclusive. `isActive` is removed because it conflicts with lifecycle boundaries.
 
-## 1. ProducingParty
+## 1. ReportingStartDate
+- Purpose: Provides the canonical cumulative baseline date for runtime calculations.
+- Fields:
+  - `reportingStartDate` (date string, required): Lower bound for cumulative totals, e.g. `2025-10-01`.
+
+## 2. ProducingParty
 - Purpose: Identifies a producing party consistently across reporting periods.
 - Fields:
   - `partyId` (string, required): Stable identifier (e.g., `p1`, `haus-a`).
@@ -17,7 +22,7 @@
     appear; when set, party is considered removed for future quarters while
     historical records remain preserved.
 
-## 2. PartyQuarterRecord
+## 3. PartyQuarterRecord
 - Purpose: Stores produced and consumed values for one producing party in one
   quarter.
 - Fields:
@@ -27,7 +32,7 @@
   - `updatedAt` (datetime string, required): Last update timestamp for this
     party-level record.
 
-## 3. EnergyQuarterRecord
+## 4. EnergyQuarterRecord
 - Purpose: Quarter-level container for party-level entries and period metadata.
 - Fields:
   - `id` (string, required): Quarter key `YYYY-QN`.
@@ -37,7 +42,7 @@
   - `endDate` (date string, required).
   - `partyRecords` (array<PartyQuarterRecord>, required).
 
-## 4. QuarterAggregate (Runtime Projection)
+## 5. QuarterAggregate (Runtime Projection)
 - Persistence: Not stored in source JSON.
 - Purpose: Dynamic total for one quarter.
 - Fields:
@@ -45,7 +50,7 @@
   - `producedKwh` (number, required): Sum of `partyRecords[].producedKwh`.
   - `consumedKwh` (number, required): Sum of `partyRecords[].consumedKwh`.
 
-## 5. YearAggregate (Runtime Projection)
+## 6. YearAggregate (Runtime Projection)
 - Persistence: Not stored in source JSON.
 - Purpose: Dynamic total for one year.
 - Fields:
@@ -53,7 +58,7 @@
   - `producedKwh` (number, required): Sum of quarter produced totals in year.
   - `consumedKwh` (number, required): Sum of quarter consumed totals in year.
 
-## 6. RepositoryDataUpdate
+## 7. RepositoryDataUpdate
 - Purpose: Captures one fix-forward or routine maintainer update to party-level
   values.
 - Fields:
@@ -73,11 +78,11 @@
   not mutate historical `PartyQuarterRecord` values.
 
 ## Validation Rules
+- `reportingStartDate` MUST be a valid date string in YYYY-MM-DD format.
 - `partyId` MUST be unique within each quarter record.
 - `producedKwh` and `consumedKwh` MUST be non-negative finite numbers.
 - Quarter date ranges MUST be valid and non-overlapping by quarter identity.
 - `partyRecords[].updatedAt` MUST be valid ISO datetime values.
-- `community.totalPeople` MUST be an integer and MUST be >= `community.totalParties`.
 - Removing a party MUST NOT delete previously recorded `PartyQuarterRecord`
   entries for past quarters.
 

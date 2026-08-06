@@ -2,14 +2,14 @@
 
 ## Amendment: Canonical Site Content (2026-08-06)
 
-`data/site-content.json` is the canonical source for community, about, and contact content. `data/energy-data.json` is the separately validated canonical party-level source defined by Feature 002. Publication requires `npm run check:data`, which validates both sources, and deploys both files.
+`index.html` is the canonical manually maintained source for community, about, and contact content. `data/energy-data.json` is the canonical structured party-level source defined by Feature 002 and includes `reportingStartDate` for cumulative totals. Publication requires `npm run check:data` and deploys `data/energy-data.json` only.
 
 ## Purpose
 Define the contract between repository data updates and public website publication.
 
 ## Inputs
 - Canonical data file: `data/energy-data.json`
-- Data schema: `contracts/energy-data.schema.json`
+- Data schema: `../002-party-quarterly-data/contracts/energy-data.schema.json`
 - Public repository: `https://github.com/sjohner/evg-erliweg`
 
 ## Publication Preconditions
@@ -23,7 +23,7 @@ Define the contract between repository data updates and public website publicati
 1. Homepage presents:
    - Latest available quarter produced/consumed kWh
    - Year containing the latest available quarter produced/consumed kWh
-   - Cumulative produced/consumed kWh since `community.startDate`
+   - Cumulative produced/consumed kWh since `reportingStartDate`
    - Producing-party count derived from active parties in the latest available quarter
    - Visible "last updated" date derived from latest quarterly record update
 2. History view presents quarter and year records derived from quarterly source data.

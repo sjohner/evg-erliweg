@@ -3,7 +3,6 @@ import {
   getHistoryComparisonSeries,
   formatKwh,
   formatGermanDate,
-  getAboutContent,
   getCommunitySummary,
   loadSiteData
 } from "./data-loader.js";
@@ -130,15 +129,9 @@ function renderHomePage(data) {
   setText("#total-label", overview.cumulative.label);
   setText("#total-produced", formatKwh(overview.cumulative.totals.producedKwh));
   setText("#total-consumed", formatKwh(overview.cumulative.totals.consumedKwh));
-  setText("#total-note", `Gesamtsumme seit dem Start der EVG am ${formatGermanDate(data.community.startDate)}.`);
+  setText("#total-note", `Gesamtsumme seit dem Start der EVG am ${formatGermanDate(data.reportingStartDate)}.`);
 
-  const communityTotalLabel = Number.isInteger(community.totalPeople)
-    ? `${community.totalParties} (${community.totalPeople} Personen)`
-    : String(community.totalParties);
-
-  setText("#community-total", communityTotalLabel);
   setText("#community-producers", String(community.producingParties));
-  setText("#community-location", community.location);
 }
 
 function renderError(message) {
@@ -177,28 +170,6 @@ function renderHistoryPage(data) {
   modeSelect.addEventListener("change", syncView);
 }
 
-function renderAboutPage(data) {
-  const about = getAboutContent(data);
-
-  setText("#about-summary", about.summary);
-  setText("#about-reviewed", `Zuletzt inhaltlich geprüft am ${formatGermanDate(about.lastReviewedAt)}.`);
-  setText("#contact-label", about.contactLabel);
-  setText("#contact-link", about.contactTarget.replace("mailto:", ""));
-
-  const aboutLink = document.querySelector("#about-link");
-  const contactLink = document.querySelector("#contact-link");
-
-  if (aboutLink) {
-    aboutLink.classList.remove("is-loading");
-    aboutLink.setAttribute("href", about.termsUrl);
-  }
-
-  if (contactLink) {
-    contactLink.classList.remove("is-loading");
-    contactLink.setAttribute("href", about.contactTarget);
-  }
-}
-
 async function bootstrap() {
   setupThemeToggle();
 
@@ -211,10 +182,6 @@ async function bootstrap() {
 
     if (document.querySelector("#history-mode")) {
       renderHistoryPage(data);
-    }
-
-    if (document.querySelector("#about-summary")) {
-      renderAboutPage(data);
     }
   } catch (error) {
     if (document.querySelector("#metric-grid")) {

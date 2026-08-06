@@ -4,7 +4,7 @@
 
 - [X] T020 Amend Feature 002 as the canonical party-level energy schema and remove `isActive`.
 - [X] T021 Share lifecycle-quarter normalization between the renderer and data validator and remove unused history helpers.
-- [X] T022 Validate lifecycle, catalog, quarterly records, and the linked site-content source through `npm run check:data`.
+- [X] T022 Validate `reportingStartDate`, lifecycle, catalog, and quarterly records through `npm run check:data`.
 
 **Input**: Design documents from `/specs/002-party-quarterly-data/`
 

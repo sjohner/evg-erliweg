@@ -10,9 +10,9 @@
 
 ## Amendment: Content and Energy Boundaries (2026-08-06)
 
-This amendment supersedes prior single-file references in this feature. `data/site-content.json` is the canonical persisted source for community, about, and contact facts. `data/energy-data.json` is the canonical party-level measurement source defined by Feature 002; Feature 001 does not define a second energy schema.
+This amendment supersedes the prior `data/site-content.json` ownership decision in this feature. `index.html` is the canonical manually maintained source for community, about, contact, headings, controls, and accessibility text. `data/energy-data.json` remains the canonical structured source for energy-domain inputs and runtime projections defined by Feature 002.
 
-Mutable displayed dates, locations, party counts, reporting periods, contact details, and energy values MUST be rendered from these sources. Stable German headings, controls, accessibility labels, and number-free explanatory text remain in HTML. Lifecycle is defined only by `activeFromQuarterId` and optional `inactiveAfterQuarterId`.
+Runtime JavaScript MUST continue to derive metrics, history, last-updated labels, cumulative labels, and producing-party counts from `data/energy-data.json`. Cumulative calculations MUST use `reportingStartDate` from structured data and MUST NOT parse calculation inputs from rendered HTML.
 
 ## Clarifications
 

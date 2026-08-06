@@ -2,7 +2,7 @@
 
 ## Amendment: Canonical Energy Source (2026-08-06)
 
-`data/energy-data.json` is the canonical source for the global party catalog and quarterly party records only. It is published with `data/site-content.json`; validation rejects ambiguous `isActive` lifecycle metadata and validates both files before deployment.: Party-Level Quarterly Data
+`data/energy-data.json` is the canonical source for `reportingStartDate`, the global party catalog, and quarterly party records. Validation rejects ambiguous `isActive` lifecycle metadata and validates this file before deployment.
 
 ## Purpose
 Define the contract between party-level quarterly data updates and public
@@ -28,8 +28,9 @@ website publication.
 2. Year totals shown on public pages equal sum of available quarter totals for
    that year.
 3. No manual year/quarter summary fields are required in source data.
-4. Last-updated date shown on energy pages reflects latest source update.
-5. Producing parties can be added or removed for future quarters without
+4. Cumulative totals use `reportingStartDate` from structured data.
+5. Last-updated date shown on energy pages reflects latest source update.
+6. Producing parties can be added or removed for future quarters without
    deleting or changing historical quarter records.
 
 ## Failure Behavior
