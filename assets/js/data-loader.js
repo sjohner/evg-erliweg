@@ -129,7 +129,7 @@ export function normalizeQuarterPartyRecords(data, quarterRecord) {
 }
 
 function getNormalizedQuarterRecords(data) {
-  return sortRecords(data.quarterlyRecords).map((record) => {
+  return sortRecords(data.quarterlyRecords ?? []).map((record) => {
     const normalizedPartyRecords = normalizeQuarterPartyRecords(data, record);
     return buildQuarterTotalsRecord({
       ...record,
