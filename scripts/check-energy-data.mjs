@@ -45,7 +45,16 @@ function isValidDate(value) {
   }
 
   const date = new Date(`${value}T00:00:00Z`);
-  return !Number.isNaN(date.getTime());
+  if (Number.isNaN(date.getTime())) {
+    return false;
+  }
+
+  const [year, month, day] = value.split("-").map(Number);
+  return (
+    date.getUTCFullYear() === year &&
+    date.getUTCMonth() === month - 1 &&
+    date.getUTCDate() === day
+  );
 }
 
 function isValidDateTime(value) {
