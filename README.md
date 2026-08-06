@@ -40,10 +40,10 @@ Then open `http://localhost:4173` (or the URL printed by `serve`) in your browse
 1. Update manually maintained public content (community, about summary, official link text, review date, and contact) directly in `index.html`.
 2. Keep the interim total-party value in `index.html` aligned with current reality until dynamic all-party counting is implemented in issue `#3`.
 3. Open `data/energy-data.json` in the private repository and maintain:
-	- `reportingStartDate` as the canonical cumulative baseline date (`YYYY-MM-DD`).
-	- the global producing-party catalog in `producingPartiesCatalog`:
-	- Add new parties with unique `partyId` and `partyLabel`.
-	- Use `activeFromQuarterId` and optional `inactiveAfterQuarterId` to control lifecycle without deleting historical records.
+  - `reportingStartDate` as the canonical cumulative baseline date (`YYYY-MM-DD`).
+  - The global producing-party catalog in `producingPartiesCatalog`:
+    - Add new parties with unique `partyId` and `partyLabel`.
+    - Use `activeFromQuarterId` and optional `inactiveAfterQuarterId` to control lifecycle without deleting historical records.
 4. Update the target quarter in `quarterlyRecords` using `partyRecords` entries (`partyId`, `producedKwh`, `consumedKwh`, `updatedAt`).
 5. For a new quarter, add a new `quarterlyRecords` entry with unique `id` (`YYYY-QN`), the correct date range, and one `partyRecords` entry per active producing party.
 6. Run data validation before pushing:
