@@ -1,4 +1,7 @@
-const DATA_URL = "data/energy-data.json";
+import { isPartyActiveForQuarter } from "./quarter-utils.js";
+
+const SITE_CONTENT_URL = "data/site-content.json";
+const ENERGY_DATA_URL = "data/energy-data.json";
 
 let cachedDataPromise;
 
@@ -6,79 +9,8 @@ function parseJsonDate(value) {
   return new Date(value);
 }
 
-function getQuarterFromDate(date) {
-  return Math.floor(date.getMonth() / 3) + 1;
-}
-
 function formatQuarterLabel(year, quarter) {
   return `Q${quarter} ${year}`;
-}
-
-function formatQuarterId(year, quarter) {
-  return `${year}-Q${quarter}`;
-}
-
-function parseQuarterId(quarterId) {
-  const match = /^(\d{4})-Q([1-4])$/.exec(quarterId);
-
-  if (!match) {
-    return null;
-  }
-
-  return {
-    year: Number(match[1]),
-    quarter: Number(match[2])
-  };
-}
-
-function quarterToNumber(quarterId) {
-  const parsed = parseQuarterId(quarterId);
-
-  if (!parsed) {
-    return null;
-  }
-
-  return parsed.year * 10 + parsed.quarter;
-}
-
-function isPartyActiveForQuarter(party, quarterId) {
-  const target = quarterToNumber(quarterId);
-
-  if (target === null) {
-    return false;
-  }
-
-  const activeFrom = party.activeFromQuarterId ? quarterToNumber(party.activeFromQuarterId) : null;
-  const inactiveAfter = party.inactiveAfterQuarterId ? quarterToNumber(party.inactiveAfterQuarterId) : null;
-
-  if (activeFrom !== null && target < activeFrom) {
-    return false;
-  }
-
-  if (inactiveAfter !== null && target > inactiveAfter) {
-    return false;
-  }
-
-  if (party.isActive === false && inactiveAfter === null) {
-    return false;
-  }
-
-  return true;
-}
-
-function uniqueBy(items, selector) {
-  const seen = new Set();
-
-  return items.filter((item) => {
-    const key = selector(item);
-
-    if (seen.has(key)) {
-      return false;
-    }
-
-    seen.add(key);
-    return true;
-  });
 }
 
 export function formatGermanDate(value) {
@@ -102,13 +34,13 @@ export function formatKwh(value) {
 
 export async function loadSiteData() {
   if (!cachedDataPromise) {
-    cachedDataPromise = fetch(DATA_URL).then(async (response) => {
+    cachedDataPromise = Promise.all([SITE_CONTENT_URL, ENERGY_DATA_URL].map(async (url) => {
+      const response = await fetch(url);
       if (!response.ok) {
-        throw new Error(`Energiedaten konnten nicht geladen werden (${response.status}).`);
+        throw new Error(`Daten konnten nicht geladen werden (${response.status}).`);
       }
-
       return response.json();
-    });
+    })).then(([siteContent, energy]) => ({ ...siteContent, energy }));
   }
 
   return cachedDataPromise;
@@ -198,14 +130,18 @@ export function normalizeQuarterPartyRecords(data, quarterRecord) {
   });
 }
 
-export function deriveEnergyOverview(data) {
-  const records = sortRecords(data.energy.quarterlyRecords).map((record) => {
+function getNormalizedQuarterRecords(data) {
+  return sortRecords(data.energy.quarterlyRecords).map((record) => {
     const normalizedPartyRecords = normalizeQuarterPartyRecords(data, record);
     return buildQuarterTotalsRecord({
       ...record,
       partyRecords: normalizedPartyRecords
     });
   });
+}
+
+export function deriveEnergyOverview(data) {
+  const records = getNormalizedQuarterRecords(data);
 
   const latestQuarterRecord = records.length > 0 ? records[records.length - 1] : null;
   const referenceYear = latestQuarterRecord?.year ?? null;
@@ -279,40 +215,8 @@ export function getAboutContent(data) {
   };
 }
 
-export function getHistoryOptions(data) {
-  const records = sortRecords(data.energy.quarterlyRecords).map((record) => {
-    const normalizedPartyRecords = normalizeQuarterPartyRecords(data, record);
-    return buildQuarterTotalsRecord({
-      ...record,
-      partyRecords: normalizedPartyRecords
-    });
-  });
-  const quarterOptions = records.map((record) => ({
-    value: record.id,
-    label: formatQuarterLabel(record.year, record.quarter)
-  }));
-  const yearOptions = uniqueBy(records, (record) => record.year)
-    .map((record) => record.year)
-    .sort((left, right) => right - left)
-    .map((year) => ({
-      value: String(year),
-      label: String(year)
-    }));
-
-  return {
-    quarterOptions: quarterOptions.toReversed(),
-    yearOptions
-  };
-}
-
 export function getHistoryComparisonSeries(data, mode) {
-  const records = sortRecords(data.energy.quarterlyRecords).map((record) => {
-    const normalizedPartyRecords = normalizeQuarterPartyRecords(data, record);
-    return buildQuarterTotalsRecord({
-      ...record,
-      partyRecords: normalizedPartyRecords
-    });
-  });
+  const records = getNormalizedQuarterRecords(data);
 
   if (mode === "year") {
     const yearMap = new Map();
@@ -340,59 +244,4 @@ export function getHistoryComparisonSeries(data, mode) {
     producedKwh: record.producedKwh,
     consumedKwh: record.consumedKwh
   }));
-}
-
-export function deriveHistorySelection(data, mode, selectedValue) {
-  const records = sortRecords(data.energy.quarterlyRecords).map((record) => {
-    const normalizedPartyRecords = normalizeQuarterPartyRecords(data, record);
-    return buildQuarterTotalsRecord({
-      ...record,
-      partyRecords: normalizedPartyRecords
-    });
-  });
-  const latestUpdatedRecord = records.reduce((latest, record) => {
-    if (!latest) {
-      return record;
-    }
-
-    return getRecordUpdatedAtMs(record) > getRecordUpdatedAtMs(latest) ? record : latest;
-  }, null);
-
-  if (mode === "year") {
-    const year = Number(selectedValue);
-    const yearRecords = records.filter((record) => record.year === year);
-
-    return {
-      label: String(year),
-      hasData: yearRecords.length > 0,
-      totals: sumRecords(yearRecords),
-      note: yearRecords.length > 0
-        ? `${yearRecords.length} Quartal(e) in diesem Jahr vorhanden.`
-        : "Für dieses Jahr sind keine Daten vorhanden.",
-      chartItems: [
-        { label: "Produktion", value: sumRecords(yearRecords).producedKwh },
-        { label: "Verbrauch", value: sumRecords(yearRecords).consumedKwh }
-      ],
-      lastUpdated: latestUpdatedRecord ? formatGermanDate(latestUpdatedRecord.updatedAt) : "Noch keine Daten"
-    };
-  }
-
-  const quarterRecord = records.find((record) => record.id === selectedValue) ?? null;
-
-  return {
-    label: quarterRecord ? formatQuarterLabel(quarterRecord.year, quarterRecord.quarter) : selectedValue,
-    hasData: Boolean(quarterRecord),
-    totals: quarterRecord ? {
-      producedKwh: quarterRecord.producedKwh,
-      consumedKwh: quarterRecord.consumedKwh
-    } : { producedKwh: 0, consumedKwh: 0 },
-    note: quarterRecord
-      ? `Berichtszeitraum ${formatGermanDate(quarterRecord.startDate)} bis ${formatGermanDate(quarterRecord.endDate)}.`
-      : "Für dieses Quartal sind keine Daten vorhanden.",
-    chartItems: [
-      { label: "Produktion", value: quarterRecord?.producedKwh ?? 0 },
-      { label: "Verbrauch", value: quarterRecord?.consumedKwh ?? 0 }
-    ],
-    lastUpdated: latestUpdatedRecord ? formatGermanDate(latestUpdatedRecord.updatedAt) : "Noch keine Daten"
-  };
 }

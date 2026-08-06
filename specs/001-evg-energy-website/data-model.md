@@ -1,5 +1,9 @@
 # Data Model: EVG Erliweg Energy Transparency Website
 
+## Amendment: Site Content Source (2026-08-06)
+
+`data/site-content.json` is the canonical persisted source for `community`, `aboutContent`, and `contact`. `community.startDate`, location, party totals, editorial summary, official URL, review date, and contact target are validated before publication. Energy entities are defined only by Feature 002.
+
 ## 1. CommunityProfile
 - Purpose: Stores stable identity/context displayed to visitors.
 - Fields:

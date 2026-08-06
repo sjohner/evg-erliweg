@@ -4,6 +4,10 @@
 
 **Input**: Feature specification from `/specs/002-party-quarterly-data/spec.md`
 
+## Amendment: Energy Boundary Decision (2026-08-06)
+
+This feature owns the sole canonical schema for `data/energy-data.json`. It contains the global party catalog and quarterly measurements only. Lifecycle uses `activeFromQuarterId` and optional `inactiveAfterQuarterId`; a shared quarter utility is consumed by rendering and validation so lifecycle normalization has one implementation.
+
 ## Summary
 
 Extend the canonical quarterly data model so each producing party has explicit

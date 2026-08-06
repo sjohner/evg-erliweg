@@ -4,6 +4,10 @@
 
 **Input**: Feature specification from `/specs/001-evg-energy-website/spec.md`
 
+## Amendment: Content Boundary Decision (2026-08-06)
+
+Split mutable site content from measurements: `data/site-content.json` owns community, about, and contact facts; Feature 002's `data/energy-data.json` owns party-level energy data. This prevents unrelated editorial updates from changing measurement data and gives each source one canonical schema. The loader combines both sources; the deployment and validator require both.
+
 ## Summary
 
 Build a static, mobile-responsive EVG Erliweg website hosted on GitHub Pages

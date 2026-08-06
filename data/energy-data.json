@@ -1,107 +1,84 @@
 {
-  "community": {
-    "name": "EVG Erliweg",
-    "city": "Fraubrunnen",
-    "country": "Schweiz",
-    "startDate": "2025-10-01",
-    "totalParties": 10,
-    "totalPeople": 30
-  },
-  "aboutContent": {
-    "summary": "Die EVG Erliweg ist eine Eigenverbrauchsgemeinschaft in Fraubrunnen. Drei Parteien produzieren Solarstrom, der innerhalb der Gemeinschaft genutzt wird.",
-    "termsUrl": "https://www.elektra.ch/energiedienstleistungen/elektraeigenstrom/",
-    "lastReviewedAt": "2026-07-20"
-  },
-  "contact": {
-    "label": "Kontakt EVG Erliweg",
-    "type": "email",
-    "target": "mailto:kontakt@evg-erliweg.ch"
-  },
-  "energy": {
-    "producingPartiesCatalog": [
-      {
-        "partyId": "erliweg27",
-        "partyLabel": "Erliweg 27",
-        "isActive": true,
-        "activeFromQuarterId": "2025-Q4"
-      },
-      {
-        "partyId": "erliweg37",
-        "partyLabel": "Erliweg 37",
-        "isActive": true,
-        "activeFromQuarterId": "2025-Q4"
-      },
-      {
-        "partyId": "erliweg13",
-        "partyLabel": "Erliweg 13",
-        "isActive": false,
-        "activeFromQuarterId": "2026-Q4"
-      }
-    ],
-    "quarterlyRecords": [
-      {
-        "id": "2025-Q4",
-        "year": 2025,
-        "quarter": 4,
-        "startDate": "2025-10-01",
-        "endDate": "2025-12-31",
-        "partyRecords": [
-          {
-            "partyId": "erliweg27",
-            "producedKwh": 1438.2,
-            "consumedKwh": 450,
-            "updatedAt": "2026-08-03T07:20:00Z"
-          },
-          {
-            "partyId": "erliweg37",
-            "producedKwh": 1300,
-            "consumedKwh": 1700,
-            "updatedAt": "2026-01-10T07:40:00Z"
-          }
-        ]
-      },
-      {
-        "id": "2026-Q1",
-        "year": 2026,
-        "quarter": 1,
-        "startDate": "2026-01-01",
-        "endDate": "2026-03-31",
-        "partyRecords": [
-          {
-            "partyId": "erliweg27",
-            "producedKwh": 2350.7,
-            "consumedKwh": 1060,
-            "updatedAt": "2026-08-03T07:15:00Z"
-          },
-          {
-            "partyId": "erliweg37",
-            "producedKwh": 1300,
-            "consumedKwh": 1600,
-            "updatedAt": "2026-04-10T07:55:00Z"
-          }
-        ]
-      },
-      {
-        "id": "2026-Q2",
-        "year": 2026,
-        "quarter": 2,
-        "startDate": "2026-04-01",
-        "endDate": "2026-06-30",
-        "partyRecords": [
-          {
-            "partyId": "erliweg27",
-            "producedKwh": 7100,
-            "consumedKwh": 2104,
-            "updatedAt": "2026-08-03T07:10:00Z"
-          },
-          {
-            "partyId": "erliweg37",
-            "producedKwh": 1900,
-            "consumedKwh": 1500,
-            "updatedAt": "2026-07-10T07:50:00Z"
-          }
-        ]
-      }
-    ]
-  }
+  "producingPartiesCatalog": [
+    {
+      "partyId": "erliweg27",
+      "partyLabel": "Erliweg 27",
+      "activeFromQuarterId": "2025-Q4"
+    },
+    {
+      "partyId": "erliweg37",
+      "partyLabel": "Erliweg 37",
+      "activeFromQuarterId": "2025-Q4"
+    },
+    {
+      "partyId": "erliweg13",
+      "partyLabel": "Erliweg 13",
+      "activeFromQuarterId": "2026-Q4"
+    }
+  ],
+  "quarterlyRecords": [
+    {
+      "id": "2025-Q4",
+      "year": 2025,
+      "quarter": 4,
+      "startDate": "2025-10-01",
+      "endDate": "2025-12-31",
+      "partyRecords": [
+        {
+          "partyId": "erliweg27",
+          "producedKwh": 1438.2,
+          "consumedKwh": 450,
+          "updatedAt": "2026-08-03T07:20:00Z"
+        },
+        {
+          "partyId": "erliweg37",
+          "producedKwh": 1300,
+          "consumedKwh": 1700,
+          "updatedAt": "2026-01-10T07:40:00Z"
+        }
+      ]
+    },
+    {
+      "id": "2026-Q1",
+      "year": 2026,
+      "quarter": 1,
+      "startDate": "2026-01-01",
+      "endDate": "2026-03-31",
+      "partyRecords": [
+        {
+          "partyId": "erliweg27",
+          "producedKwh": 2350.7,
+          "consumedKwh": 1060,
+          "updatedAt": "2026-08-03T07:15:00Z"
+        },
+        {
+          "partyId": "erliweg37",
+          "producedKwh": 1300,
+          "consumedKwh": 1600,
+          "updatedAt": "2026-04-10T07:55:00Z"
+        }
+      ]
+    },
+    {
+      "id": "2026-Q2",
+      "year": 2026,
+      "quarter": 2,
+      "startDate": "2026-04-01",
+      "endDate": "2026-06-30",
+      "partyRecords": [
+        {
+          "partyId": "erliweg27",
+          "producedKwh": 7100,
+          "consumedKwh": 2104,
+          "updatedAt": "2026-08-03T07:10:00Z"
+        },
+        {
+          "partyId": "erliweg37",
+          "producedKwh": 1900,
+          "consumedKwh": 1500,
+          "updatedAt": "2026-07-10T07:50:00Z"
+        }
+      ]
+    }
+  ]
 }

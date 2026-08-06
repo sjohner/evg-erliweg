@@ -1,5 +1,9 @@
 # Quickstart: EVG Erliweg Energy Transparency Website
 
+## Amendment: Updating Data (2026-08-06)
+
+Update mutable community, about, and contact facts in `data/site-content.json`; update party catalog and measurements in `data/energy-data.json`. Run `npm run check:data` and `npm run check:js` before publishing. The Pages workflow publishes both files.
+
 ## Purpose
 Validate the feature end-to-end for local development and deployment readiness.
 

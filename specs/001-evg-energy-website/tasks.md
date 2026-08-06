@@ -1,5 +1,11 @@
 # Tasks: EVG Erliweg Energy Transparency Website
 
+## Amendment Tasks (2026-08-06)
+
+- [X] T026 Amend Feature 001 contracts and documentation to make `data/site-content.json` canonical for mutable site facts and defer the energy schema to Feature 002.
+- [X] T027 Move community, about, and contact facts to `data/site-content.json`; render mutable dates and facts from structured data while retaining stable UI copy in HTML.
+- [X] T028 Validate site content and deploy both canonical files.
+
 **Input**: Design documents from `/specs/001-evg-energy-website/`
 
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/

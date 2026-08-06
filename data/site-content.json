@@ -1,0 +1,20 @@
+{
+  "community": {
+    "name": "EVG Erliweg",
+    "city": "Fraubrunnen",
+    "country": "Schweiz",
+    "startDate": "2025-10-01",
+    "totalParties": 10,
+    "totalPeople": 30
+  },
+  "aboutContent": {
+    "summary": "Die EVG Erliweg ist eine Eigenverbrauchsgemeinschaft in Fraubrunnen. Solarstrom wird innerhalb der Gemeinschaft genutzt.",
+    "termsUrl": "https://www.elektra.ch/energiedienstleistungen/elektraeigenstrom/",
+    "lastReviewedAt": "2026-07-20"
+  },
+  "contact": {
+    "label": "Kontakt EVG Erliweg",
+    "type": "email",
+    "target": "mailto:kontakt@evg-erliweg.ch"
+  }
+}
