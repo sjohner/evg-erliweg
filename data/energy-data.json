@@ -148,8 +148,8 @@
         },
         {
           "partyId": "erliweg37",
-          "producedKwh": 1300,
-          "consumedKwh": 1700,
+          "producedKwh": 704,
+          "consumedKwh": 244,
           "updatedAt": "2026-01-10T07:40:00Z"
         }
       ]
@@ -169,8 +169,8 @@
         },
         {
           "partyId": "erliweg37",
-          "producedKwh": 1300,
-          "consumedKwh": 1600,
+          "producedKwh": 1120,
+          "consumedKwh": 366,
           "updatedAt": "2026-04-10T07:55:00Z"
         }
       ]
@@ -190,8 +190,8 @@
         },
         {
           "partyId": "erliweg37",
-          "producedKwh": 1900,
-          "consumedKwh": 1500,
+          "producedKwh": 3330,
+          "consumedKwh": 731,
           "updatedAt": "2026-07-10T07:50:00Z"
         }
       ]
