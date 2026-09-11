@@ -4,7 +4,7 @@
     {
       "partyId": "erliweg11",
       "partyLabel": "Erliweg 11",
-      "joinedOn": "2025-10-01",
+      "joinedOn": "2026-10-01",
       "producerConfigurations": [
         {
           "isProducer": false,
@@ -15,21 +15,38 @@
     {
       "partyId": "erliweg13",
       "partyLabel": "Erliweg 13",
-      "joinedOn": "2025-10-01",
+      "joinedOn": "2026-10-01",
       "producerConfigurations": [
-        {
-          "isProducer": false,
-          "activeFromQuarterId": "2025-Q4",
-          "inactiveAfterQuarterId": "2026-Q3"
-        },
         {
           "isProducer": true,
           "activeFromQuarterId": "2026-Q4",
           "pvSystem": {
-            "peakPowerKwp": 1,
+            "peakPowerKwp": 16.25,
             "orientation": "S",
-            "hasBattery": false
+            "hasBattery": true
           }
+        }
+      ]
+    },
+    {
+      "partyId": "erliweg21",
+      "partyLabel": "Erliweg 21",
+      "joinedOn": "2026-10-01",
+      "producerConfigurations": [
+        {
+          "isProducer": false,
+          "activeFromQuarterId": "2025-Q4"
+        }
+      ]
+    },
+    {
+      "partyId": "erliweg23",
+      "partyLabel": "Erliweg 23",
+      "joinedOn": "2026-10-01",
+      "producerConfigurations": [
+        {
+          "isProducer": false,
+          "activeFromQuarterId": "2025-Q4"
         }
       ]
     },
@@ -53,8 +70,8 @@
           "isProducer": true,
           "activeFromQuarterId": "2025-Q4",
           "pvSystem": {
-            "peakPowerKwp": 1,
-            "orientation": "S",
+            "peakPowerKwp": 18.06,
+            "orientation": "OW",
             "hasBattery": false
           }
         }
@@ -113,8 +130,8 @@
           "isProducer": true,
           "activeFromQuarterId": "2025-Q4",
           "pvSystem": {
-            "peakPowerKwp": 1,
-            "orientation": "S",
+            "peakPowerKwp": 9.28,
+            "orientation": "OW",
             "hasBattery": false
           }
         }
